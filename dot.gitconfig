@@ -3,7 +3,7 @@
 	email = mollifier@gmail.com
 [core]
 	pager = cat
-	excludesfile = ~/.gitignore
+	excludesfile = /home/mollifier/.gitignore
 [color]
 	diff = auto
 	status = auto
