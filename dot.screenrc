@@ -1,0 +1,91 @@
+# screenrc
+
+escape ^tt
+vbell off
+startup_message off
+defutf8 on
+autodetach on
+defscrollback 10000
+msgwait 0
+
+defbce on
+term xterm-256color
+
+#status line
+hardstatus alwayslastline "%{=}%{Kw}: %-w%{=b bw}[%n %t]%{-}%+w"
+
+##################
+# keybindings
+##################
+
+#remove some stupid / dangerous key bindings
+#kill
+bind k
+bind ^k
+#quit
+bind \\
+bind ^\
+#vbell
+bind ^g
+#flow control
+defflow off
+bind f
+bind ^f
+#xon
+bind q
+bind ^q
+
+#select 0
+bind h select 0
+bind ^h select 0
+
+#create a new window
+bind e screen
+bind ^e screen
+
+#copy/paste
+bind x copy
+bind ^x copy
+bind v paste .
+bind ^v paste .
+
+#change window title
+bind i eval 'title ""' title
+bind ^i eval 'title ""' title
+
+#split window
+bind s eval split focus "select 0"
+bind ^s eval split focus "select 0"
+
+#move current window
+bind j focus down
+bind ^j focus down
+bind k focus up
+bind ^k focus up
+
+#resize
+bind r eval 'command -c resize'
+bind ^r eval 'command -c resize'
+
+bind + eval 'resize +1' 'command -c resize'
+bind - eval 'resize -1' 'command -c resize'
+bind . eval 'resize ='
+bind ' ' eval 'resize max'
+
+bind -c resize + eval 'resize +1' 'command -c resize'
+bind -c resize - eval 'resize -1' 'command -c resize'
+bind -c resize . eval 'resize ='
+bind -c resize ' ' eval 'resize max'
+
+#close current window
+bind c remove
+bind ^c remove
+
+#close all other windows
+bind o only
+bind ^o only
+
+#copymode keybindings
+markkeys ^U=K:^D=J:' '=v=y
+
+# vim:set ft=screen:
