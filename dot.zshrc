@@ -253,12 +253,14 @@ alias -g P=' --help | less'
 
 
 # cdd
-if [[ -f ~/etc/scripts/cdd ]]; then
-    source ~/etc/scripts/cdd
+cdd_script_path=~/etc/config/zsh/cdd
+if [[ -f $cdd_script_path ]]; then
+    source $cdd_script_path
     function chpwd() {
         _reg_pwd_screennum
     }
 fi
+unset cdd_script_path
 
 # source local rcfile
 if [[ -f ~/.zshrc_local ]]; then
