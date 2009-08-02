@@ -174,7 +174,7 @@ setopt no_beep
 #special functions
 ##############################
 
-# don't add unnecessary command line to history
+# do not add unnecessary command line to history
 zshaddhistory() {
     local line=${1%%$'\n'}
     local cmd=${line%% *}
@@ -218,9 +218,14 @@ alias grep='grep -E'
 
 #history
 #-n option suppresses command numbers
+function my_history_func() {
+    local number=${1:-10}
+    builtin history -n -${number}
+}
+
 alias history='builtin history 1'
 alias his='builtin history -n 1'
-alias h='builtin history -n -10'
+alias h=my_history_func
 
 #enable alias to sudo command argument
 alias sudo='sudo '
