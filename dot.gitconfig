@@ -3,3 +3,8 @@
 	email = mollifier@gmail.com
 [core]
 	pager = cat
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
