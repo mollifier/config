@@ -15,3 +15,4 @@
 	ci = commit
 	co = checkout
 
+# vim:set ft=gitconfig:
