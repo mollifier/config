@@ -1,0 +1,124 @@
+" vimperatorrc
+
+"""""""""""""""""""""
+" option
+"""""""""""""""""""""
+set runtimepath=$HOME/.vimperator
+
+set complete=Ssl
+
+" n: tab number
+" r: right scrollbar
+" b: bottom scrollbar
+set guioptions=nrb
+
+set editor="$HOME/bin/gvim.wrap -f"
+set focuscontent
+
+" 0 : force to open in the current tab
+set popups=0
+
+" disable bell
+set visualbell
+highlight Bell display: none
+
+"""""""""""""""""""""
+" map
+"""""""""""""""""""""
+
+noremap <C-i>  <TAB>
+cnoremap <C-i>  <TAB>
+
+noremap <C-h>  <BS>
+cnoremap <C-h>  <BS>
+inoremap <C-h>  <BS>
+
+noremap <C-k>  <ESC>
+cnoremap <C-k>  <ESC>
+inoremap <C-k>  <ESC>
+
+
+"""""""""""""""""""""
+" scroll
+"""""""""""""""""""""
+
+" reset number of lines to scroll 
+set scroll=0
+
+noremap j 4j
+noremap k 4k
+
+noremap J <C-d>
+noremap d <C-d>
+
+noremap K <C-u>
+noremap u <C-u>
+
+noremap f <C-f>
+noremap b <C-b>
+
+noremap sl '
+
+
+" open link in current tab
+noremap o f
+" open link in new tab
+noremap t F
+
+" tab
+cnoremap <C-n> <Tab>
+cnoremap <C-p> <S-Tab>
+
+noremap l <C-n>
+noremap h <C-p>
+
+noremap w d
+noremap su u
+
+map <silent> gh :tabmove! -1<CR>
+map <silent> gl :tabmove! +1<CR>
+
+
+" set guioptions on/off
+map <silent> sgo :set guioptions+=mT<CR>
+map <silent> sgf :set guioptions-=mT<CR>
+
+
+"""""""""""""""""""""
+" For plugins
+"""""""""""""""""""""
+
+" hatena bookmark
+javascript <<EOF
+liberator.globalVariables.hBookmark_shortcuts = {
+    hintsAdd : 'c',
+    hintsComment : ',c',
+    add : ['c'],
+    comment : [',c'],
+};
+EOF
+
+javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
+
+" migemo_hint.js
+set hintmatching=custom
+
+" copy.js
+js <<EOF
+liberator.globalVariables.copy_templates = [
+    { label: 'Hatena-Title', value: '[%URL%:title=%TITLE%]' },
+    { label: 'Hatena', value: '[%URL%:title]' },
+    { label: 'Hatena-Quote', value: '>%URL%:title=%TITLE%>\n%SEL%\n<<' }
+];
+EOF
+
+" multi_requester.js
+js <<EOF
+liberator.globalVariables.multi_requester_mappings = [
+    [',ma', 'alc'],
+];
+EOF
+
+source! ~/.vimperatorrc.local
+
+" vim: set ft=vimperator:
