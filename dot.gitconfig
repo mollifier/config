@@ -8,3 +8,9 @@
 	status = auto
 	branch = auto
 	interactive = auto
+[alias]
+	di = diff
+	st = status
+	ci = commit
+	co = checkout
+
