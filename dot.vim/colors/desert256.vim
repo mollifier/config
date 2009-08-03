@@ -270,6 +270,10 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("WarningMsg", "fa8072", "", "")
     "WildMenu
     "Menu
+    call <SID>X("Pmenu", "", "2121de", "")
+    call <SID>X("PmenuSel", "ffffff", "cc2929", "bold")
+    call <SID>X("PmenuThumb", "ffffff", "", "")
+    call <SID>X("PmenuSbar", "", "666666", "")
     "Scrollbar
     "Tooltip
 
