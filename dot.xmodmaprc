@@ -3,4 +3,13 @@ remove Lock = Caps_Lock
 keysym Caps_Lock = Control_L
 add Control = Control_L
 
+! make Henkan and Muhenkan an additional Alt
+! 102 = Muhenkan
+! 100 = Henkan_Mode
+clear mod1
+keycode 102 = Alt_L
+keycode 100 = Alt_R
+add mod1 = Alt_L
+add mod1 = Alt_R
+
 ! vim:set ft=xmodmap:
