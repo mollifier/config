@@ -433,8 +433,8 @@ let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFi
 let g:FuzzyFinderOptions.Base.ignore_case = 1
 let g:FuzzyFinderOptions.Base.key_open_vsplit = '<C-v>'
 
-let g:FuzzyFinderOptions.File.excluded_path = '\v\.svn|\~$|\.o$|\.exe$|\.bak$|\.swp$|\.swo$|((^|[/\\])\.[/\\]$)'
-let g:FuzzyFinderOptions.Dir.excluded_path = '\v\.svn|((^|[/\\])\.{1,2}[/\\]$)'
+let g:FuzzyFinderOptions.File.excluded_path = '\v\.svn/$|\.git/$|\~$|\.o$|\.exe$|\.bak$|\.swp$|\.swo$|((^|[/\\])\.[/\\]$)'
+let g:FuzzyFinderOptions.Dir.excluded_path = '\v\.svn/$|\.git/$|((^|[/\\])\.{1,2}[/\\]$)'
 
 nnoremap <silent> <SPACE>s :<C-u>FuzzyFinderBuffer<CR>
 nnoremap <silent> <SPACE>f :<C-u>FuzzyFinderFile<CR>
