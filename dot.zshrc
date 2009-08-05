@@ -150,6 +150,10 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 cdpath=(${HOME} ${HOME}/work)
+# grouping cd completions
+zstyle ':completion:*:cd:*' group-name ''
+zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
+
 
 #etc
 #allow comments in interactive shell
