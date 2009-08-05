@@ -9,7 +9,7 @@ set nocompatible
 set number
 set showmode
 set showcmd
-set wildmode=list:longest
+set wildmode=list:longest,full
 set backspace=0     "same as vi
 set textwidth=0     "don't breake line however long it is
 set nrformats-=octal    "don't use octal number
