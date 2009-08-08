@@ -11,8 +11,9 @@
 	interactive = auto
 [alias]
 	di = diff
+	dc = diff --cached
 	st = status
 	ci = commit
 	co = checkout
 
-# vim:set ft=gitconfig:
+# vim:set list ft=gitconfig:
