@@ -320,9 +320,7 @@ noremap K <C-U>
 
 "jump
 "exclusive motion
-noremap sm `
-"linewise motion
-noremap sl '
+noremap sl `
 
 "buffer operation
 nnoremap sp :<C-u>bp<CR>
