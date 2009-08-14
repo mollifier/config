@@ -115,6 +115,20 @@ else
 %# "
 fi
 
+# show vcs information
+# see man zshcontrib(1)
+# GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd () {
+    psvar=()
+    vcs_info
+    [[ -n $vcs_info_msg_0_ ]] && psvar[1]="$vcs_info_msg_0_"
+}
+RPROMPT="%1(v|%F{green}%1v%f|)"
+
 
 #history configuration
 HISTFILE=~/.zsh_history
