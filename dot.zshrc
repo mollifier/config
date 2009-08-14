@@ -125,7 +125,7 @@ zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 precmd () {
     psvar=()
     vcs_info
-    [[ -n $vcs_info_msg_0_ ]] && psvar[1]="$vcs_info_msg_0_"
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
