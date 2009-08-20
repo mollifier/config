@@ -435,7 +435,7 @@ let g:FuzzyFinderOptions.Base.key_open_vsplit = '<C-v>'
 let g:FuzzyFinderOptions.File.excluded_path = '\v\.svn/$|\.git/$|\~$|\.o$|\.exe$|\.bak$|\.swp$|\.swo$|((^|[/\\])\.[/\\]$)'
 let g:FuzzyFinderOptions.Dir.excluded_path = '\v\.svn/$|\.git/$|((^|[/\\])\.{1,2}[/\\]$)'
 
-nnoremap <silent> <SPACE>s :<C-u>FuzzyFinderBuffer<CR>
+nnoremap <silent> <SPACE>b :<C-u>FuzzyFinderBuffer<CR>
 nnoremap <silent> <SPACE>f :<C-u>FuzzyFinderFile<CR>
 nnoremap <silent> <SPACE>r :<C-u>FuzzyFinderMruFile<CR>
 nnoremap <silent> <SPACE>d :<C-u>FuzzyFinderDir<CR>
