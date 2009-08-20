@@ -16,6 +16,7 @@ set nrformats-=octal    "don't use octal number
 set history=50
 let g:netrw_alto=1
 let loaded_matchparen=1
+set completeopt=menuone,preview
 
 set showmatch       "jump to the matching bracket
 set matchtime=1     "1/10sec time scale
@@ -440,6 +441,12 @@ nnoremap <silent> <SPACE>r :<C-u>FuzzyFinderMruFile<CR>
 nnoremap <silent> <SPACE>d :<C-u>FuzzyFinderDir<CR>
 nnoremap <silent> <SPACE>A :<C-u>FuzzyFinderAddBookmark<CR>
 nnoremap <silent> <SPACE>B :<C-u>FuzzyFinderBookmark<CR>
+
+" neocomplcache "{{{2
+" Don't use autocomplpop.
+let g:AutoComplPop_NotEnableAtStartup = 1
+" Use neocomplcache.
+let g:NeoComplCache_EnableAtStartup = 1
 
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
