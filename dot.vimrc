@@ -82,7 +82,7 @@ function! ToEucJp()
 endfunction
 
 "convert into HTML entity reference
-function ConvertToHTMLEntityRef()
+function! ConvertToHTMLEntityRef()
     let s:line = getline(".")
     let s:repl = substitute(s:line, '&', '\&amp;', "g")
     let s:repl = substitute(s:repl, '<', '\&lt;', "g")
