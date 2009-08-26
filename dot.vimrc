@@ -57,28 +57,28 @@ endfunction
 "invert number and list options
 function! InvertList()
     if &number || &list
-        set nonumber
-        set nolist
+        setlocal nonumber
+        setlocal nolist
     else
-        set number
-        set list
+        setlocal number
+        setlocal list
     endif
 endfunction
 
 "code conversion functions
 function! ToUtf8()
-    set fileencoding=utf-8
-    set fileformat=unix
+    setlocal fileencoding=utf-8
+    setlocal fileformat=unix
 endfunction
 
 function! ToShiftJis()
-    set fileencoding=cp932
-    set fileformat=dos
+    setlocal fileencoding=cp932
+    setlocal fileformat=dos
 endfunction
 
 function! ToEucJp()
-    set fileencoding=euc-jp
-    set fileformat=unix
+    setlocal fileencoding=euc-jp
+    setlocal fileformat=unix
 endfunction
 
 "convert into HTML entity reference
