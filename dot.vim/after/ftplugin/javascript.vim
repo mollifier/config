@@ -1,8 +1,8 @@
 " don't insert comment leader automatically
 setlocal formatoptions-=ro
 
-nnoremap ,f i(function() {<CR><CR>})();<C-o>k<Tab>
-inoremap ,f (function() {<CR><CR>})();<C-o>k<Tab>
+nnoremap <buffer> ,f i(function() {<CR><CR>})();<C-o>k<Tab>
+inoremap <buffer> ,f (function() {<CR><CR>})();<C-o>k<Tab>
 
 " for errormarker.vim
 
