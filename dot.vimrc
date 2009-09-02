@@ -15,7 +15,6 @@ set textwidth=0     "don't breake line however long it is
 set nrformats-=octal    "don't use octal number
 set history=50
 let g:netrw_alto=1
-let loaded_matchparen=1
 set completeopt=menuone,preview
 
 set showmatch       "jump to the matching bracket
