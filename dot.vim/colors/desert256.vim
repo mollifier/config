@@ -290,6 +290,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     "Error
     call <SID>X("Todo", "ff4500", "eeee00", "")
 
+    " matchparen
+    call <SID>X("MatchParen", "ffffff", "6a5acd", "bold")
+
     " delete functions {{{
     delf <SID>X
     delf <SID>rgb
