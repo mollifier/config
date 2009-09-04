@@ -201,6 +201,7 @@ zshaddhistory() {
     local cmd=${line%% *}
 
     [[ ${#line} -ge 5
+        && ${cmd} != "rm"
         && ${cmd} != (l|l[sal])
         && ${cmd} != (c|cd)
         && ${cmd} != (m|man)
