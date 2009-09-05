@@ -428,19 +428,17 @@ let g:AutoComplPop_Behavior={'javascript' : [
       \   ]}
 
 " fuzzyfinder.vim "{{{2
-let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
-let g:FuzzyFinderOptions.Base.ignore_case = 1
-let g:FuzzyFinderOptions.Base.key_open_vsplit = '<C-v>'
+let g:fuf_ignoreCase = 1
+let g:fuf_keyOpenVsplit = '<C-v>'
+let g:fuf_file_exclude = '\v\.svn/$|\.git/$|\~$|\.o$|\.exe$|\.bak$|\.swp$|\.swo$|((^|[/\\])\.[/\\]$)'
+let g:fuf_dir_exclude = '\v\.svn/$|\.git/$|((^|[/\\])\.{1,2}[/\\]$)'
 
-let g:FuzzyFinderOptions.File.excluded_path = '\v\.svn/$|\.git/$|\~$|\.o$|\.exe$|\.bak$|\.swp$|\.swo$|((^|[/\\])\.[/\\]$)'
-let g:FuzzyFinderOptions.Dir.excluded_path = '\v\.svn/$|\.git/$|((^|[/\\])\.{1,2}[/\\]$)'
-
-nnoremap <silent> <SPACE>b :<C-u>FuzzyFinderBuffer<CR>
-nnoremap <silent> <SPACE>f :<C-u>FuzzyFinderFile<CR>
-nnoremap <silent> <SPACE>r :<C-u>FuzzyFinderMruFile<CR>
-nnoremap <silent> <SPACE>d :<C-u>FuzzyFinderDir<CR>
-nnoremap <silent> <SPACE>A :<C-u>FuzzyFinderAddBookmark<CR>
-nnoremap <silent> <SPACE>B :<C-u>FuzzyFinderBookmark<CR>
+nnoremap <silent> <SPACE>b :<C-u>FufBuffer<CR>
+nnoremap <silent> <SPACE>f :<C-u>FufFile<CR>
+nnoremap <silent> <SPACE>r :<C-u>FufMruFile<CR>
+nnoremap <silent> <SPACE>d :<C-u>FufDir<CR>
+nnoremap <silent> <SPACE>A :<C-u>FufAddBookmark<CR>
+nnoremap <silent> <SPACE>B :<C-u>FufBookmark<CR>
 
 " neocomplcache "{{{2
 " Don't use autocomplpop.
