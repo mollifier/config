@@ -203,7 +203,7 @@ fuf-options-for-tag-mode	fuf.txt	/*fuf-options-for-tag-mode*
 fuf-options-for-taggedfile-mode	fuf.txt	/*fuf-options-for-taggedfile-mode*
 fuf-reusing-window	fuf.txt	/*fuf-reusing-window*
 fuf-search-patterns	fuf.txt	/*fuf-search-patterns*
-fuf-sort-of-completion-items	fuf.txt	/*fuf-sort-of-completion-items*
+fuf-sorting-of-completion-items	fuf.txt	/*fuf-sorting-of-completion-items*
 fuf-tag-mode	fuf.txt	/*fuf-tag-mode*
 fuf-taggedfile-mode	fuf.txt	/*fuf-taggedfile-mode*
 fuf-thanks	fuf.txt	/*fuf-thanks*
@@ -266,10 +266,12 @@ g:fuf_file_prompt	fuf.txt	/*g:fuf_file_prompt*
 g:fuf_file_promptHighlight	fuf.txt	/*g:fuf_file_promptHighlight*
 g:fuf_ignoreCase	fuf.txt	/*g:fuf_ignoreCase*
 g:fuf_infoFile	fuf.txt	/*g:fuf_infoFile*
+g:fuf_keyNextPattern	fuf.txt	/*g:fuf_keyNextPattern*
 g:fuf_keyOpen	fuf.txt	/*g:fuf_keyOpen*
 g:fuf_keyOpenSplit	fuf.txt	/*g:fuf_keyOpenSplit*
 g:fuf_keyOpenTabpage	fuf.txt	/*g:fuf_keyOpenTabpage*
 g:fuf_keyOpenVsplit	fuf.txt	/*g:fuf_keyOpenVsplit*
+g:fuf_keyPrevPattern	fuf.txt	/*g:fuf_keyPrevPattern*
 g:fuf_learningLimit	fuf.txt	/*g:fuf_learningLimit*
 g:fuf_maxMenuWidth	fuf.txt	/*g:fuf_maxMenuWidth*
 g:fuf_modesDisable	fuf.txt	/*g:fuf_modesDisable*

@@ -74,7 +74,7 @@ fuf-options-for-tag-mode	fuf.jax	/*fuf-options-for-tag-mode*
 fuf-options-for-taggedfile-mode	fuf.jax	/*fuf-options-for-taggedfile-mode*
 fuf-reusing-window	fuf.jax	/*fuf-reusing-window*
 fuf-search-patterns	fuf.jax	/*fuf-search-patterns*
-fuf-sort-of-completion-items	fuf.jax	/*fuf-sort-of-completion-items*
+fuf-sorting-of-completion-items	fuf.jax	/*fuf-sorting-of-completion-items*
 fuf-tag-mode	fuf.jax	/*fuf-tag-mode*
 fuf-taggedfile-mode	fuf.jax	/*fuf-taggedfile-mode*
 fuf-usage	fuf.jax	/*fuf-usage*
@@ -136,10 +136,12 @@ g:fuf_file_prompt	fuf.jax	/*g:fuf_file_prompt*
 g:fuf_file_promptHighlight	fuf.jax	/*g:fuf_file_promptHighlight*
 g:fuf_ignoreCase	fuf.jax	/*g:fuf_ignoreCase*
 g:fuf_infoFile	fuf.jax	/*g:fuf_infoFile*
+g:fuf_keyNextPattern	fuf.jax	/*g:fuf_keyNextPattern*
 g:fuf_keyOpen	fuf.jax	/*g:fuf_keyOpen*
 g:fuf_keyOpenSplit	fuf.jax	/*g:fuf_keyOpenSplit*
 g:fuf_keyOpenTabpage	fuf.jax	/*g:fuf_keyOpenTabpage*
 g:fuf_keyOpenVsplit	fuf.jax	/*g:fuf_keyOpenVsplit*
+g:fuf_keyPrevPattern	fuf.jax	/*g:fuf_keyPrevPattern*
 g:fuf_learningLimit	fuf.jax	/*g:fuf_learningLimit*
 g:fuf_maxMenuWidth	fuf.jax	/*g:fuf_maxMenuWidth*
 g:fuf_modesDisable	fuf.jax	/*g:fuf_modesDisable*
