@@ -1,6 +1,10 @@
 " don't insert comment leader automatically
 setlocal formatoptions-=ro
 
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal softtabstop=0
+
 nnoremap <buffer> ,f i(function() {<CR><CR>})();<C-o>k<Tab>
 inoremap <buffer> ,f (function() {<CR><CR>})();<C-o>k<Tab>
 
@@ -24,6 +28,9 @@ endif
 
 let b:undo_ftplugin .= '
 \ | setlocal formatoptions<
+\ | setlocal tabstop<
+\ | setlocal shiftwidth<
+\ | setlocal softtabstop<
 \ | setlocal makeprg<
 \ | setlocal errorformat<
 \ | execute "nunmap <buffer> ,f"
