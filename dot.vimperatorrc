@@ -121,6 +121,11 @@ liberator.globalVariables.multi_requester_mappings = [
 ];
 EOF
 
+" hatena_highlight.js
+" clear search highlight automatically
+:autocmd PageLoad 'd\.hatena\.ne\.jp' :nohatenahighlight
+:autocmd PageLoad 'g\.hatena\.ne\.jp' :nohatenahighlight
+
 source! ~/.vimperatorrc.local
 
 " vim: set ft=vimperator:
