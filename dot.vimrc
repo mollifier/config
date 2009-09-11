@@ -285,6 +285,7 @@ au BufReadCmd *.jar,*.xpi call zip#Browse(expand("<amatch>"))
 set foldmethod=expr
 set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 set nofoldenable
+set foldcolumn=3
 
 
 " Map  "{{{1
