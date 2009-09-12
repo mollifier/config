@@ -3,6 +3,7 @@
 
 umask 022
 limit coredumpsize 0
+stty erase '^h'
 
 ##############################
 #environment variables
