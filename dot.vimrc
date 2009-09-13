@@ -346,7 +346,6 @@ nnoremap <Space>w :<C-u>update<CR><C-l>
 nnoremap <Space>q :<C-u>qall<CR>
 
 nnoremap <C-h> :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 "move to next/previous line with same indentation
 nnoremap <silent> <SPACE>k k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
