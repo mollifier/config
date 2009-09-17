@@ -362,7 +362,7 @@ nnoremap <SPACE>c :<C-u>call InvertHlsearch()<CR>
 "invert scrollbind
 nnoremap sb :<C-u>call InvertScrollBindAll()<CR>
 "navi
-nnoremap g<SPACE> :<C-u>call Navi()<CR>
+nnoremap <SPACE>v :<C-u>call Navi()<CR>
 nnoremap go :<C-u>copen<CR>
 nnoremap gc :<C-u>cclose<CR>
 nnoremap <SPACE>n :<C-u>cnext<CR>
