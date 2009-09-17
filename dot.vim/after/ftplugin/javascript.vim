@@ -17,10 +17,10 @@ inoremap <buffer> ,f (function() {<CR><CR>})();<C-o>k<Tab>
 "setlocal errorformat=%f:%l:%m
 
 " for javascript lint
-setlocal makeprg=jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -process\ %
-setlocal errorformat=%f(%l):\ %m
+"setlocal makeprg=jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -process\ %
+"setlocal errorformat=%f(%l):\ %m
 
-au BufWritePost <buffer> silent make
+"au BufWritePost <buffer> silent make
 
 if !exists('b:undo_ftplugin')
     let b:undo_ftplugin = ''
