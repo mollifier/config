@@ -26,6 +26,11 @@ set listchars=tab:>\
 
 set tags+=./tags;
 
+if has('unix')
+    set nofsync
+    set swapsync=
+endif
+
 " Autocmd  "{{{1
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
