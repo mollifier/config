@@ -12,7 +12,6 @@ set complete=Ssl
 " b: bottom scrollbar
 set guioptions=nrb
 
-set editor="$HOME/bin/gvim.wrap -f"
 set focuscontent
 
 " 0 : force to open in the current tab
