@@ -315,10 +315,11 @@ cnoremap <C-B> <Left>
 
 "edit
 onoremap <silent> q /["'{}()[\]<>]<CR>:nohlsearch<CR>
-"insert the text of the last delete of yank
+"insert the text which was deleted or yanked last time
 inoremap <C-Z> <C-O>:set paste<CR><C-R>"<C-O>:set nopaste<CR>
 "end completion and begin new line
 inoremap <C-J> <C-E><CR>
+
 
 "scroll
 noremap J <C-D>
