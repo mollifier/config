@@ -42,6 +42,7 @@ bindkey "^[u" undo
 bindkey "^[r" redo
 # not accept-line, but insert newline
 bindkey '^J' self-insert-unmeta
+bindkey '^R' history-incremental-pattern-search-backward
 
 # like insert-last-word,
 # except that non-words are ignored
