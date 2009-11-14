@@ -63,9 +63,11 @@ function! InvertList()
     if &number || &list
         setlocal nonumber
         setlocal nolist
+        setlocal foldcolumn=0
     else
         setlocal number
         setlocal list
+        setlocal foldcolumn=3
     endif
 endfunction
 
