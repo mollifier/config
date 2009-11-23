@@ -12,7 +12,7 @@ defbce on
 term xterm-256color
 
 #status line
-hardstatus alwayslastline "%{=}%{Kw}: %-w%{=b bw}[%n %t]%{-}%+w"
+hardstatus alwayslastline "%{= Kw}: %-w%{=b bw}[%n %t]%{-}%+w"
 
 ##################
 # keybindings
