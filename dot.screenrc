@@ -19,6 +19,11 @@ hardstatus alwayslastline "%{= Kw}: %-w%{=b bw}[%n %t]%{-}%+w"
 ##################
 
 #remove some stupid / dangerous key bindings
+#detach
+bind d
+bind ^d
+bind D
+bind ^D
 #kill
 bind k
 bind ^k
