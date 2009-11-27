@@ -40,6 +40,11 @@ bind ^f
 bind q
 bind ^q
 
+# Make them better
+bind D detach
+bind ^D detach
+bind K kill
+
 #select 0
 bind h select 0
 bind ^h select 0
