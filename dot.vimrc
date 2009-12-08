@@ -449,10 +449,12 @@ nnoremap <silent> <SPACE>A :<C-u>FufAddBookmark<CR>
 nnoremap <silent> <SPACE>B :<C-u>FufBookmark<CR>
 
 " neocomplcache "{{{2
-" Don't use autocomplpop.
+" Use not autocomplpop but neocomplcache
 let g:acp_enableAtStartup = 0
-" Use neocomplcache.
 let g:NeoComplCache_EnableAtStartup = 1
+" Use not neocomplcache but autocomplpop
+"let g:acp_enableAtStartup = 1
+"let g:NeoComplCache_EnableAtStartup = 0
 
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
