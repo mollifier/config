@@ -450,7 +450,7 @@ nnoremap <silent> <SPACE>B :<C-u>FufBookmark<CR>
 
 " neocomplcache "{{{2
 " Don't use autocomplpop.
-let g:AutoComplPop_NotEnableAtStartup = 1
+let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:NeoComplCache_EnableAtStartup = 1
 
