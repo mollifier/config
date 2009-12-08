@@ -59,11 +59,12 @@
 :NeoComplCacheCachingSyntax	neocomplcache.txt	/*:NeoComplCacheCachingSyntax*
 :NeoComplCacheCreateTags	neocomplcache.txt	/*:NeoComplCacheCreateTags*
 :NeoComplCacheDisable	neocomplcache.txt	/*:NeoComplCacheDisable*
+:NeoComplCacheEditRuntimeSnippets	neocomplcache.txt	/*:NeoComplCacheEditRuntimeSnippets*
 :NeoComplCacheEditSnippets	neocomplcache.txt	/*:NeoComplCacheEditSnippets*
 :NeoComplCacheEnable	neocomplcache.txt	/*:NeoComplCacheEnable*
 :NeoComplCacheLock	neocomplcache.txt	/*:NeoComplCacheLock*
 :NeoComplCacheOutputKeyword	neocomplcache.txt	/*:NeoComplCacheOutputKeyword*
-:NeoComplCachePartialCompletionLength	neocomplcache.txt	/*:NeoComplCachePartialCompletionLength*
+:NeoComplCachePrintSnippets	neocomplcache.txt	/*:NeoComplCachePrintSnippets*
 :NeoComplCachePrintSource	neocomplcache.txt	/*:NeoComplCachePrintSource*
 :NeoComplCacheToggle	neocomplcache.txt	/*:NeoComplCacheToggle*
 :NeoComplCacheUnLock	neocomplcache.txt	/*:NeoComplCacheUnLock*
@@ -148,6 +149,7 @@ b:match_tail	matchit.txt	/*b:match_tail*
 b:match_wholeBR	matchit.txt	/*b:match_wholeBR*
 b:match_word	matchit.txt	/*b:match_word*
 b:match_words	matchit.txt	/*b:match_words*
+buffer_complete	neocomplcache.txt	/*buffer_complete*
 cs	surround.txt	/*cs*
 ds	surround.txt	/*ds*
 eregex	eregex_j.txt	/*eregex*
@@ -243,6 +245,7 @@ g:NeoComplCache_CachingRandomize	neocomplcache.txt	/*g:NeoComplCache_CachingRand
 g:NeoComplCache_CalcRankRandomize	neocomplcache.txt	/*g:NeoComplCache_CalcRankRandomize*
 g:NeoComplCache_DictionaryFileTypeLists	neocomplcache.txt	/*g:NeoComplCache_DictionaryFileTypeLists*
 g:NeoComplCache_DisableAutoComplete	neocomplcache.txt	/*g:NeoComplCache_DisableAutoComplete*
+g:NeoComplCache_DisableSelectModeMappings	neocomplcache.txt	/*g:NeoComplCache_DisableSelectModeMappings*
 g:NeoComplCache_EnableAtStartup	neocomplcache.txt	/*g:NeoComplCache_EnableAtStartup*
 g:NeoComplCache_EnableCamelCaseCompletion	neocomplcache.txt	/*g:NeoComplCache_EnableCamelCaseCompletion*
 g:NeoComplCache_EnableInfo	neocomplcache.txt	/*g:NeoComplCache_EnableInfo*
@@ -261,18 +264,14 @@ g:NeoComplCache_MinKeywordLength	neocomplcache.txt	/*g:NeoComplCache_MinKeywordL
 g:NeoComplCache_MinSyntaxLength	neocomplcache.txt	/*g:NeoComplCache_MinSyntaxLength*
 g:NeoComplCache_NonBufferFileTypeDetect	neocomplcache.txt	/*g:NeoComplCache_NonBufferFileTypeDetect*
 g:NeoComplCache_OmniPatterns	neocomplcache.txt	/*g:NeoComplCache_OmniPatterns*
-g:NeoComplCache_PartialCompletionStartLength	neocomplcache.txt	/*g:NeoComplCache_PartialCompletionStartLength*
-g:NeoComplCache_PartialMatch	neocomplcache.txt	/*g:NeoComplCache_PartialMatch*
+g:NeoComplCache_PluginCompletionLength	neocomplcache.txt	/*g:NeoComplCache_PluginCompletionLength*
 g:NeoComplCache_PreviousKeywordCompletion	neocomplcache.txt	/*g:NeoComplCache_PreviousKeywordCompletion*
-g:NeoComplCache_QuickMatchMaxLists	neocomplcache.txt	/*g:NeoComplCache_QuickMatchMaxLists*
 g:NeoComplCache_SameFileTypeLists	neocomplcache.txt	/*g:NeoComplCache_SameFileTypeLists*
 g:NeoComplCache_SkipCompletionTime	neocomplcache.txt	/*g:NeoComplCache_SkipCompletionTime*
 g:NeoComplCache_SkipInputTime	neocomplcache.txt	/*g:NeoComplCache_SkipInputTime*
 g:NeoComplCache_SmartCase	neocomplcache.txt	/*g:NeoComplCache_SmartCase*
 g:NeoComplCache_SnippetsDir	neocomplcache.txt	/*g:NeoComplCache_SnippetsDir*
-g:NeoComplCache_TagsAutoUpdate	neocomplcache.txt	/*g:NeoComplCache_TagsAutoUpdate*
 g:NeoComplCache_TemporaryDir	neocomplcache.txt	/*g:NeoComplCache_TemporaryDir*
-g:NeoComplCache_TryFilenameCompletion	neocomplcache.txt	/*g:NeoComplCache_TryFilenameCompletion*
 g:fuf_abbrevMap	fuf.txt	/*g:fuf_abbrevMap*
 g:fuf_bookmark_keyDelete	fuf.txt	/*g:fuf_bookmark_keyDelete*
 g:fuf_bookmark_prompt	fuf.txt	/*g:fuf_bookmark_prompt*
@@ -338,7 +337,6 @@ g:fuf_timeFormat	fuf.txt	/*g:fuf_timeFormat*
 g:fuf_useMigemo	fuf.txt	/*g:fuf_useMigemo*
 i_CTRL-G_S	surround.txt	/*i_CTRL-G_S*
 i_CTRL-G_s	surround.txt	/*i_CTRL-G_s*
-keyword_complete	neocomplcache.txt	/*keyword_complete*
 matchit	matchit.txt	/*matchit*
 matchit-%	matchit.txt	/*matchit-%*
 matchit-\1	matchit.txt	/*matchit-\\1*
@@ -368,6 +366,9 @@ neocomplcache	neocomplcache.txt	/*neocomplcache*
 neocomplcache#cancel_popup	neocomplcache.txt	/*neocomplcache#cancel_popup*
 neocomplcache#close_popup	neocomplcache.txt	/*neocomplcache#close_popup*
 neocomplcache#manual_filename_complete	neocomplcache.txt	/*neocomplcache#manual_filename_complete*
+neocomplcache#manual_keyword_complete	neocomplcache.txt	/*neocomplcache#manual_keyword_complete*
+neocomplcache#manual_omni_complete	neocomplcache.txt	/*neocomplcache#manual_omni_complete*
+neocomplcache#undo_completion	neocomplcache.txt	/*neocomplcache#undo_completion*
 neocomplcache-bugs	neocomplcache.txt	/*neocomplcache-bugs*
 neocomplcache-changelog	neocomplcache.txt	/*neocomplcache-changelog*
 neocomplcache-commands	neocomplcache.txt	/*neocomplcache-commands*
@@ -378,6 +379,7 @@ neocomplcache-interface	neocomplcache.txt	/*neocomplcache-interface*
 neocomplcache-introduction	neocomplcache.txt	/*neocomplcache-introduction*
 neocomplcache-key-mappings	neocomplcache.txt	/*neocomplcache-key-mappings*
 neocomplcache-plugins	neocomplcache.txt	/*neocomplcache-plugins*
+neocomplcache-todo	neocomplcache.txt	/*neocomplcache-todo*
 neocomplcache-variables	neocomplcache.txt	/*neocomplcache-variables*
 neocomplcache.txt	neocomplcache.txt	/*neocomplcache.txt*
 o_[%	matchit.txt	/*o_[%*
