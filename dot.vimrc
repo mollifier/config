@@ -456,6 +456,10 @@ let g:NeoComplCache_EnableAtStartup = 1
 "let g:acp_enableAtStartup = 1
 "let g:NeoComplCache_EnableAtStartup = 0
 
+" quickrun "{{{2
+nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
+vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
+
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
     source $HOME/.vimrc_local
