@@ -17,6 +17,9 @@ set history=50
 let g:netrw_alto=1
 set completeopt=menuone,preview
 
+set modeline
+set modelines=5
+
 set showmatch       "jump to the matching bracket
 set matchtime=1     "1/10sec time scale
 set matchpairs+=<:>
