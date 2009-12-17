@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: filename_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 13 Nov 2009
+" Last Modified: 11 Dec 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,21 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.04, for Vim 7.0
+" Version: 1.07, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
+"   1.07:
+"    - Fixed in TeX behaviour.
+"
+"   1.06:
+"    - Don't expand environment variable.
+"    - Improved skip.
+"    - Implemented skip directory.
+"
+"   1.05:
+"    - Fixed freeze bug.
+"    - Improved backslash.
+"
 "   1.04:
 "    - Fixed auto completion bug.
 "    - Fixed executable bug.
@@ -54,24 +66,21 @@
 "=============================================================================
 
 function! neocomplcache#complfunc#filename_complete#initialize()"{{{
+    let s:skip_dir = {}
 endfunction"}}}
 function! neocomplcache#complfunc#filename_complete#finalize()"{{{
 endfunction"}}}
 
 function! neocomplcache#complfunc#filename_complete#get_keyword_pos(cur_text)"{{{
     let l:is_win = has('win32') || has('win64')
-    if l:is_win && &filetype == 'tex'
-        return -1
-    endif
 
     " Not Filename pattern.
     if a:cur_text =~ '[/\\][/\\]\f*$\|[^[:print:]]\f*$\|/c\%[ygdrive/]$\|\\|$\|^\a:$'
         return -1
     endif
 
-    let l:PATH_SEPARATOR = (l:is_win) ? '/\\' : '/'
     " Filename pattern.
-    let l:pattern = '[~]\?\%(\\.\|\f\|\*\)\+$'
+    let l:pattern = neocomplcache#get_keyword_pattern_end('filename')
 
     let l:cur_keyword_pos = match(a:cur_text, l:pattern)
     let l:cur_keyword_str = a:cur_text[l:cur_keyword_pos :]
@@ -80,9 +89,26 @@ function! neocomplcache#complfunc#filename_complete#get_keyword_pos(cur_text)"{{
     endif
     
     " Not Filename pattern.
-    if l:is_win && l:cur_keyword_str =~ '\\|\|^\a:[/\\]\@!'
+    if l:is_win && l:cur_keyword_str =~ '|\|^\a:[/\\]\@!\|\\[[:alnum:].-]'
+        return -1
+    elseif l:is_win && &filetype == 'tex' && l:cur_keyword_str =~ '\\'
+        return -1
+    elseif l:cur_keyword_str =~ '\*\*\|^{}'
         return -1
     endif
+    
+    " Skip directory.
+    if neocomplcache#is_auto_complete()
+        let l:dir = matchstr(l:cur_keyword_str, '^/\|^\a\+:')
+        if l:dir == ''
+            let l:dir = getcwd()
+        endif
+        
+        if has_key(s:skip_dir, getcwd())
+            return -1
+        endif
+    endif
+
 
     return l:cur_keyword_pos
 endfunction"}}}
@@ -91,17 +117,21 @@ function! neocomplcache#complfunc#filename_complete#get_complete_words(cur_keywo
     let l:cur_keyword_str = escape(a:cur_keyword_str, '[]')
 
     let l:is_win = has('win32') || has('win64')
-    let l:PATH_SEPARATOR = (l:is_win) ? '/\\' : '/'
     let l:cur_keyword_str = substitute(l:cur_keyword_str, '\\ ', ' ', 'g')
     " Substitute ... -> ../..
     while l:cur_keyword_str =~ '\.\.\.'
         let l:cur_keyword_str = substitute(l:cur_keyword_str, '\.\.\zs\.', '/\.\.', 'g')
     endwhile
 
-    if g:NeoComplCache_EnableSkipCompletion && &l:completefunc == 'neocomplcache#auto_complete'
-        let l:start_time = reltime()
+    if a:cur_keyword_str =~ '^\$\h\w*'
+        let l:env = matchstr(a:cur_keyword_str, '^\$\h\w*')
+        let l:env_ev = eval(l:env)
+        if l:is_win
+            let l:env_ev = substitute(l:env_ev, '\\', '/', 'g')
+        endif
+        let l:len_env = len(l:env_ev)
     else
-        let l:start_time = 0
+        let l:len_env = 0
     endif
 
     try
@@ -109,17 +139,24 @@ function! neocomplcache#complfunc#filename_complete#get_complete_words(cur_keywo
         let l:files = split(substitute(glob(l:glob), '\\', '/', 'g'), '\n')
         if empty(l:files)
             " Add '*' to a delimiter.
-            let l:cur_keyword_str = substitute(l:cur_keyword_str, printf('\w\+\ze[%s._-]', l:PATH_SEPARATOR), '\0*', 'g')
+            let l:cur_keyword_str = substitute(l:cur_keyword_str, '\w\+\ze[/._-]', '\0*', 'g')
             let l:glob = (l:cur_keyword_str !~ '\*$')?  l:cur_keyword_str . '*' : l:cur_keyword_str
             let l:files = split(substitute(glob(l:glob), '\\', '/', 'g'), '\n')
         endif
     catch /.*/
         return []
     endtry
+    if empty(l:files)
+        return []
+    endif
 
-    if neocomplcache#check_skip_time(l:start_time)
-        echo 'Skipped auto completion'
-        let s:skipped = 1
+    if neocomplcache#check_skip_time()
+        let l:dir = matchstr(l:cur_keyword_str, '^/\|^\a\+:')
+        if l:dir == ''
+            let l:dir = getcwd()
+        endif
+        let s:skip_dir[l:dir] = 1
+        
         return []
     endif
 
@@ -130,12 +167,10 @@ function! neocomplcache#complfunc#filename_complete#get_complete_words(cur_keywo
                     \'word' : substitute(word, l:home_pattern, '\~/', ''), 'menu' : '[F]', 
                     \'icase' : 1, 'rank' : 6
                     \}
-        " Skip completion if takes too much time."{{{
-        if neocomplcache#check_skip_time(l:start_time)
-            echo 'Skipped auto completion'
-            let s:skipped = 1
-            return []
-        endif"}}}
+        
+        if l:len_env != 0 && l:dict.word[: l:len_env-1] == l:env_ev
+            let l:dict.word = l:env . l:dict.word[l:len_env :]
+        endif
 
         call add(l:list, l:dict)
     endfor
@@ -146,6 +181,17 @@ function! neocomplcache#complfunc#filename_complete#get_complete_words(cur_keywo
 
     let l:exts = escape(substitute($PATHEXT, ';', '\\|', 'g'), '.')
     for keyword in l:list
+        " Skip completion if takes too much time."{{{
+        if neocomplcache#check_skip_time()
+            let l:dir = matchstr(l:cur_keyword_str, '^/\|^\a\+:')
+            if l:dir == ''
+                let l:dir = getcwd()
+            endif
+            let s:skip_dir[l:dir] = 1
+            
+            return []
+        endif"}}}
+        
         let l:abbr = keyword.word
         if len(l:abbr) > g:NeoComplCache_MaxKeywordWidth
             let l:abbr = printf('%s~%s', l:abbr[:9], l:abbr[len(l:abbr)-g:NeoComplCache_MaxKeywordWidth-10:])
@@ -155,7 +201,7 @@ function! neocomplcache#complfunc#filename_complete#get_complete_words(cur_keywo
             let l:abbr .= '/'
             let keyword.rank += 1
         elseif l:is_win
-            if fnamemodify(keyword.word, ':e') =~ l:exts
+            if '.'.fnamemodify(keyword.word, ':e') =~ l:exts
                 let l:abbr .= '*'
             endif
         elseif executable(keyword.word)
@@ -168,9 +214,6 @@ function! neocomplcache#complfunc#filename_complete#get_complete_words(cur_keywo
             let keyword.menu .= ' [-]'
         endif
     endfor
-
-    echo ''
-    redraw
 
     " Escape word.
     for keyword in l:list

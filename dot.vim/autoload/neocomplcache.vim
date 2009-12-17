@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 15 Nov 2009
+" Last Modified: 14 Dec 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,7 +23,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.14, for Vim 7.0
+" Version: 4.02, for Vim 7.0
 "=============================================================================
 
 function! neocomplcache#enable() "{{{
@@ -35,18 +35,19 @@ function! neocomplcache#enable() "{{{
     augroup END "}}}
 
     " Initialize"{{{
-    let s:complete_lock = 0
+    let s:complete_lock = {}
     let s:old_text = ''
     let s:skipped = 0
     let s:complfuncs_func_table = []
-    let s:complfuncs_dict = {}
+    let s:global_complfuncs = {}
     let s:skip_next_complete = 0
     let s:cur_keyword_pos = -1
+    let s:cur_keyword_str = ''
     let s:complete_words = []
-    let s:cur_keyword_pos = -1
     let s:update_time = &updatetime
     let s:prev_numbered_list = []
-    let s:prev_input_time = reltime()
+    let s:cur_text = ''
+    let s:start_time = reltime()
     "}}}
     
     " Initialize complfuncs table."{{{
@@ -56,119 +57,160 @@ function! neocomplcache#enable() "{{{
         let l:func_name = fnamemodify(list, ':t:r')
         if !has_key(g:NeoComplCache_DisablePluginList, l:func_name) || 
                     \ g:NeoComplCache_DisablePluginList[l:func_name] == 0
-            let l:func = 'neocomplcache#complfunc#' . l:func_name . '#'
-            call add(s:complfuncs_func_table, l:func)
-            let s:complfuncs_dict[l:func_name] = l:func
-            let s:complfuncs_dict[l:func] = l:func_name
+            let s:global_complfuncs[l:func_name] = 'neocomplcache#complfunc#' . l:func_name . '#'
         endif
     endfor
     "}}}
 
-    " Initialize keyword pattern match like intellisense."{{{
+    " Initialize keyword patterns."{{{
     if !exists('g:NeoComplCache_KeywordPatterns')
         let g:NeoComplCache_KeywordPatterns = {}
     endif
-    call s:set_keyword_pattern('default',
-                \'\v\k+')
-    call s:set_keyword_pattern('lisp,scheme', 
-                \'\v\(?[[:alpha:]*@$%^&_=<>~.][[:alnum:]+*@$%^&_=<>~.-]*[!?]?')
-    call s:set_keyword_pattern('ruby',
-                \'\v^\=%(b%[egin]|e%[nd])|%(\@\@|[:$@])\h\w*|%(\.|%(\h\w*::)+)?\h\w*[!?]?%(\s*%(%(\(\))?\s*%(do|\{)%(\s*\|)?|\(\)?))?')
-    call s:set_keyword_pattern('eruby',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'default',
+                \'\k\+')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'filename',
+                \'[~]\?\%(\\[^[:alnum:].-]\|\f\|\*\)\+')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'lisp,scheme', 
+                \'(\?[[:alpha:]*@$%^&_=<>~.][[:alnum:]+*@$%^&_=<>~.-]*[!?]\?')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'ruby',
+                \'^=\%(b\%[egin]\|e\%[nd]\)\|\%(@@\|[:$@]\)\h\w*\|\%(\.\|\%(\h\w*::\)\+\)\?\h\w*[!?]\?\%(\s*\%(\%(()\)\?\s*\%(do\|{\)\%(\s*|\)\?\|()\?\)\)\?')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'eruby',
                 \'\v\</?%([[:alnum:]_-]+\s*)?%(/?\>)?|%(\@\@|[:$@])\h\w*|%(\.|%(\h\w*::)+)?\h\w*[!?]?%(\s*%(%(\(\))?\s*%(do|\{)%(\s*\|)?|\(\)?))?')
-    call s:set_keyword_pattern('php',
-                \'\v\</?%(\h[[:alnum:]_-]*\s*)?%(/?\>)?|\$\h\w*|%(-\>|%(\h\w*::)+)?\h\w*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('perl',
-                \'\v\<\h\w*\>?|[$@%&*]\h\w*%(::\h\w*)*|%(-\>|%(\h\w*::)+)?\h\w*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('vim,help',
-                \'\v\$\h\w*|\[:%(\h\w*:\])?|\<\h[[:alnum:]_-]*\>?|[&.]?\h[[:alnum:]_:]*%(#\h\w*)*%([!>]|\(\)?)?')
-    call s:set_keyword_pattern('tex',
-                \'\v\\\a\{\a{1,2}}|\\[[:alpha:]@][[:alnum:]@]*[[{]?|\a[[:alnum:]:]*[*[{]?')
-    call s:set_keyword_pattern('sh,zsh',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'php',
+                \'</\?\%(\h[[:alnum:]_-]*\s*\)\?\%(/\?>\)\?\|\$\h\w*\|->\(\h\w*\%(\s*()\?\)\?\)\?\|\%(\h\w*::\)*\h\w*\%(\s*()\?\)\?')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'perl',
+                \'<\h\w*>\?\|[$@%&*]\h\w*\|\h\w*\%(::\h\w*\)*\%(\s*()\?\)\?\|->\h\w*')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'perl6',
+                \'<\h\w*>\?\|[$@%&][!.*?]\?\h\w*\|\h\w*\%(::\h\w*\)*\%(\s*()\?\)\?\|\.\h\w*\%(()\?\)\?')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'vim,help',
+                \'\[:\%(\h\w*:\]\)\?\|&\h[[:alnum:]_:]*\|\$\h\w*\|-\h\w*=\?\|<\h[[:alnum:]_-]*>\?\|\.\h\w*\%(()\?\)\?\|\h[[:alnum:]_:]*\%(#\h\w*\)*\%(!\|()\?\)\?')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'tex',
+                \'\\\a{\a\{1,2}}\|\\[[:alpha:]@][[:alnum:]@]*\%({\%(\h\w*\*\?}\?\)\?\)\?\|\a[[:alnum:]:]*\*\?')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'sh,zsh',
                 \'\v\$\w+|[[:alpha:]_.-][[:alnum:]_.-]*%(\s*\[|\s*\(\)?)?')
-    call s:set_keyword_pattern('vimshell',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'vimshell',
                 \'\v\$\$?\w*|[[:alpha:]_.-][[:alnum:]_.-]*|\d+%(\.\d+)+')
-    call s:set_keyword_pattern('ps1',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'ps1',
                 \'\v\[\h%([[:alnum:]_.]*\]::)?|[$%@.]?[[:alpha:]_.:-][[:alnum:]_.:-]*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('c',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'c',
                 \'\v^\s*#\s*\h\w*|%(\.|-\>)?\h\w*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('cpp',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'cpp',
                 \'\v^\s*#\s*\h\w*|%(\.|-\>|%(\h\w*::)+)?\h\w*%(\s*\(\)?|\<\>?)?')
-    call s:set_keyword_pattern('objc',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'objc',
                 \'\v^\s*#\s*\h\w*|%(\.|-\>)?\h\w*%(\s*\(\)?|\<\>?|:)?|\@\h\w*%(\s*\(\)?)?|\(\h\w*\s*\*?\)?')
-    call s:set_keyword_pattern('objcpp',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'objcpp',
                 \'\v^\s*#\s*\h\w*|%(\.|-\>|%(\h\w*::)+)?\h\w*%(\s*\(\)?|\<\>?|:)?|\@\h\w*%(\s*\(\)?)?|\(\s*\h\w*\s*\*?\s*\)?')
-    call s:set_keyword_pattern('d',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'd',
                 \'\v[.]?\h\w*%(!?\s*\(\)?)?')
-    call s:set_keyword_pattern('python',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'python',
                 \'\v[.]?\h\w*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('cs',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'cs',
                 \'\v[.]?\h\w*%(\s*%(\(\)?|\<))?')
-    call s:set_keyword_pattern('java',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'java',
                 \'\v[@.]?\h\w*%(\s*%(\(\)?|\<))?')
-    call s:set_keyword_pattern('javascript,actionscript',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'javascript,actionscript',
                 \'\v[.]?\h\w*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('awk',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'awk',
                 \'\v\h\w*%(\s*\(\)?)?')
-    call s:set_keyword_pattern('haskell',
-                \'\v\h\w*['']?')
-    call s:set_keyword_pattern('ocaml',
-                \'\v[~]?[[:alpha:]_''][[:alnum:]_]*['']?')
-    call s:set_keyword_pattern('erlang',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'haskell',
+                \'[[:alpha:]_''][[:alnum:]_'']*')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'ocaml',
+                \'[~]\?[[:alpha:]_''][[:alnum:]_'']*')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'erlang',
                 \'\v^\s*-\h\w*[(]?|\h\w*%(:\h\w*)*%(\.|\(\)?)?')
-    call s:set_keyword_pattern('html,xhtml,xml',
-                \'\v[[:alnum:]_:-]*\>|\</?%([[:alnum:]_:-]+\s*)?%(/?\>)?|\&\h%(\w*;)?|\h[[:alnum:]_:-]*%(\=")?|\<[^>]*>?')
-    call s:set_keyword_pattern('css',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'html,xhtml,xml,markdown',
+                \'</\?\%([[:alnum:]_:-]\+\s*\)\?\%(/\?>\)\?\|&\h\%(\w*;\)\?\|\h[[:alnum:]_-]*="\%([^"]*"\?\)\?\|\h[[:alnum:]_:-]*')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'css',
                 \'\v[[:alpha:]_-][[:alnum:]_-]*[:(]?|[@#:.][[:alpha:]_-][[:alnum:]_-]*')
-    call s:set_keyword_pattern('tags',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'tags',
                 \'\v^[^!][^/[:blank:]]*')
-    call s:set_keyword_pattern('pic',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'pic',
                 \'\v^\s*#\h\w*|\h\w*')
-    call s:set_keyword_pattern('masm',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'masm',
                 \'\v\.\h\w*|[[:alpha:]_@?$][[:alnum:]_@?$]*')
-    call s:set_keyword_pattern('nasm',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'nasm',
                 \'\v^\s*\[\h\w*|[%.]?\h\w*|%(\.\.\@?|\%[%$!])%(\h\w*)?')
-    call s:set_keyword_pattern('asm',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'asm',
                 \'\v[%$.]?\h\w*%(\$\h\w*)?')
-    call s:set_keyword_pattern('make',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'make',
                 \'\v[[:alpha:]_.-][[:alnum:]_.-]*')
-    call s:set_keyword_pattern('scala',
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_KeywordPatterns', 'scala',
                 \'\v[.]?\h\w*%(\s*\(\)?|\[)?')
     "}}}
 
+    " Initialize next keyword patterns."{{{
+    if !exists('g:NeoComplCache_NextKeywordPatterns')
+        let g:NeoComplCache_NextKeywordPatterns = {}
+    endif
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_NextKeywordPatterns', 'perl',
+                \'\h\w*>')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_NextKeywordPatterns', 'perl6',
+                \'\h\w*>')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_NextKeywordPatterns', 'vim,help',
+                \'\h\w*:\]\|\h\w*=\|[[:alnum:]_-]*>')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_NextKeywordPatterns', 'tex',
+                \'\h\w*\*\?[*[{}]')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_NextKeywordPatterns', 'html,xhtml,xml,mkd',
+                \'[[:alnum:]_:-]*>\|[[:alnum:]_-]*="[^"]*"')
+    "}}}
+    
     " Initialize same file type lists."{{{
     if !exists('g:NeoComplCache_SameFileTypeLists')
         let g:NeoComplCache_SameFileTypeLists = {}
     endif
-    call s:set_same_filetype('c', 'cpp')
-    call s:set_same_filetype('cpp', 'c')
-    call s:set_same_filetype('erb', 'ruby,html,xhtml')
-    call s:set_same_filetype('html', 'xhtml')
-    call s:set_same_filetype('xml', 'xhtml')
-    call s:set_same_filetype('xhtml', 'html,xml')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_SameFileTypeLists', 'c', 'cpp')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_SameFileTypeLists', 'cpp', 'c')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_SameFileTypeLists', 'erb', 'ruby,html,xhtml')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_SameFileTypeLists', 'html,xml', 'xhtml')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_SameFileTypeLists', 'xhtml', 'html,xml')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_SameFileTypeLists', 'help', 'vim')
     "}}}
     
     " Initialize member prefix patterns."{{{
     if !exists('g:NeoComplCache_MemberPrefixPatterns')
         let g:NeoComplCache_MemberPrefixPatterns = {}
     endif
-    call s:set_member_prefix('c,cpp,objc,objcpp', '^\.\|^->')
-    call s:set_member_prefix('perl,php', '^->')
-    call s:set_member_prefix('java,javascript,d,vim,ruby', '^\.')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_MemberPrefixPatterns', 'c,cpp,objc,objcpp', '^\.\|^->')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_MemberPrefixPatterns', 'perl,php', '^->')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_MemberPrefixPatterns', 'java,javascript,d,vim,ruby', '^\.')
     "}}}
 
     " Initialize ctags arguments."{{{
     if !exists('g:NeoComplCache_CtagsArgumentsList')
         let g:NeoComplCache_CtagsArgumentsList = {}
     endif
-    let g:NeoComplCache_CtagsArgumentsList['default'] = ''
-    let g:NeoComplCache_CtagsArgumentsList['vim'] = "'--extra=fq --fields=afmiKlnsStz '--regex-vim=/function!? ([a-z#:_0-9A-Z]+)/\\1/function/''"
-    let g:NeoComplCache_CtagsArgumentsList['cpp'] = '--c++-kinds=+p --fields=+iaS --extra=+q'
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_CtagsArgumentsList', 'default', '')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_CtagsArgumentsList', 'vim',
+                \"--extra=fq --fields=afmiKlnsStz --regex-vim='/function!? ([a-z#:_0-9A-Z]+)/\\1/function/'")
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_CtagsArgumentsList', 'cpp',
+                \'--c++-kinds=+p --fields=+iaS --extra=+q')
+    "}}}
+    
+    " Initialize quick match patterns."{{{
+    if !exists('g:NeoComplCache_QuickMatchPatterns')
+        let g:NeoComplCache_QuickMatchPatterns = {}
+    endif
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_QuickMatchPatterns', 'default', '-')
+    "}}}
+    
+    " Initialize tags filter patterns."{{{
+    if !exists('g:NeoComplCache_TagsFilterPatterns')
+        let g:NeoComplCache_TagsFilterPatterns = {}
+    endif
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_TagsFilterPatterns', 'c,cpp', 
+                \'v:val.word !~ ''^[~_]''')
+    "}}}
+    
+    " Initialize plugin completion length."{{{
+    if !exists('g:NeoComplCache_PluginCompletionLength')
+        let g:NeoComplCache_PluginCompletionLength = {}
+    endif
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_PluginCompletionLength', 'omni_complete', 0)
     "}}}
     
     " Add commands."{{{
     command! -nargs=0 NeoComplCacheDisable call neocomplcache#disable()
-    command! -nargs=0 Neco echo "   A A\n~(-'_'-)"
+    command! -nargs=0 Neco call s:display_neco()
     command! -nargs=0 NeoComplCacheLock call s:lock()
     command! -nargs=0 NeoComplCacheUnlock call s:unlock()
     command! -nargs=0 NeoComplCacheToggle call s:toggle()
@@ -193,12 +235,13 @@ function! neocomplcache#enable() "{{{
     let &l:completefunc = 'neocomplcache#manual_complete'
 
     " Set options.
-    set completeopt-=menu,longest
+    set completeopt-=menu
+    set completeopt-=longest
     set completeopt+=menuone
 
     " Initialize.
-    for l:complfunc in s:complfuncs_func_table
-        call call(l:complfunc . 'initialize', [])
+    for l:complfunc_name in keys(s:global_complfuncs)
+        call call(s:global_complfuncs[l:complfunc_name] . 'initialize', [])
     endfor
 endfunction"}}}
 
@@ -218,33 +261,28 @@ function! neocomplcache#disable()"{{{
     delcommand NeoComplCacheToggle
     delcommand NeoComplCacheAutoCompletionLength
 
-    for l:complfunc in s:complfuncs_func_table
-        call call(l:complfunc . 'finalize', [])
+    for l:complfunc_name in keys(s:global_complfuncs)
+        call call(s:global_complfuncs[l:complfunc_name] . 'finalize', [])
     endfor
 endfunction"}}}
 
-" Complete functions."{{{
 function! neocomplcache#manual_complete(findstart, base)"{{{
     if a:findstart
-        if !neocomplcache#plugin#buffer_complete#exists_current_source()
-            let s:complete_words = []
-            return -1
-        endif
-        
         " Get cursor word.
-        let l:cur_text = neocomplcache#get_cur_text()
+        let l:cur_text = s:get_cur_text()
 
         " Try complfuncs completion."{{{
         let l:complete_result = {}
-        let s:skipped = 0
-        for l:complfunc in s:complfuncs_func_table
+        for [l:complfunc_name, l:complfunc] in items(s:global_complfuncs)
+            
             let l:cur_keyword_pos = call(l:complfunc . 'get_keyword_pos', [l:cur_text])
+            if l:cur_keyword_pos < 0
+                " Try append 'a'.
+                let l:cur_keyword_pos = call(l:complfunc . 'get_keyword_pos', [l:cur_text.'a'])
+            endif
 
             if l:cur_keyword_pos >= 0
                 let l:cur_keyword_str = l:cur_text[l:cur_keyword_pos :]
-                if has_key(s:complfuncs_dict, l:complfunc) && len(l:cur_keyword_str) < s:complfuncs_dict[l:complfunc]
-                    continue
-                endif
 
                 " Save options.
                 let l:ignorecase_save = &ignorecase
@@ -260,64 +298,37 @@ function! neocomplcache#manual_complete(findstart, base)"{{{
                 let &ignorecase = l:ignorecase_save
 
                 if !empty(l:words)
-                    let l:complete_result[l:complfunc] = {
+                    let l:complete_result[l:complfunc_name] = {
                                 \'complete_words' : l:words, 
                                 \'cur_keyword_pos' : l:cur_keyword_pos, 
                                 \'cur_keyword_str' : l:cur_keyword_str, 
                                 \'rank' : call(l:complfunc . 'get_rank', [])
                                 \}
                 endif
-
-                if s:skipped
-                    return
-                endif
             endif
         endfor
         "}}}
-        let [s:cur_keyword_pos, s:cur_keyword_str, s:complete_words] = s:integrate_completion(l:complete_result)
-        if empty(s:complete_words)
+        let [l:cur_keyword_pos, l:cur_keyword_str, l:complete_words] = s:integrate_completion(l:complete_result)
+        if empty(l:complete_words)
             return -1
         endif
+        let [s:cur_keyword_pos, s:cur_keyword_str, s:complete_words] = [l:cur_keyword_pos, l:cur_keyword_str, l:complete_words]
 
         return s:cur_keyword_pos
+    else
+        return s:complete_words
     endif
-
-    if g:NeoComplCache_EnableInfo"{{{
-        " Check preview window.
-        silent! wincmd P
-        if &previewwindow
-            wincmd p
-            setlocal completeopt+=preview
-        else
-            setlocal completeopt-=preview
-        endif
-    endif"}}}
-
-    return s:complete_words
 endfunction"}}}
 
 function! neocomplcache#auto_complete(findstart, base)"{{{
     if a:findstart
         return s:cur_keyword_pos
+    else
+        " Restore option.
+        let &l:completefunc = 'neocomplcache#manual_complete'
+
+        return s:complete_words
     endif
-
-    " Restore option.
-    let &l:completefunc = 'neocomplcache#manual_complete'
-    " Unlock auto complete.
-    let s:complete_lock = 0
-
-    if g:NeoComplCache_EnableInfo"{{{
-        " Check preview window.
-        silent! wincmd P
-        if &previewwindow
-            wincmd p
-            setlocal completeopt+=preview
-        else
-            setlocal completeopt-=preview
-        endif
-    endif"}}}
-
-    return s:complete_words
 endfunction"}}}
 
 " Plugin helper."{{{
@@ -343,7 +354,7 @@ function! neocomplcache#keyword_escape(cur_keyword_str)"{{{
     "}}}
     " Camel case completion."{{{
     if g:NeoComplCache_EnableCamelCaseCompletion && l:keyword_escape =~ '\u'
-        let l:keyword_escape = substitute(l:keyword_escape, '\v\u?\zs\U*', '\\%(\0\\l*\\|\U\0\E\\u*_\\?\\)', 'g')
+        let l:keyword_escape = substitute(l:keyword_escape, '\u\?\zs\U*', '\\%(\0\\l*\\|\U\0\E\\u*_\\?\\)', 'g')
     endif
     "}}}
 
@@ -395,7 +406,8 @@ function! neocomplcache#member_filter(list, cur_keyword_str)"{{{
         let l:prefix = matchstr(a:cur_keyword_str, g:NeoComplCache_MemberPrefixPatterns[l:ft])
         let l:cur_keyword_str = a:cur_keyword_str[len(l:prefix) :]
 
-        let l:ret = deepcopy(neocomplcache#keyword_filter(filter(a:list, 'v:val.kind ==# "m" || v:val.class != ""'), l:cur_keyword_str))
+        let l:ret = deepcopy(neocomplcache#keyword_filter(filter(a:list, 
+                    \'(has_key(v:val, "kind") && v:val.kind ==# "m") || (has_key(v:val, "class") && v:val.class != "")'), l:cur_keyword_str))
         for l:keyword in l:ret
             let l:keyword.word = l:prefix . l:keyword.word
         endfor
@@ -405,17 +417,39 @@ function! neocomplcache#member_filter(list, cur_keyword_str)"{{{
         return neocomplcache#keyword_filter(a:list, a:cur_keyword_str)
     endif
 endfunction"}}}
-function! neocomplcache#unpack_list(list)"{{{
+function! neocomplcache#unpack_dictionary(dict)"{{{
     let l:ret = []
-    for l in a:list
+    for l in values(a:dict)
         let l:ret += l
     endfor
 
     return l:ret
 endfunction"}}}
+function! neocomplcache#unpack_dictionary_dictionary(dict)"{{{
+    let l:ret = []
+    for l in values(a:dict)
+        let l:ret += values(l)
+    endfor
 
-function! neocomplcache#skipped()"{{{
-    return s:skipped
+    return l:ret
+endfunction"}}}
+function! neocomplcache#add_dictionaries(dictionaries)"{{{
+    if empty(a:dictionaries)
+        return {}
+    endif
+    
+    let l:ret = a:dictionaries[0]
+    for l:dict in a:dictionaries[1:]
+        for [l:key, l:value] in items(l:dict)
+            if has_key(l:ret, l:key)
+                let l:ret[l:key] += l:value
+            else
+                let l:ret[l:key] = l:value
+            endif
+        endfor
+    endfor
+
+    return l:ret
 endfunction"}}}
 
 " RankOrder."{{{
@@ -478,26 +512,30 @@ function! neocomplcache#assume_pattern(bufname)"{{{
     endif
 endfunction "}}}
 
-function! neocomplcache#check_skip_time(start_time)"{{{
-    if !g:NeoComplCache_EnableSkipCompletion || &l:completefunc != 'neocomplcache#auto_complete'
+function! neocomplcache#check_skip_time()"{{{
+    if !g:NeoComplCache_EnableSkipCompletion || !neocomplcache#is_auto_complete()
         return 0
     endif
 
-    if substitute(reltimestr(reltime(a:start_time)), '^\s*', '', '') > g:NeoComplCache_SkipCompletionTime
+    if s:skipped || getchar(1) || substitute(reltimestr(reltime(s:start_time)), '^\s*', '', '') > g:NeoComplCache_SkipCompletionTime
+        let s:skipped = 1
         return 1
     else
         return 0
     endif
 endfunction"}}}
+function! neocomplcache#rand(max)"{{{
+    return abs(reltime()[1]) % (a:max + 1)
+endfunction"}}}
 
 function! neocomplcache#caching_percent()"{{{
-    return neocomplcache#plugin#buffer_complete#caching_percent("")
+    return neocomplcache#plugin#buffer_complete#caching_percent('')
 endfunction"}}}
 
 function! neocomplcache#get_cur_text()"{{{
-    let l:pos = mode() ==# 'i' ? 2 : 1
+    " Return cached text.
 
-    return col('.') < l:pos ? '' : getline('.')[: col('.') - l:pos]
+    return s:cur_text
 endfunction"}}}
 function! neocomplcache#get_completion_length(plugin_name)"{{{
     if has_key(g:NeoComplCache_PluginCompletionLength, a:plugin_name)
@@ -506,25 +544,96 @@ function! neocomplcache#get_completion_length(plugin_name)"{{{
         return g:NeoComplCache_KeywordCompletionStartLength
     endif
 endfunction"}}}
-"}}}
+function! neocomplcache#get_keyword_pattern(...)"{{{
+    if empty(a:000)
+        let l:filetype = (&filetype == '')?  'nothing' : &filetype
+    else
+        let l:filetype = a:000[0]
+    endif
 
-" Set pattern helper."{{{
-function! s:set_keyword_pattern(filetype, pattern)"{{{
-    for ft in split(a:filetype, ',')
-        if !has_key(g:NeoComplCache_KeywordPatterns, ft) 
-            let g:NeoComplCache_KeywordPatterns[ft] = a:pattern
-        endif
-    endfor
+    return has_key(g:NeoComplCache_KeywordPatterns, l:filetype) ?
+                \ g:NeoComplCache_KeywordPatterns[l:filetype] : g:NeoComplCache_KeywordPatterns['default']
 endfunction"}}}
-function! s:set_same_filetype(filetype, pattern)"{{{
-    if !has_key(g:NeoComplCache_SameFileTypeLists, a:filetype) 
-        let g:NeoComplCache_SameFileTypeLists[a:filetype] = a:pattern
+function! neocomplcache#get_next_keyword_pattern(...)"{{{
+    if empty(a:000)
+        let l:filetype = (&filetype == '')?  'nothing' : &filetype
+    else
+        let l:filetype = a:000[0]
+    endif
+
+    if has_key(g:NeoComplCache_NextKeywordPatterns, l:filetype)
+        return g:NeoComplCache_NextKeywordPatterns[l:filetype] . '\m\|' . neocomplcache#get_keyword_pattern(l:filetype)
+    else
+        return neocomplcache#get_keyword_pattern(l:filetype)
     endif
 endfunction"}}}
-function! s:set_member_prefix(filetype, pattern)"{{{
+function! neocomplcache#get_keyword_pattern_end(...)"{{{
+    if empty(a:000)
+        let l:filetype = (&filetype == '')?  'nothing' : &filetype
+    else
+        let l:filetype = a:000[0]
+    endif
+    
+    return '\%('.neocomplcache#get_keyword_pattern(l:filetype).'\m\)$'
+endfunction"}}}
+function! neocomplcache#get_prev_word(cur_keyword_str)"{{{
+    let l:keyword_pattern = neocomplcache#get_keyword_pattern()
+    let l:line_part = neocomplcache#get_cur_text()[: -1-len(a:cur_keyword_str)]
+    let l:prev_word_end = matchend(l:line_part, l:keyword_pattern)
+    if l:prev_word_end > 0
+        let l:word_end = matchend(l:line_part, l:keyword_pattern, l:prev_word_end)
+        if l:word_end >= 0
+            while l:word_end >= 0
+                let l:prev_word_end = l:word_end
+                let l:word_end = matchend(l:line_part, l:keyword_pattern, l:prev_word_end)
+            endwhile
+        endif
+
+        let l:prev_word = matchstr(l:line_part[: l:prev_word_end-1], l:keyword_pattern . '$')
+    else
+        let l:prev_word = '^'
+    endif
+    
+    return l:prev_word
+endfunction"}}}
+function! neocomplcache#match_word(cur_text)"{{{
+    return matchstr(a:cur_text, neocomplcache#get_keyword_pattern_end())
+endfunction"}}}
+function! neocomplcache#match_wildcard(cur_text, pattern, cur_keyword_pos)"{{{
+    let l:cur_keyword_pos = a:cur_keyword_pos
+
+    while l:cur_keyword_pos > 1 && a:cur_text[l:cur_keyword_pos - 1] == '*'
+        let l:left_text = a:cur_text[: l:cur_keyword_pos - 2]
+        if l:left_text !~ a:pattern
+            break
+        endif
+
+        let l:cur_keyword_pos = match(l:left_text, a:pattern)
+    endwhile
+
+    return l:cur_keyword_pos
+endfunction"}}}
+function! neocomplcache#is_auto_complete()"{{{
+    return &l:completefunc == 'neocomplcache#auto_complete'
+endfunction"}}}
+function! neocomplcache#print_caching(string)"{{{
+    if g:NeoComplCache_CachingPercentInStatusline
+        let &l:statusline = a:string
+        redrawstatus
+    else
+        redraw
+        echo a:string
+    endif
+endfunction"}}}
+function! neocomplcache#print_error(string)"{{{
+    echohl Error | echo a:string | echohl None
+endfunction"}}}
+
+" Set pattern helper.
+function! neocomplcache#set_variable_pattern(variable, filetype, pattern)"{{{
     for ft in split(a:filetype, ',')
-        if !has_key(g:NeoComplCache_MemberPrefixPatterns, ft) 
-            let g:NeoComplCache_MemberPrefixPatterns[ft] = a:pattern
+        if !has_key({a:variable}, ft) 
+            let {a:variable}[ft] = a:pattern
         endif
     endfor
 endfunction"}}}
@@ -532,19 +641,38 @@ endfunction"}}}
 
 " Command functions."{{{
 function! s:toggle()"{{{
-    if &l:completefunc == 'neocomplcache#manual_complete'
+    if !has_key(s:complete_lock, bufnr('%')) || !s:complete_lock[bufnr('%')]
         call s:lock()
     else
         call s:unlock()
     endif
 endfunction"}}}
-
 function! s:lock()"{{{
-    let s:complete_lock = 1
+    let s:complete_lock[bufnr('%')] = 1
 endfunction"}}}
-
 function! s:unlock()"{{{
-    let s:complete_lock = 0
+    let s:complete_lock[bufnr('%')] = 0
+endfunction"}}}
+function! s:display_neco()"{{{
+    let l:animation = [
+                \["   A A", 
+                \ "~(-'_'-)"], 
+                \["      A A", 
+                \ "   ~(-'_'-)"], 
+                \["        A A", 
+                \ "     ~(-'_'-)"], 
+                \["          A A  ", 
+                \ "       ~(-'_'-)"], 
+                \["             A A", 
+                \ "          ~(-^_^-)"],
+                \]
+    
+    for l:anim in l:animation
+        echo ''
+        redraw
+        echo l:anim[0] . "\n" . l:anim[1]
+        sleep 150m
+    endfor
 endfunction"}}}
 "}}}
 
@@ -554,7 +682,7 @@ function! neocomplcache#close_popup()"{{{
         return ''
     endif
 
-    let s:old_text = getline('.')[: col('.')-2]
+    let s:old_text = neocomplcache#get_cur_text()
     let s:prev_numbered_list = []
 
     return "\<C-y>"
@@ -585,38 +713,50 @@ function! neocomplcache#manual_keyword_complete()"{{{
 endfunction"}}}
 
 function! neocomplcache#start_manual_complete(complfunc_name)"{{{
-    if !has_key(s:complfuncs_dict, a:complfunc_name)
-        return ''
-    endif
-
-    let l:complfunc = s:complfuncs_dict[a:complfunc_name]
+    let l:cur_text = s:get_cur_text()
 
     " Set function.
     let &l:completefunc = 'neocomplcache#manual_complete'
-
-    let l:cur_text = neocomplcache#get_cur_text()
-    let l:cur_keyword_pos = call(l:complfunc . 'get_keyword_pos', [l:cur_text])
-    let l:cur_keyword_str = l:cur_text[l:cur_keyword_pos :]
-    if l:cur_keyword_pos < 0 || len(l:cur_keyword_str) < g:NeoComplCache_ManualCompletionStartLength
-        return ''
-    endif
-
-    " Save options.
-    let l:ignorecase_save = &ignorecase
-
-    if g:NeoComplCache_SmartCase && l:cur_keyword_str =~ '\u'
-        let &ignorecase = 0
+    
+    if !has_key(s:global_complfuncs, a:complfunc_name)
+        let l:cur_keyword_pos = neocomplcache#complfunc#keyword_complete#get_keyword_pos(l:cur_text)
+        let l:cur_keyword_str = l:cur_text[l:cur_keyword_pos :]
+        let l:complete_words = neocomplcache#complfunc#keyword_complete#get_manual_complete_list(a:complfunc_name)
+        
+        if empty(l:complete_words)
+            return ''
+        endif
     else
-        let &ignorecase = g:NeoComplCache_IgnoreCase
+        let l:complfunc = s:global_complfuncs[a:complfunc_name]
+
+        let l:cur_keyword_pos = call(l:complfunc . 'get_keyword_pos', [l:cur_text])
+        if l:cur_keyword_pos < 0
+            " Try append 'a'.
+            let l:cur_keyword_pos = call(l:complfunc . 'get_keyword_pos', [l:cur_text.'a'])
+        endif
+        
+        let l:cur_keyword_str = l:cur_text[l:cur_keyword_pos :]
+        if l:cur_keyword_pos < 0 || len(l:cur_keyword_str) < g:NeoComplCache_ManualCompletionStartLength
+            return ''
+        endif
+
+        " Save options.
+        let l:ignorecase_save = &ignorecase
+
+        if g:NeoComplCache_SmartCase && l:cur_keyword_str =~ '\u'
+            let &ignorecase = 0
+        else
+            let &ignorecase = g:NeoComplCache_IgnoreCase
+        endif
+
+        let l:complete_words = s:remove_next_keyword(a:complfunc_name, deepcopy(
+                    \call(l:complfunc . 'get_complete_words', [l:cur_keyword_pos, l:cur_keyword_str])[: g:NeoComplCache_MaxList]))
+
+        let &ignorecase = l:ignorecase_save
     endif
-
-    let l:complete_words = s:remove_next_keyword(deepcopy(
-                \call(l:complfunc . 'get_complete_words', [l:cur_keyword_pos, l:cur_keyword_str])[: g:NeoComplCache_MaxList]))
-
+    
     let s:skipped = 0
-    let s:cur_keyword_pos = l:cur_keyword_pos
-    let s:cur_keyword_str = l:cur_keyword_str
-    let s:complete_words = filter(l:complete_words, 'v:val.word !=# ' . string(l:cur_keyword_str))
+    let [s:cur_keyword_pos, s:cur_keyword_str, s:complete_words] = [l:cur_keyword_pos, l:cur_keyword_str, l:complete_words]
 
     " Set function.
     let &l:completefunc = 'neocomplcache#auto_complete'
@@ -631,14 +771,7 @@ function! neocomplcache#undo_completion()"{{{
     endif
 
     " Get cursor word.
-    let l:cur_text = neocomplcache#get_cur_text()
-
-    if !neocomplcache#plugin#buffer_complete#exists_current_source()
-        return ''
-    endif
-
-    let l:pattern = '\v%(' .  neocomplcache#plugin#buffer_complete#current_keyword_pattern() . ')$'
-    let l:cur_keyword_str = matchstr(l:cur_text, l:pattern)
+    let l:cur_keyword_str = neocomplcache#match_word(s:get_cur_text())
     let l:old_keyword_str = s:cur_keyword_str
     let s:cur_keyword_str = l:cur_keyword_str
 
@@ -651,24 +784,20 @@ endfunction"}}}
 
 " Event functions."{{{
 function! s:complete()"{{{
-    if !neocomplcache#plugin#buffer_complete#exists_current_source()
-        return
-    endif
-
     if s:skip_next_complete
         let s:skip_next_complete = 0
-
         return
     endif
 
-    if (&buftype !~ 'nofile\|nowrite' && !&modified) || &paste || s:complete_lock || g:NeoComplCache_DisableAutoComplete
-                \||(&l:completefunc != 'neocomplcache#manual_complete'
-                \&& &l:completefunc != 'neocomplcache#auto_complete')
+    if (&buftype !~ 'nofile\|nowrite' && !&modified) || &paste
+                \|| (has_key(s:complete_lock, bufnr('%')) && s:complete_lock[bufnr('%')])
+                \|| g:NeoComplCache_DisableAutoComplete
+                \|| (&l:completefunc != 'neocomplcache#manual_complete' && &l:completefunc != 'neocomplcache#auto_complete')
         return
     endif
 
     " Get cursor word.
-    let l:cur_text = neocomplcache#get_cur_text()
+    let l:cur_text = s:get_cur_text()
     " Prevent infinity loop.
     " Not complete multi byte character for ATOK X3.
     if l:cur_text == s:old_text || l:cur_text == '' || char2nr(l:cur_text[-1:]) >= 0x80
@@ -677,7 +806,8 @@ function! s:complete()"{{{
 
     let s:old_text = l:cur_text
     
-    if g:NeoComplCache_EnableQuickMatch && l:cur_text =~ '-[a-z0-9]$'
+    let l:quickmatch_pattern = s:get_quickmatch_pattern()
+    if g:NeoComplCache_EnableQuickMatch && l:cur_text =~ l:quickmatch_pattern.'[a-z0-9]$'
         " Select quickmatch list.
         let l:complete_words = s:select_quickmatch_list(l:cur_text[-1:])
         
@@ -693,41 +823,31 @@ function! s:complete()"{{{
         
         let s:prev_numbered_list = []
         let l:is_quickmatch_list = 0
-    elseif g:NeoComplCache_EnableQuickMatch && l:cur_text[-1:] == '-'
+    elseif g:NeoComplCache_EnableQuickMatch && l:cur_text =~ l:quickmatch_pattern.'$'
         " Quickmatch list.
         let l:is_quickmatch_list = 1
-        let l:cur_text = l:cur_text[: -2]
+        let l:cur_text = l:cur_text[: -len(matchstr(l:cur_text, l:quickmatch_pattern.'$'))-1]
+        let s:cur_text = l:cur_text
     else
         let s:prev_numbered_list = []
         let l:is_quickmatch_list = 0
     endif
-
-    if g:NeoComplCache_EnableSkipCompletion"{{{
-        if split(reltimestr(reltime(s:prev_input_time)))[0] < g:NeoComplCache_SkipInputTime
-            echo 'Skipped auto completion'
-
-            let s:skipped = 1
-
-            let s:prev_input_time = reltime()
-            return
-        endif
-
-        echo ''
-        redraw
-        let s:prev_input_time = reltime()
-    endif"}}}
+    
+    echo ''
+    redraw
 
     " Set function.
     let &l:completefunc = 'neocomplcache#auto_complete'
     " Try complfuncs completion."{{{
     let l:complete_result = {}
     let s:skipped = 0
-    for l:complfunc in s:complfuncs_func_table
+    let s:start_time = reltime()
+    for [l:complfunc_name, l:complfunc] in items(s:global_complfuncs)
         let l:cur_keyword_pos = call(l:complfunc . 'get_keyword_pos', [l:cur_text])
 
         if l:cur_keyword_pos >= 0
             let l:cur_keyword_str = l:cur_text[l:cur_keyword_pos :]
-            if has_key(s:complfuncs_dict, l:complfunc) && len(l:cur_keyword_str) < s:complfuncs_dict[l:complfunc]
+            if len(l:cur_keyword_str) < neocomplcache#get_completion_length(l:complfunc_name)
                 continue
             endif
 
@@ -745,7 +865,7 @@ function! s:complete()"{{{
             let &ignorecase = l:ignorecase_save
 
             if !empty(l:words)
-                let l:complete_result[l:complfunc] = {
+                let l:complete_result[l:complfunc_name] = {
                             \'complete_words' : l:words, 
                             \'cur_keyword_pos' : l:cur_keyword_pos, 
                             \'cur_keyword_str' : l:cur_keyword_str, 
@@ -753,7 +873,9 @@ function! s:complete()"{{{
                             \}
             endif
 
-            if s:skipped
+            if neocomplcache#check_skip_time()
+                echo 'Skipped auto completion'
+                let &l:completefunc = 'neocomplcache#manual_complete'
                 return
             endif
         endif
@@ -761,29 +883,29 @@ function! s:complete()"{{{
     "}}}
 
     " Start auto complete.
-    let [s:cur_keyword_pos, s:cur_keyword_str, l:complete_words] = s:integrate_completion(l:complete_result)
+    let [l:cur_keyword_pos, l:cur_keyword_str, l:complete_words] = s:integrate_completion(l:complete_result)
 
     if empty(l:complete_words)
+        let &l:completefunc = 'neocomplcache#manual_complete'
         return
     endif
 
     if l:is_quickmatch_list
        let l:complete_words = s:make_quickmatch_list(l:complete_words) 
     endif
+    
+    if neocomplcache#check_skip_time()
+        echo 'Skipped auto completion'
+        let &l:completefunc = 'neocomplcache#manual_complete'
+        return
+    endif
 
-    let s:complete_words = l:complete_words
+    let [s:cur_keyword_pos, s:cur_keyword_str, s:complete_words] = [l:cur_keyword_pos, l:cur_keyword_str, l:complete_words]
 
     call feedkeys("\<C-x>\<C-u>\<C-p>", 'n')
 endfunction"}}}
 function! s:integrate_completion(complete_result)"{{{
     if empty(a:complete_result)
-        return [-1, '', []]
-    endif
-    
-    if g:NeoComplCache_EnableSkipCompletion
-                \&& len(a:complete_result) > g:NeoComplCache_MaxList*2 
-                \&& &l:completefunc != 'neocomplcache#manual_complete'
-        echo 'Skipped auto completion'
         return [-1, '', []]
     endif
     
@@ -796,34 +918,57 @@ function! s:integrate_completion(complete_result)"{{{
     let l:cur_text = neocomplcache#get_cur_text()
     let l:cur_keyword_str = l:cur_text[l:cur_keyword_pos :]
 
+    let l:frequencies = neocomplcache#plugin#buffer_complete#get_frequencies()
+    let l:prev_frequencies = neocomplcache#plugin#buffer_complete#get_prev_frequencies()
+    
     " Append prefix.
     let l:complete_words = []
-    for l:result in sort(values(a:complete_result), 'neocomplcache#compare_rank')
-        let l:result.complete_words = s:remove_next_keyword(deepcopy(l:result.complete_words))
+    for [l:complfunc_name, l:result] in items(a:complete_result)
+        let l:result.complete_words = deepcopy(l:result.complete_words)
         if l:result.cur_keyword_pos > l:cur_keyword_pos
-            let l:prefix = l:cur_keyword_str[: l:result.cur_keyword_pos - l:cur_keyword_pos]
+            let l:prefix = l:cur_keyword_str[: l:result.cur_keyword_pos - l:cur_keyword_pos - 1]
             
             for keyword in l:result.complete_words
                 let keyword.word = l:prefix . keyword.word
             endfor
         endif
 
-        let l:complete_words += l:result.complete_words
+        let l:rank = l:result.rank
+        for l:keyword in l:result.complete_words
+            let l:word = l:keyword.word
+            let l:keyword.rank = has_key(l:frequencies, l:word)? l:rank * l:frequencies[l:word] : l:rank
+            let l:keyword.prev_rank = has_key(l:prev_frequencies, l:word)? l:prev_frequencies[l:word] : 0
+        endfor
+        let l:complete_words += s:remove_next_keyword(l:complfunc_name, l:result.complete_words)
     endfor
     
-    return [l:cur_keyword_pos, l:cur_keyword_str, 
-                \filter(l:complete_words[: g:NeoComplCache_MaxList], 'v:val.word !=# ' . string(l:cur_keyword_str))]
+    " Sort.
+    if (has_key(g:NeoComplCache_DisablePluginList, 'buffer_complete') && g:NeoComplCache_DisablePluginList['buffer_complete'])
+                \|| g:NeoComplCache_AlphabeticalOrder
+        let l:func = 'neocomplcache#compare_words'
+    else
+        let l:func = 'neocomplcache#compare_prev_rank'
+    endif
+    
+    return [l:cur_keyword_pos, l:cur_keyword_str, sort(l:complete_words, l:func)[: g:NeoComplCache_MaxList]]
 endfunction"}}}
 function! s:insert_leave()"{{{
     let s:old_text = ''
-    let s:skipped = 0
     let s:skip_next_complete = 0
+    let s:cur_keyword_pos = -1
+    let s:cur_keyword_str = ''
+    let s:complete_words = []
 endfunction"}}}
-function! s:remove_next_keyword(list)"{{{
+function! s:remove_next_keyword(plugin_name, list)"{{{
     let l:list = a:list
     " Remove next keyword."{{{
-    let l:next_keyword_str = matchstr('a'.getline('.')[col('.') - 1 :],
-                \'\v^%(' . neocomplcache#plugin#buffer_complete#current_keyword_pattern() . ')')[1:]
+    if a:plugin_name  == 'filename_complete'
+        let l:pattern = '^\%(' . neocomplcache#get_next_keyword_pattern('filename') . '\m\)'
+    else
+        let l:pattern = '^\%(' . neocomplcache#get_next_keyword_pattern() . '\m\)'
+    endif
+    
+    let l:next_keyword_str = matchstr('a'.getline('.')[col('.') - 1 :], l:pattern)[1:]
     if l:next_keyword_str != ''
         let l:next_keyword_str = substitute(escape(l:next_keyword_str, '~" \.^$*[]'), "'", "''", 'g').'$'
 
@@ -834,7 +979,6 @@ function! s:remove_next_keyword(list)"{{{
         for r in l:list
             if r.word =~ l:next_keyword_str
                 let r.word = r.word[: match(r.word, l:next_keyword_str)-1]
-                let r.dup = 1
             endif
         endfor
 
@@ -861,7 +1005,7 @@ function! s:make_quickmatch_list(list)"{{{
                     \!has_key(l:dup_check, keyword.word) ||
                     \(has_key(keyword, 'dup') && keyword.dup))
             let l:dup_check[keyword.word] = 1
-            let keyword.abbr = printf('%s: %s', l:key[l:num], keyword.word)
+            let keyword.abbr = printf('%s: %s', l:key[l:num], keyword.abbr)
 
             call add(l:qlist, keyword)
             let l:num += 1
@@ -880,9 +1024,23 @@ function! s:select_quickmatch_list(key)"{{{
     let l:numbered = get(s:prev_numbered_list, s:quickmatch_table[a:key])
     if type(l:numbered) == type({})
         return [l:numbered]
-    endif"}}}
+    endif
 
     return []
+endfunction"}}}
+function! s:get_quickmatch_pattern()"{{{
+    let l:filetype = (&filetype == '')?   'nothing' : &filetype
+
+    let l:pattern = has_key(g:NeoComplCache_QuickMatchPatterns, l:filetype)?  
+                \ g:NeoComplCache_QuickMatchPatterns[l:filetype] : g:NeoComplCache_QuickMatchPatterns['default']
+        
+    return l:pattern
+endfunction"}}}
+function! s:get_cur_text()"{{{
+    let l:pos = mode() ==# 'i' ? 2 : 1
+
+    let s:cur_text = col('.') < l:pos ? '' : getline('.')[: col('.') - l:pos]
+    return s:cur_text
 endfunction"}}}
 
 " vim: foldmethod=marker

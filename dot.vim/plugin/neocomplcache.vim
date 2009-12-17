@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 15 Nov 2009
+" Last Modified: 14 Dec 2009
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,7 +23,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 3.14, for Vim 7.0
+" Version: 4.02, for Vim 7.0
 "=============================================================================
 
 if v:version < 700
@@ -79,8 +79,8 @@ endif
 if !exists('g:NeoComplCache_EnableQuickMatch')
     let g:NeoComplCache_EnableQuickMatch = 1
 endif
-if !exists('g:NeoComplCache_CalcRankRandomize')
-    let g:NeoComplCache_CalcRankRandomize = has('reltime')
+if !exists('g:NeoComplCache_EnableRandomize')
+    let g:NeoComplCache_EnableRandomize = has('reltime')
 endif
 if !exists('g:NeoComplCache_EnableSkipCompletion')
     let g:NeoComplCache_EnableSkipCompletion = has('reltime')
@@ -88,32 +88,20 @@ endif
 if !exists('g:NeoComplCache_SkipCompletionTime')
     let g:NeoComplCache_SkipCompletionTime = '0.2'
 endif
-if !exists('g:NeoComplCache_SkipInputTime')
-    let g:NeoComplCache_SkipInputTime = '0.0'
-endif
-if !exists('g:NeoComplCache_PreviousKeywordCompletion')
-    let g:NeoComplCache_PreviousKeywordCompletion = 1
-endif
-if !exists('g:NeoComplCache_EnableInfo')
-    let g:NeoComplCache_EnableInfo = 0
-endif
-if !exists('g:NeoComplCache_CachingRandomize')
-    let g:NeoComplCache_CachingRandomize = has('reltime')
-endif
 if !exists('g:NeoComplCache_EnableCamelCaseCompletion')
     let g:NeoComplCache_EnableCamelCaseCompletion = 0
 endif
 if !exists('g:NeoComplCache_EnableUnderbarCompletion')
     let g:NeoComplCache_EnableUnderbarCompletion = 0
 endif
+if !exists('g:NeoComplCache_EnableDispalyParameter')
+    let g:NeoComplCache_EnableDispalyParameter = 1
+endif
 if !exists('g:NeoComplCache_CachingLimitFileSize')
     let g:NeoComplCache_CachingLimitFileSize = 1000000
 endif
 if !exists('g:NeoComplCache_CachingDisablePattern')
     let g:NeoComplCache_CachingDisablePattern = ''
-endif
-if !exists('g:NeoComplCache_PluginCompletionLength')
-    let g:NeoComplCache_PluginCompletionLength = {}
 endif
 if !exists('g:NeoComplCache_CachingPercentInStatusline')
     let g:NeoComplCache_CachingPercentInStatusline = 0

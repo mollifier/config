@@ -44,8 +44,8 @@
 :NeoComplCacheToggle	neocomplcache.jax	/*:NeoComplCacheToggle*
 :NeoComplCacheUnLock	neocomplcache.jax	/*:NeoComplCacheUnLock*
 :QuickRun	quickrun.jax	/*:QuickRun*
-<Plug>(neocomplcache_keyword_caching)	neocomplcache.jax	/*<Plug>(neocomplcache_keyword_caching)*
 <Plug>(neocomplcache_snippets_expand)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_expand)*
+<Plug>(neocomplcache_snippets_jump)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_jump)*
 <Plug>(quicklaunch-0)	quicklaunch.jax	/*<Plug>(quicklaunch-0)*
 <Plug>(quicklaunch-1)	quicklaunch.jax	/*<Plug>(quicklaunch-1)*
 <Plug>(quicklaunch-9)	quicklaunch.jax	/*<Plug>(quicklaunch-9)*
@@ -128,8 +128,6 @@ g:NeoComplCache_AlphabeticalOrder	neocomplcache.jax	/*g:NeoComplCache_Alphabetic
 g:NeoComplCache_CacheLineCount	neocomplcache.jax	/*g:NeoComplCache_CacheLineCount*
 g:NeoComplCache_CachingDisablePattern	neocomplcache.jax	/*g:NeoComplCache_CachingDisablePattern*
 g:NeoComplCache_CachingLimitFileSize	neocomplcache.jax	/*g:NeoComplCache_CachingLimitFileSize*
-g:NeoComplCache_CachingRandomize	neocomplcache.jax	/*g:NeoComplCache_CachingRandomize*
-g:NeoComplCache_CalcRankRandomize	neocomplcache.jax	/*g:NeoComplCache_CalcRankRandomize*
 g:NeoComplCache_CtagsArgumentsList	neocomplcache.jax	/*g:NeoComplCache_CtagsArgumentsList*
 g:NeoComplCache_DictionaryFileTypeLists	neocomplcache.jax	/*g:NeoComplCache_DictionaryFileTypeLists*
 g:NeoComplCache_DisableAutoComplete	neocomplcache.jax	/*g:NeoComplCache_DisableAutoComplete*
@@ -137,8 +135,9 @@ g:NeoComplCache_DisablePluginList	neocomplcache.jax	/*g:NeoComplCache_DisablePlu
 g:NeoComplCache_DisableSelectModeMappings	neocomplcache.jax	/*g:NeoComplCache_DisableSelectModeMappings*
 g:NeoComplCache_EnableAtStartup	neocomplcache.jax	/*g:NeoComplCache_EnableAtStartup*
 g:NeoComplCache_EnableCamelCaseCompletion	neocomplcache.jax	/*g:NeoComplCache_EnableCamelCaseCompletion*
-g:NeoComplCache_EnableInfo	neocomplcache.jax	/*g:NeoComplCache_EnableInfo*
+g:NeoComplCache_EnableDispalyParameter	neocomplcache.jax	/*g:NeoComplCache_EnableDispalyParameter*
 g:NeoComplCache_EnableQuickMatch	neocomplcache.jax	/*g:NeoComplCache_EnableQuickMatch*
+g:NeoComplCache_EnableRandomize	neocomplcache.jax	/*g:NeoComplCache_EnableRandomize*
 g:NeoComplCache_EnableSkipCompletion	neocomplcache.jax	/*g:NeoComplCache_EnableSkipCompletion*
 g:NeoComplCache_EnableUnderbarCompletion	neocomplcache.jax	/*g:NeoComplCache_EnableUnderbarCompletion*
 g:NeoComplCache_EnableWildCard	neocomplcache.jax	/*g:NeoComplCache_EnableWildCard*
@@ -158,12 +157,13 @@ g:NeoComplCache_MinSyntaxLength	neocomplcache.jax	/*g:NeoComplCache_MinSyntaxLen
 g:NeoComplCache_NonBufferFileTypeDetect	neocomplcache.jax	/*g:NeoComplCache_NonBufferFileTypeDetect*
 g:NeoComplCache_OmniPatterns	neocomplcache.jax	/*g:NeoComplCache_OmniPatterns*
 g:NeoComplCache_PluginCompletionLength	neocomplcache.jax	/*g:NeoComplCache_PluginCompletionLength*
-g:NeoComplCache_PreviousKeywordCompletion	neocomplcache.jax	/*g:NeoComplCache_PreviousKeywordCompletion*
+g:NeoComplCache_QuickMatchPatterns	neocomplcache.jax	/*g:NeoComplCache_QuickMatchPatterns*
 g:NeoComplCache_SameFileTypeLists	neocomplcache.jax	/*g:NeoComplCache_SameFileTypeLists*
 g:NeoComplCache_SkipCompletionTime	neocomplcache.jax	/*g:NeoComplCache_SkipCompletionTime*
-g:NeoComplCache_SkipInputTime	neocomplcache.jax	/*g:NeoComplCache_SkipInputTime*
 g:NeoComplCache_SmartCase	neocomplcache.jax	/*g:NeoComplCache_SmartCase*
 g:NeoComplCache_SnippetsDir	neocomplcache.jax	/*g:NeoComplCache_SnippetsDir*
+g:NeoComplCache_TagsFilterPatterns	neocomplcache.jax	/*g:NeoComplCache_TagsFilterPatterns*
+g:NeoComplCache_TagsFilterPatterns	neocomplcache.jax	/*g:NeoComplCache_TagsFilterPatterns*
 g:NeoComplCache_TemporaryDir	neocomplcache.jax	/*g:NeoComplCache_TemporaryDir*
 g:acp_behavior	acp.jax	/*g:acp_behavior*
 g:acp_behavior-command	acp.jax	/*g:acp_behavior-command*
@@ -322,3 +322,4 @@ quickrun.txt	quickrun.jax	/*quickrun.txt*
 snippets_complete	neocomplcache.jax	/*snippets_complete*
 syntax_complete	neocomplcache.jax	/*syntax_complete*
 tags_complete	neocomplcache.jax	/*tags_complete*
+vim_complete	neocomplcache.jax	/*vim_complete*
