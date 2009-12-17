@@ -16,4 +16,4 @@
 	ci = commit
 	co = checkout
 
-# vim:set list ft=gitconfig:
+# vim:set list ft=gitconfig noexpandtab:
