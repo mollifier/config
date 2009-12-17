@@ -154,6 +154,7 @@ g:NeoComplCache_MaxList	neocomplcache.jax	/*g:NeoComplCache_MaxList*
 g:NeoComplCache_MemberPrefixPatterns	neocomplcache.jax	/*g:NeoComplCache_MemberPrefixPatterns*
 g:NeoComplCache_MinKeywordLength	neocomplcache.jax	/*g:NeoComplCache_MinKeywordLength*
 g:NeoComplCache_MinSyntaxLength	neocomplcache.jax	/*g:NeoComplCache_MinSyntaxLength*
+g:NeoComplCache_NextKeywordPatterns	neocomplcache.jax	/*g:NeoComplCache_NextKeywordPatterns*
 g:NeoComplCache_NonBufferFileTypeDetect	neocomplcache.jax	/*g:NeoComplCache_NonBufferFileTypeDetect*
 g:NeoComplCache_OmniPatterns	neocomplcache.jax	/*g:NeoComplCache_OmniPatterns*
 g:NeoComplCache_PluginCompletionLength	neocomplcache.jax	/*g:NeoComplCache_PluginCompletionLength*
@@ -162,7 +163,6 @@ g:NeoComplCache_SameFileTypeLists	neocomplcache.jax	/*g:NeoComplCache_SameFileTy
 g:NeoComplCache_SkipCompletionTime	neocomplcache.jax	/*g:NeoComplCache_SkipCompletionTime*
 g:NeoComplCache_SmartCase	neocomplcache.jax	/*g:NeoComplCache_SmartCase*
 g:NeoComplCache_SnippetsDir	neocomplcache.jax	/*g:NeoComplCache_SnippetsDir*
-g:NeoComplCache_TagsFilterPatterns	neocomplcache.jax	/*g:NeoComplCache_TagsFilterPatterns*
 g:NeoComplCache_TagsFilterPatterns	neocomplcache.jax	/*g:NeoComplCache_TagsFilterPatterns*
 g:NeoComplCache_TemporaryDir	neocomplcache.jax	/*g:NeoComplCache_TemporaryDir*
 g:acp_behavior	acp.jax	/*g:acp_behavior*
