@@ -16,6 +16,6 @@
 	ci = commit
 	co = checkout
 	lo = log --name-status
-	l = log --pretty=oneline
+	l = log --pretty=oneline --abbrev-commit
 
 # vim:set list ft=gitconfig noexpandtab:
