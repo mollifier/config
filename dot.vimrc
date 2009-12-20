@@ -349,7 +349,8 @@ noremap sk <C-W>k
 "resize
 noremap + <C-W>+
 noremap - <C-W>-
-noremap z<SPACE> <C-W>_
+command! Big wincmd _ | wincmd |
+noremap z<SPACE> :<C-u>Big<CR>
 noremap z0 1<C-W>_
 noremap z. <C-W>=
 
