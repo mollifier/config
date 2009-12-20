@@ -230,6 +230,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+alias mkdir='mkdir -p'
+
 #vi
 alias vi='vim'
 alias v='vim'
