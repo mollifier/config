@@ -396,11 +396,6 @@ nnoremap sd :<C-u>NERDTreeToggle<CR>
 nnoremap / :<C-u>M/
 nnoremap ,/ /
 
-"bufferlist
-nnoremap <silent> sf :<C-u>call BufferList()<CR>
-hi BufferSelected term=underline ctermfg=DarkMagenta cterm=underline
-hi BufferNormal term=NONE ctermfg=DarkBlue
-
 "closetag.vimg
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim
