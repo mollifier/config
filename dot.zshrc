@@ -28,7 +28,7 @@ if which dircolors >/dev/null 2>&1 ;then
     eval $(dircolors -b)
     #not use bold
     if which perl >/dev/null 2>&1 ;then
-        LS_COLORS=$(echo $LS_COLORS | perl -pe 's/(?<= [=;] ) 01 (?= [;:] )/00/xg')
+        LS_COLORS=$(echo $LS_COLORS | LANG=C perl -pe 's/(?<= [=;] ) 01 (?= [;:] )/00/xg')
         zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
     fi
 fi
