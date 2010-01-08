@@ -23,6 +23,7 @@ set modelines=5
 set showmatch       "jump to the matching bracket
 set matchtime=1     "1/10sec time scale
 set matchpairs+=<:>
+let loaded_matchparen = 1
 
 set nolist        "show non-printing character
 set listchars=tab:>\ 
