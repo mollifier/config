@@ -14,8 +14,8 @@ set guioptions=nrb
 
 set focuscontent
 
-" 0 : force to open in the current tab
-set popups=0
+" open popups in the current tab
+set popups=""
 
 " disable bell
 set visualbell
