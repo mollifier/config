@@ -123,13 +123,18 @@ my_utils.getGoogleShortUrl = function() {
     }
 
     return ret;
-}
+};
 
 liberator.globalVariables.copy_templates = [
     { label: 'Hatena-Title', value: '[%URL%:title=%TITLE%]' },
     { label: 'Hatena', value: '[%URL%:title]' },
     { label: 'Hatena-Quote', value: '>%URL%:title=%TITLE%>\n%SEL%\n<<' },
-    { label: 'goo.gl', value: 'get goo.gl short url', custom: my_utils.getGoogleShortUrl }
+    { label: 'goo.gl', value: 'get goo.gl short url', custom: my_utils.getGoogleShortUrl },
+    { label: 'tweet', value: 'title shorturl',
+        custom: function() {
+            return content.document.title + ' ' + my_utils.getGoogleShortUrl();
+        }
+    }
 ];
 EOF
 
