@@ -106,26 +106,30 @@ set hintmatching=custom
 
 " copy.js
 js <<EOF
+if (! my_utils) {
+    var my_utils = {};
+}
+
+my_utils.getGoogleShortUrl = function() {
+    var ret = "";
+    var url = 'http://ggl-shortener.appspot.com/'
+    url += '?url=' + encodeURIComponent(content.location.href);
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", url, false);
+    xhr.send(null);
+    if (xhr.status === 200) {
+        ret = JSON.parse(xhr.responseText).short_url;
+    }
+
+    return ret;
+}
+
 liberator.globalVariables.copy_templates = [
     { label: 'Hatena-Title', value: '[%URL%:title=%TITLE%]' },
     { label: 'Hatena', value: '[%URL%:title]' },
     { label: 'Hatena-Quote', value: '>%URL%:title=%TITLE%>\n%SEL%\n<<' },
-    { label: 'goo.gl', value: 'get goo.gl short url',
-        custom: function() {
-            var ret = "";
-            var url = 'http://ggl-shortener.appspot.com/'
-            url += '?url=' + encodeURIComponent(content.location.href);
-            var xhr = new XMLHttpRequest();
-
-            xhr.open("GET", url, false);
-            xhr.send(null);
-            if (xhr.status === 200) {
-                ret = JSON.parse(xhr.responseText).short_url;
-            }
-
-            return ret;
-        }
-    }
+    { label: 'goo.gl', value: 'get goo.gl short url', custom: my_utils.getGoogleShortUrl }
 ];
 EOF
 
