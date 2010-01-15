@@ -282,6 +282,7 @@ alias -g G='| grep'
 alias -g V='| vim -R -'
 alias -g U=' --help | head'
 alias -g P=' --help | less'
+alias -g N='> /dev/null'
 
 
 # cdd
