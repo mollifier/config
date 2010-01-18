@@ -112,16 +112,10 @@ if (! my_utils) {
 
 my_utils.getGoogleShortUrl = function() {
     var ret = "";
-    var url = 'http://ggl-shortener.appspot.com/'
-    url += '?url=' + encodeURIComponent(content.location.href);
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("GET", url, false);
-    xhr.send(null);
-    if (xhr.status === 200) {
+    var xhr = util.httpGet("http://ggl-shortener.appspot.com/?url=" + encodeURIComponent(buffer.URL));
+    if (xhr && xhr.status === 200) {
         ret = JSON.parse(xhr.responseText).short_url;
     }
-
     return ret;
 };
 
