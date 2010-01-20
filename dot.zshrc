@@ -213,6 +213,17 @@ zshaddhistory() {
     ]]
 }
 
+##############################
+#utility functions
+##############################
+function alc() {
+    if [ -n "$1" ]; then
+        w3m "http://eow.alc.co.jp/${1}/UTF-8/?ref=sa" | sed '1,36d' | less
+    else
+        echo 'usage: alc word'
+    fi
+}
+
 
 ##############################
 #aliases
