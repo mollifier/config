@@ -103,9 +103,9 @@ endfunction
 
 function! Presentation()
     set laststatus=0    " never show statusline
-    setlocal nonumber
-    setlocal nolist
-    setlocal foldcolumn=0
+    set nonumber
+    set nolist
+    set foldcolumn=0
 endfunction
 
 function! Navi() "{{{
