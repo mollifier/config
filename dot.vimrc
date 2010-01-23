@@ -101,6 +101,13 @@ function! ConvertToHTMLEntityRef()
     call setline(".", s:repl)
 endfunction
 
+function! Presentation()
+    set laststatus=0    " never show statusline
+    setlocal nonumber
+    setlocal nolist
+    setlocal foldcolumn=0
+endfunction
+
 function! Navi() "{{{
   if &ft ==? "c" || &ft ==? "cpp"
     vimgrep /^[^ \t#/\\*]\+[0-9A-Za-z_ :\t\\*]\+([^;]*$/j %
