@@ -154,6 +154,8 @@ setopt hist_reduce_blanks
 autoload -U compinit
 compinit
 
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+
 setopt auto_menu
 setopt extended_glob
 #expand argument after = to filename
