@@ -224,6 +224,10 @@ function alc() {
     fi
 }
 
+function presentation() {
+    PROMPT="[%1d] %# "
+    RPROMPT=""
+}
 
 ##############################
 #aliases
