@@ -348,19 +348,33 @@ nnoremap sn :<C-u>bn<CR>
 
 "window operation
 "open and close
-noremap ss <C-W>s
-noremap sc <C-W>c
-noremap so <C-W>o
+nnoremap ss <C-W>s
+nnoremap sc <C-W>c
+nnoremap so <C-W>o
 "move
-noremap sj <C-W>j
-noremap sk <C-W>k
+nnoremap sj <C-W>j
+nnoremap sk <C-W>k
+nnoremap sh <C-W>h:call <SID>good_width()<CR>
+nnoremap sl <C-W>l:call <SID>good_width()<Cr>
+
+function! s:good_width()
+  if winwidth(0) < 84
+    vertical resize 84
+  endif
+endfunction
+
 "resize
-noremap + <C-W>+
-noremap - <C-W>-
-command! Big wincmd _ | wincmd |
-noremap z<SPACE> :<C-u>Big<CR>
-noremap z0 1<C-W>_
-noremap z. <C-W>=
+nnoremap + <C-W>+
+nnoremap - <C-W>-
+
+function! s:big()
+    wincmd _ | wincmd |
+endfunction
+nnoremap s<CR> :<C-u>call <SID>big()<CR>
+
+nnoremap s0 1<C-W>_
+nnoremap s. <C-W>=
+
 
 nnoremap <Space>w :<C-u>update<CR><C-l>
 nnoremap <Space>q :<C-u>qall<CR>
@@ -392,10 +406,6 @@ nnoremap <SPACE>p :<C-u>cprevious<CR>
 
 "invert number and list options
 nnoremap <silent> sv :<C-u>call InvertList()<CR>
-
-"convert into HTML entity reference
-nnoremap sh :<C-u>call ConvertToHTMLEntityRef()<CR>
-
 
 " For plugins "{{{1
 "NERD_tree
