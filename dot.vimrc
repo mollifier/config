@@ -387,11 +387,6 @@ nnoremap <Space>m :<C-u>make<CR>
 nnoremap <silent> <SPACE>k k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 nnoremap <silent> <SPACE>j :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
-" expand to full file path
-cnoremap <C-X> <C-R>=expand('%:p')<CR>
-" expand to dirrectory
-cnoremap <C-Z> <C-R>=expand('%:p:h')<CR>/
-
 "call function
 "invert hlsearch
 nnoremap <SPACE>c :<C-u>call InvertHlsearch()<CR>
