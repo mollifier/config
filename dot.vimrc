@@ -376,7 +376,7 @@ nnoremap s0 1<C-W>_
 nnoremap s. <C-W>=
 
 
-nnoremap <Space>w :<C-u>update<CR><C-l>
+nnoremap <Space>w :<C-u>update<CR>:<C-u>echo ""<CR>
 nnoremap <Space>q :<C-u>qall<CR>
 
 nnoremap <C-h> :<C-u>help<Space>
