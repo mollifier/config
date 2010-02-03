@@ -354,8 +354,8 @@ nnoremap so <C-W>o
 "move
 nnoremap sj <C-W>j
 nnoremap sk <C-W>k
-nnoremap sh <C-W>h:call <SID>good_width()<CR>
-nnoremap sl <C-W>l:call <SID>good_width()<Cr>
+nnoremap <silent> sh <C-W>h:call <SID>good_width()<CR>
+nnoremap <silent> sl <C-W>l:call <SID>good_width()<Cr>
 
 function! s:good_width()
   if winwidth(0) < 84
@@ -370,7 +370,7 @@ nnoremap - <C-W>-
 function! s:big()
     wincmd _ | wincmd |
 endfunction
-nnoremap s<CR> :<C-u>call <SID>big()<CR>
+nnoremap <silent> s<CR> :<C-u>call <SID>big()<CR>
 
 nnoremap s0 1<C-W>_
 nnoremap s. <C-W>=
