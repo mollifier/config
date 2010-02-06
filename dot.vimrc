@@ -367,6 +367,8 @@ endfunction
 "resize
 nnoremap + <C-W>+
 nnoremap - <C-W>-
+nnoremap ) <C-W>>
+nnoremap ( <C-W><LT>
 
 function! s:big()
     wincmd _ | wincmd |
