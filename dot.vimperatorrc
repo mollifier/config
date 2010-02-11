@@ -10,6 +10,8 @@ set runtimepath=$HOME/.vimperator
 " l : Firefox location bar entries
 set complete=tSl
 
+colorscheme sweets_snaka
+
 " n: tab number
 " r: right scrollbar
 " b: bottom scrollbar
