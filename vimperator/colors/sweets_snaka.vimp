@@ -58,7 +58,7 @@ style -name tab chrome://* <<EOM
 }
 .tabbrowser-tab[selected=false] { background: #ddd !important; }
 .tabbrowser-tab[selected=true] > .tab-text { color: #ddd !important; }
-.tabbrowser-tab[selected=true] { background: Pink !important; }
+.tabbrowser-tab[selected=true] { background: #8B0A50 !important; }
 .tabbrowser-strip { background: #333 !important; }
 /* remove close button */
 .tab-close-button {
