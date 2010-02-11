@@ -16,7 +16,6 @@ set nrformats-=octal    "don't use octal number
 set history=50
 let g:netrw_alto=1
 set completeopt=menuone,preview
-set clipboard=autoselect,unnamed
 
 set modeline
 set modelines=5
