@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: omni_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 11 Dec 2009
+" Last Modified: 02 Feb 2010
 " Usage: Just source this file.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,11 +23,21 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.10, for Vim 7.0
+" Version: 1.13, for Vim 7.0
 "-----------------------------------------------------------------------------
 " ChangeLog: "{{{
-"   1.10:
+"   1.13:
+"    - Supported omnifunc name pattern.
+"    - Fixed complete length bug.
+"
+"   1.12:
+"    - Added vimshell omni completion support.
+"    - Fixed complete length bug.
+"
+"   1.11:
 "    - Supported mark down filetype.
+"    - Deleted C/C++ omni completion support.
+"    - Don't fnamemodify.
 "
 "   1.09:
 "    - Fixed manual completion error.
@@ -121,10 +131,13 @@ function! neocomplcache#complfunc#omni_complete#initialize()"{{{
                 \'\h\w\+\|\%(\h\w*\|)\)\%(\.\|->\)\h\w*')
     call neocomplcache#set_variable_pattern('g:NeoComplCache_OmniPatterns', 'cpp',
                 \'\%(\h\w*\|)\)\%(\.\|->\)\h\w*\|\h\w*::')
+    call neocomplcache#set_variable_pattern('g:NeoComplCache_OmniPatterns', 'vimshell',
+                \'\%(\\[^[:alnum:].-]\|[[:alnum:]@/.-_+,#$%~=*]\)\{2,}')
     "}}}
 
     let s:keyword_cache = {}
     let s:iskeyword = 0
+    let s:completion_length = neocomplcache#get_completion_length('omni_complete')
     
     augroup neocomplcache
         " Caching events
@@ -139,12 +152,19 @@ function! neocomplcache#complfunc#omni_complete#finalize()"{{{
 endfunction"}}}
 
 function! neocomplcache#complfunc#omni_complete#get_keyword_pos(cur_text)"{{{
-    if !exists('&l:omnifunc') || &l:omnifunc == '' || &filetype == '' 
+    if &l:omnifunc == ''
         return -1
     endif
 
-    if neocomplcache#is_auto_complete() &&
-                \(!has_key(g:NeoComplCache_OmniPatterns, &filetype) || g:NeoComplCache_OmniPatterns[&filetype] == '')
+    if has_key(g:NeoComplCache_OmniPatterns, &l:omnifunc)
+        let l:pattern = g:NeoComplCache_OmniPatterns[&l:omnifunc]
+    elseif &filetype != '' && has_key(g:NeoComplCache_OmniPatterns, &filetype)
+        let l:pattern = g:NeoComplCache_OmniPatterns[&filetype]
+    else
+        let l:pattern = ''
+    endif
+    
+    if neocomplcache#is_auto_complete() && l:pattern == ''
         return -1
     endif
     
@@ -162,9 +182,9 @@ function! neocomplcache#complfunc#omni_complete#get_keyword_pos(cur_text)"{{{
     let s:iskeyword = 0
 
     if neocomplcache#is_auto_complete() &&
-                \l:cur_text !~ '\%(' . g:NeoComplCache_OmniPatterns[&filetype] . '\m\)$'
+                \l:cur_text !~ '\%(' . l:pattern . '\m\)$'
         " Check pattern.
-        if has_key(s:keyword_cache, &filetype)
+        if &filetype != '' && has_key(s:keyword_cache, &filetype)
             let s:iskeyword = 1
             return match(l:cur_text, '\h\w\+$')
         else
@@ -191,6 +211,11 @@ function! neocomplcache#complfunc#omni_complete#get_keyword_pos(cur_text)"{{{
         call setline('.', l:line)
     endif
     call setpos('.', l:pos)
+    
+    if col('.') - l:cur_keyword_pos < s:completion_length 
+        " Too short completion length.
+        return -1
+    endif
 
     return l:cur_keyword_pos
 endfunction"}}}
@@ -211,20 +236,6 @@ function! neocomplcache#complfunc#omni_complete#get_complete_words(cur_keyword_p
         let l:cur_keyword_str = a:cur_keyword_str
     endif
     
-    if &filetype == 'c' || &filetype == 'cpp'
-        let l:filename = fnamemodify(bufname('%'), ':p')
-        let l:tags_save = &tags
-        
-        let l:tags = []
-        for l:include_file in neocomplcache#plugin#include_complete#get_include_files(bufnr('%'))
-            if neocomplcache#cache#filereadable('include_tags', l:include_file)
-                call add(l:tags, neocomplcache#cache#getfilename('include_tags', l:include_file))
-            endif
-        endfor
-        
-        let &tags = &tags . ',' . escape(join(l:tags, ','), ' ')
-    endif
-    
     try
         if &filetype == 'ruby' && l:is_wildcard
             let l:line = getline('.')
@@ -242,10 +253,6 @@ function! neocomplcache#complfunc#omni_complete#get_complete_words(cur_keyword_p
     endtry
     call setpos('.', l:pos)
 
-    if &filetype == 'c' || &filetype == 'cpp'
-        let &tags = l:tags_save
-    endif
-    
     if empty(l:list)
         return []
     endif
@@ -302,7 +309,7 @@ function! s:get_omni_list(list)"{{{
 
     for l:omni in filter(a:list, 'type(v:val) != '.type(''))
         let l:dict = {
-                    \'word' : l:omni.word, 'menu' : '[O] ', 'icase' : 1
+                    \'word' : l:omni.word, 'menu' : '[O]', 'icase' : 1
                     \}
 
         let l:abbr = has_key(l:omni, 'abbr')? l:omni.abbr : l:omni.word
@@ -316,7 +323,7 @@ function! s:get_omni_list(list)"{{{
         endif
 
         if has_key(l:omni, 'menu')
-            let l:dict.menu .= printf(' %.' . g:NeoComplCache_MaxFilenameWidth . 's', fnamemodify(l:omni.menu, ':t'))
+            let l:dict.menu .= ' ' . l:omni.menu
         endif
 
         call add(l:omni_list, l:dict)

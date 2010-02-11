@@ -1,6 +1,6 @@
 *neocomplcache.txt*	Ultimate auto completion system for Vim
 
-Version: 4.02
+Version: 4.09
 Author : Shougo <Shougo.Matsu@gmail.com>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -353,14 +353,6 @@ g:NeoComplCache_SameFileTypeLists			*g:NeoComplCache_SameFileTypeLists*
 		Because it is complicated, refer to
 		autoload/neocomplcache.vim for the initial value.
 
-g:NeoComplCache_NonBufferFileTypeDetect			*g:NeoComplCache_NonBufferFileTypeDetect*
-		It is a dictionary to connect file type with extension.
-		When neocomplcache cannot judge file type well, dictionary
-		files are effective.
-	
-		Because it is complicated, refer to
-		autoload/neocomplcache.vim for the initial value.
-
 g:NeoComplCache_DictionaryFileTypeLists			*g:NeoComplCache_DictionaryFileTypeLists*
 		It is a dictionary to connect a dictionary file with file
 		type.  The dictionary's key is filetype and value is a path
@@ -381,6 +373,11 @@ g:NeoComplCache_DisableSelectModeMappings		*g:NeoComplCache_DisableSelectModeMap
 		better usually validate it.
 		
 		Default value is 1.
+
+g:NeoComplCache_CtagsProgram				*g:NeoComplCache_CtagsProgram*
+		It is the path to the ctags command.
+		
+		Default value is "ctags".
 
 g:NeoComplCache_CtagsArgumentsList			*g:NeoComplCache_CtagsArgumentsList*
 		It is the dictionary of the character string to set a value
@@ -506,6 +503,13 @@ neocomplcache#undo_completion				*neocomplcache#undo_completion*
 >
 		inoremap <expr><C-g>     neocomplcache#undo_completion()
 <
+neocomplcache#complete_common_string()			*neocomplcache#complete_common_string()*
+		Use this function on inoremap <expr>.  Complete common
+		string in candidates. It will be convenient when candidates
+		have long common string.
+>
+		inoremap <expr><C-l>     neocomplcache#complete_common_string()
+<
 ==============================================================================
 EXAMPLES					*neocomplcache-examples*
 >
@@ -538,6 +542,7 @@ EXAMPLES					*neocomplcache-examples*
 	smap <C-l>     <Plug>(neocomplcache_snippets_expand)
 	inoremap <expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
 	inoremap <expr><C-g>     neocomplcache#undo_completion()
+	inoremap <expr><C-l>     neocomplcache#complete_common_string()
 <
 ==============================================================================
 PLUGINS					*neocomplcache-plugins*
@@ -604,6 +609,93 @@ ability of neocomplcache will spread by creating plugin by yourself.
 ==============================================================================
 CHANGELOG					*neocomplcache-changelog*
 
+   4.09:
+    - Improved syntax detect in snippets_complete.
+    - Improved NeoComplCachePrintSnippets command.
+    - Fixed snippet newline expand in snippets_complete.
+    - Improved syntax highlight in snippets_complete.
+    - Optimized filename_complete.
+    - Added snippet files(Thanks mfumi!).
+    - Fixed multibyte input bug.
+    - Added interactive termtter keyword.
+    - Added keyword pattern of batch file.
+    - Improved filtering word.
+    - Supported Visual Basic.
+    - Supported lingr-vim.
+    - Update lines number in buffer_complete.
+    - Supported omnifunc name pattern in omni_complete.
+    - Fixed complete length bug in omni_complete.
+    - Fixed wildcard bug.
+    - Fixed indent.
+    - Supported interactive ocaml.
+    
+ChangeLog NeoComplCache 4.00-: {{{
+   4.08:
+    - Improved keywords in vim_complete.
+    - Deleted g:NeoComplCache_NonBufferFileTypeDetect option.
+    - Improved composition filetype keyword support.
+    - Fixed neocomplcache#system.
+    - Added g:NeoComplCache_CtagsProgram option.
+    - Fixed ctags execution bug.
+    - Improved quickmatch behaivior.
+    - Fixed complete length bug in omni_complete.
+    - Fixed wildcard freeze in filename_complete.
+    
+   4.07:
+    - Improved filaname pattern.
+    - Deleted '...' pattern.
+    - Fixed functions_prototype bug in vim_complete.
+    - Added same filetype lists for vimshell iexe.
+    - Added syntax pattern for vimshell iexe.
+    - Fixed filename completion bug.
+    - Added vimshell omni completion support.
+    - Disabled filename_complete in vimshell.
+    - Implemented dictionary_complete.vim.
+    - Optimized buffer_complete.
+    - Improved tex pattern.
+    - Improved same filetype.
+    - Improved filetype completion.
+
+   4.06:
+    - Improved command completion in snippets_complete.
+    - Improved skip directory in filename_complete.
+    - Improved head match.
+    - Added completefunc_complete.
+    - Fixed neocomplcache#get_cur_text() bug.
+    - Fixed unpack dictionary bug in tags_complete.
+    
+   4.05:
+    - Improved snippet alias.
+    - Improved analyzing extra args in vim_complete.
+    - Fixed pattern match error.
+    - Fixed analyzing bug in vim_complete.
+    - Improved check match filter.
+    - Don't fnamemodify in omni_complete.
+    - Improved trunk filename in filename_complete.
+    - Fixed complete common string bug.
+    
+   4.04:
+    - Implemented common string completion.
+    - Added css snippet file.
+    - Added quickmatch key.
+    - Implemented hash.
+    - Use vimproc#system() if available.
+    - Supported vimshell interpreters.
+    - Fixed manual filename completion bug.
+    - Use md5.vim if available.
+    - Cache previous results.
+    - Skip listed files in include_complete.
+    - Implemented fast mode when last completion was skipped.
+    - Deleted C/C++ omni completion support.
+    - Improved caching tag.
+    
+   4.03:
+    - Don't use abs() for Vim7.
+    - Changed display interface in snippets_complete.
+    - Implemented no options in vim_complete.
+    - Improved compatiblity with snipMate.
+    - Fixed typo in neocomplcache.jax.
+    
    4.02:
     - Added Python snippet.
     - Added g:NeoComplCache_TagsFilterPatterns option.
@@ -614,7 +706,6 @@ CHANGELOG					*neocomplcache-changelog*
     - Fixed fatal include_complete error.
     - Fixed haskell and ocaml patterns.
     
-ChangeLog NeoComplCache 4.00-: {{{
    4.01:
     - Added filename pattern.
     - Fixed in TeX behaviour in filename_complete.
@@ -1596,4 +1687,4 @@ ChangeLog AltAutoComplPop: {{{
 }}}
 
 ==============================================================================
-vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:fdm=marker:
+vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:fdm=marker:noet:

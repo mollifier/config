@@ -261,6 +261,7 @@ g:NeoComplCache_CacheLineCount	neocomplcache.txt	/*g:NeoComplCache_CacheLineCoun
 g:NeoComplCache_CachingDisablePattern	neocomplcache.txt	/*g:NeoComplCache_CachingDisablePattern*
 g:NeoComplCache_CachingLimitFileSize	neocomplcache.txt	/*g:NeoComplCache_CachingLimitFileSize*
 g:NeoComplCache_CtagsArgumentsList	neocomplcache.txt	/*g:NeoComplCache_CtagsArgumentsList*
+g:NeoComplCache_CtagsProgram	neocomplcache.txt	/*g:NeoComplCache_CtagsProgram*
 g:NeoComplCache_DictionaryFileTypeLists	neocomplcache.txt	/*g:NeoComplCache_DictionaryFileTypeLists*
 g:NeoComplCache_DisableAutoComplete	neocomplcache.txt	/*g:NeoComplCache_DisableAutoComplete*
 g:NeoComplCache_DisablePluginList	neocomplcache.txt	/*g:NeoComplCache_DisablePluginList*
@@ -287,7 +288,6 @@ g:NeoComplCache_MemberPrefixPatterns	neocomplcache.txt	/*g:NeoComplCache_MemberP
 g:NeoComplCache_MinKeywordLength	neocomplcache.txt	/*g:NeoComplCache_MinKeywordLength*
 g:NeoComplCache_MinSyntaxLength	neocomplcache.txt	/*g:NeoComplCache_MinSyntaxLength*
 g:NeoComplCache_NextKeywordPatterns	neocomplcache.txt	/*g:NeoComplCache_NextKeywordPatterns*
-g:NeoComplCache_NonBufferFileTypeDetect	neocomplcache.txt	/*g:NeoComplCache_NonBufferFileTypeDetect*
 g:NeoComplCache_OmniPatterns	neocomplcache.txt	/*g:NeoComplCache_OmniPatterns*
 g:NeoComplCache_PluginCompletionLength	neocomplcache.txt	/*g:NeoComplCache_PluginCompletionLength*
 g:NeoComplCache_QuickMatchPatterns	neocomplcache.txt	/*g:NeoComplCache_QuickMatchPatterns*
@@ -417,6 +417,7 @@ matchit.vim	matchit.txt	/*matchit.vim*
 neocomplcache	neocomplcache.txt	/*neocomplcache*
 neocomplcache#cancel_popup	neocomplcache.txt	/*neocomplcache#cancel_popup*
 neocomplcache#close_popup	neocomplcache.txt	/*neocomplcache#close_popup*
+neocomplcache#complete_common_string()	neocomplcache.txt	/*neocomplcache#complete_common_string()*
 neocomplcache#manual_filename_complete	neocomplcache.txt	/*neocomplcache#manual_filename_complete*
 neocomplcache#manual_keyword_complete	neocomplcache.txt	/*neocomplcache#manual_keyword_complete*
 neocomplcache#manual_omni_complete	neocomplcache.txt	/*neocomplcache#manual_omni_complete*

@@ -1,6 +1,6 @@
 *neocomplcache.txt*	究極の自動補完環境
 
-Version: 4.02
+Version: 4.09
 Author : Shougo <Shougo.Matsu@gmail.com>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -330,13 +330,6 @@ g:NeoComplCache_SameFileTypeLists			*g:NeoComplCache_SameFileTypeLists*
 		
 		初期値は複雑なので、autoload/neocomplcache.vimを参照せよ。
 
-g:NeoComplCache_NonBufferFileTypeDetect			*g:NeoComplCache_NonBufferFileTypeDetect*
-		拡張子とファイルタイプを関連づけるためのディクショナリ。 辞
-		書ファイルなど、うまくファイルタイプが判定できないときに有効
-		である。
-		
-		初期値は複雑なので、autoload/neocomplcache.vimを参照せよ。
-
 g:NeoComplCache_DictionaryFileTypeLists			*g:NeoComplCache_DictionaryFileTypeLists*
 		ファイルタイプに辞書ファイルを関連づけるためのディクショナリ。
 		キーにファイルタイプ、値に辞書ファイルへのパスを指定する。
@@ -356,10 +349,15 @@ g:NeoComplCache_DisableSelectModeMappings		*g:NeoComplCache_DisableSelectModeMap
 		
 		初期値は1である。
 
+g:NeoComplCache_CtagsProgram				*g:NeoComplCache_CtagsProgram*
+		include_completeなどがタグ生成に使用するctagsコマンドへのパスを指定する。
+		
+		初期値は"ctags"である。
+
 g:NeoComplCache_CtagsArgumentsList			*g:NeoComplCache_CtagsArgumentsList*
-		buffer_completeやinclude_completeがctagsコマンドを使用する際
-		に、 コマンドの引数として与える値を設定するための、ファイル
-		タイプをキーとした文字列の辞書である。
+		include_completeなどがctagsコマンドを使用する際に、コマンドの
+		引数として与える値を設定するための、ファイルタイプをキーと
+		した文字列の辞書である。
 		
 		初期値は複雑なので、autoload/neocomplcache.vimを参照せよ。
 
@@ -461,6 +459,12 @@ neocomplcache#undo_completion				*neocomplcache#undo_completion*
 >
 		inoremap <expr><C-g>     neocomplcache#undo_completion()
 <
+neocomplcache#complete_common_string()			*neocomplcache#complete_common_string()*
+		inoremap <expr>上で使用する。補完候補の共通文字列を補完する。
+		共通文字列が長い場合に便利である。
+>
+		inoremap <expr><C-l>     neocomplcache#complete_common_string()
+<
 ==============================================================================
 EXAMPLES					*neocomplcache-examples*
 >
@@ -493,6 +497,7 @@ EXAMPLES					*neocomplcache-examples*
 	smap <C-l>     <Plug>(neocomplcache_snippets_expand)
 	inoremap <expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
 	inoremap <expr><C-g>     neocomplcache#undo_completion()
+	inoremap <expr><C-l>     neocomplcache#complete_common_string()
 <
 ==============================================================================
 PLUGINS					*neocomplcache-plugins*
