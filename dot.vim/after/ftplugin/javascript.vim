@@ -9,7 +9,7 @@ nnoremap <buffer> ,f i(function() {<CR><CR>})();<C-o>k<Tab>
 inoremap <buffer> ,f (function() {<CR><CR>})();<C-o>k<Tab>
 
 compiler javascriptlint
-au BufWritePost <buffer> silent make
+"au BufWritePost <buffer> silent make
 
 if !exists('b:undo_ftplugin')
     let b:undo_ftplugin = ''
