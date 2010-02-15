@@ -61,7 +61,7 @@ noremap u <C-u>
 noremap f <C-f>
 noremap b <C-b>
 
-noremap sl '
+noremap sm '
 
 
 " open link in current tab
