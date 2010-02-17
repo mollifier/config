@@ -304,6 +304,8 @@ alias -g N='> /dev/null'
 
 if which pbcopy >/dev/null 2>&1 ;then
     alias -g C='| pbcopy'
+elif which xclip >/dev/null 2>&1 ;then
+    alias -g C='| xclip'
 fi
 
 
