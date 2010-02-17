@@ -302,6 +302,10 @@ alias -g U=' --help | head'
 alias -g P=' --help | less'
 alias -g N='> /dev/null'
 
+if which pbcopy >/dev/null 2>&1 ;then
+    alias -g C='| pbcopy'
+fi
+
 
 # cdd
 cdd_script_path=~/etc/config/zsh/cdd
