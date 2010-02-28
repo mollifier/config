@@ -162,6 +162,8 @@ setopt extended_glob
 setopt magic_equal_subst
 setopt print_eight_bit
 setopt mail_warning
+# remove right prompt from display when accepting a command line.
+setopt transient_rprompt
 
 zstyle ':completion:*:default' menu select=1
 if [[ -d ~/.zsh/cache ]]; then
