@@ -449,10 +449,12 @@ surround-targets	surround.txt	/*surround-targets*
 surround.txt	surround.txt	/*surround.txt*
 syntax_complete	neocomplcache.txt	/*syntax_complete*
 tags_complete	neocomplcache.txt	/*tags_complete*
+vS	surround.txt	/*vS*
 v_[%	matchit.txt	/*v_[%*
 v_]%	matchit.txt	/*v_]%*
 v_a%	matchit.txt	/*v_a%*
 v_g%	matchit.txt	/*v_g%*
+vgS	surround.txt	/*vgS*
 vim_complete	neocomplcache.txt	/*vim_complete*
 vs	surround.txt	/*vs*
 xml-plugin-callbacks	xml-plugin.txt	/*xml-plugin-callbacks*
