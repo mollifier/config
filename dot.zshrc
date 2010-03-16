@@ -305,10 +305,12 @@ alias -g U=' --help | head'
 alias -g P=' --help | less'
 alias -g N='> /dev/null'
 
-if which pbcopy >/dev/null 2>&1 ;then
+if which pbcopy >/dev/null 2>&1 ; then
+    # Mac
     alias -g C='| pbcopy'
-elif which xclip >/dev/null 2>&1 ;then
-    alias -g C='| xclip'
+elif which xsel >/dev/null 2>&1 ; then
+    # Linux
+    alias -g C='| xsel --input --clipboard'
 fi
 
 
