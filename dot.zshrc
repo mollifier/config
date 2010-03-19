@@ -293,6 +293,7 @@ alias eman="LANG=C man"
 alias em="LANG=C man"
 alias di='diff -u'
 alias rlocate='locate --regex'
+alias ema='emacs -nw'
 
 #global aliases
 alias -g L='| less'
