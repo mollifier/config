@@ -146,8 +146,8 @@ set statusline=\ %f\ %m\ %r%{&foldenable!=0?'[fen]':''}%=%l/%L\ (%p%%)\ %{'['.(&
 
 
 " Indent  "{{{1
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set softtabstop=0
 set expandtab
 set autoindent
