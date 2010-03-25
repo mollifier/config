@@ -294,6 +294,7 @@ alias em="LANG=C man"
 alias di='diff -u'
 alias rlocate='locate --regex'
 alias ema='emacs -nw'
+alias ddir="mkdir $(date '+%Y-%m-%d')"
 
 #global aliases
 alias -g L='| less'
