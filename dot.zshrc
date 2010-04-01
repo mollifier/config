@@ -100,6 +100,9 @@ _quote-previous-word-in-double() {
 zle -N _quote-previous-word-in-double
 bindkey '^[d' _quote-previous-word-in-double
 
+# quote URL
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
 
 ##############################
 #default configuration
