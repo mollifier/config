@@ -74,6 +74,7 @@ cnoremap <C-n> <Tab>
 cnoremap <C-p> <S-Tab>
 
 noremap i gt
+noremap e gt
 
 noremap l <C-n>
 noremap h <C-p>
