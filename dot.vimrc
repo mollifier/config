@@ -164,21 +164,12 @@ set backupdir=$HOME/.backup/vi,.
 set hlsearch
 set incsearch
 
-"invert highlight matching
-function! InvertHlsearch()
-    if &hlsearch
-        set nohlsearch
-        echo "disable hlsearch"
-    else
-        set hlsearch
-        echo "enable hlsearch"
-    endif
-endfunction
-
 "search highlighted word in visual mode
 vnoremap * y/<C-R>0<CR>
 vnoremap # y?<C-R>0<CR>
 
+"clear hlsearch
+nnoremap <SPACE>c :<C-u>nohlsearch<CR>
 
 " Color  "{{{1
 
@@ -392,8 +383,6 @@ nnoremap <silent> <SPACE>k k:<C-u>call search ("^". matchstr (getline (line ("."
 nnoremap <silent> <SPACE>j :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 "call function
-"invert hlsearch
-nnoremap <SPACE>c :<C-u>call InvertHlsearch()<CR>
 "invert scrollbind
 nnoremap sb :<C-u>call InvertScrollBindAll()<CR>
 "navi
