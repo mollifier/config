@@ -245,7 +245,7 @@ function presentation() {
 alias ls='ls -F --color=auto'
 alias l='ls'
 alias la='ls -a'
-alias ll='ls -l'
+alias ll='ls -lh'
 alias ld='ls -d'
 alias lt='tree -F'
 
