@@ -95,6 +95,12 @@ map <silent> sgf :set guioptions-=mT<CR>
 " For plugins
 """""""""""""""""""""
 
+" feedSomeKeys_2.js
+autocmd LocationChange .* :fmapc
+autocmd LocationChange 'mail\.google\.com/mail' :fmap -depth 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+autocmd LocationChange 'reader\.livedoor\.com/reader' :fmap j k s a p o v c r g <Space> <S-Space> z b < > ?
+autocmd LocationChange 'www\.google\.com/calendar/' :fmap -vkey -event keydown t a d w m x c e <Del> / + q s ?
+
 " hatena bookmark
 javascript <<EOF
 liberator.globalVariables.hBookmark_shortcuts = {
