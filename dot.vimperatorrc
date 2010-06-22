@@ -103,6 +103,8 @@ autocmd LocationChange 'www\.google\.com/calendar/' :fmap -vkey -event keydown t
 
 " jsdo.it edit page
 autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
+" hatena diary edit page
+autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/d\.hatena\.ne\.jp\/[^\/]+\/edit/.test(buffer.URL)
 
 " hatena bookmark
 javascript <<EOF
