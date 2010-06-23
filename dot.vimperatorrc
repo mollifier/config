@@ -90,6 +90,15 @@ map <silent> gl :tabmove! +1<CR>
 map <silent> sgo :set guioptions+=mT<CR>
 map <silent> sgf :set guioptions-=mT<CR>
 
+" pass-through pages
+" jsdo.it edit page
+autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
+" hatena diary edit page
+autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/d\.hatena\.ne\.jp\/[^\/]+\/edit/.test(buffer.URL)
+" google docs
+autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/docs\.google\.com\//.test(buffer.URL)
+autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/spreadsheets\.google\.com\//.test(buffer.URL)
+
 
 """""""""""""""""""""
 " For plugins
@@ -100,11 +109,6 @@ command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc
 lazy fmaps -u='(fastladder|livedoor)\.com/reader' j k s a p o v c i p <Space> <S-Space> z b < > q w e g ?
 lazy fmaps -u='www\.google\.com/calendar/' -events=vkeydown t a d w m x c e <Del> / + q s ?
-
-" jsdo.it edit page
-autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
-" hatena diary edit page
-autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/d\.hatena\.ne\.jp\/[^\/]+\/edit/.test(buffer.URL)
 
 " hatena bookmark
 javascript <<EOF
