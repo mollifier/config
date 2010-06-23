@@ -95,6 +95,12 @@ map <silent> sgf :set guioptions-=mT<CR>
 " For plugins
 """""""""""""""""""""
 
+" feedSomeKeys_3.js
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+lazy fmaps -u='mail\.google\.com/mail' -frame=4 c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc
+lazy fmaps -u='(fastladder|livedoor)\.com/reader' j k s a p o v c i p <Space> <S-Space> z b < > q w e g ?
+lazy fmaps -u='www\.google\.com/calendar/' -events=keydown t a d w m x c e <Del> / + q s ?
+
 " jsdo.it edit page
 autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
 " hatena diary edit page
