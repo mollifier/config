@@ -8,8 +8,10 @@ autodetach on
 defscrollback 10000
 msgwait 0
 
+# 256color
+attrcolor b ".I"  # Use bright colors for bold text
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 defbce on
-term xterm-256color
 
 #status line
 hardstatus alwayslastline "%{= Kw}: %-w%{=b bw}[%n %t]%{-}%+w"
