@@ -11,7 +11,7 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -process\ %
+CompilerSet makeprg=jsl\ --nologo\ --nofilelisting\ --nosummary\ %
 
 CompilerSet errorformat=%f(%l):\ %m
 
