@@ -237,6 +237,16 @@ function presentation() {
     RPROMPT=""
 }
 
+# usage : body 5,8 [FILE]
+function body() {
+    local exp="${1}"
+    if [ $# -gt 0 ] ; then
+      shift
+    fi
+    sed -n -e "${exp}p" $@
+}
+
+
 ##############################
 #aliases
 ##############################
