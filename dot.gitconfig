@@ -18,5 +18,7 @@
 	lo = log --name-status
 	l = log --pretty=oneline --abbrev-commit
 	br = branch
+	new = log HEAD@{1}..HEAD
+	newp = log HEAD@{1}..HEAD -p
 
 # vim:set list ft=gitconfig noexpandtab:
