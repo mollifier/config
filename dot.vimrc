@@ -142,7 +142,7 @@ endfunction "}}}
 
 " Statusline  "{{{1
 set laststatus=2    "always show statusline
-set statusline=\ %f\ %m\ %r%{&foldenable!=0?'[fen]':''}%=%l/%L\ (%p%%)\ %{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
+let &statusline = ' %f %m %r%{&foldenable!=0?"[fen]":""}%=%l/%L (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
 
 
 " Indent  "{{{1
