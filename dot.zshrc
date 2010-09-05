@@ -50,7 +50,7 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 # like insert-last-word,
 # except that non-words are ignored
-autoload smart-insert-last-word
+autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 #   include words that is at least two characters long
 zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
@@ -82,12 +82,12 @@ bindkey '^Y' _kill-backward-blank-word
 # This implements functions like history-beginning-search-{back,for}ward,
 # but takes the cursor to the end of the line after moving in the
 # history, like history-search-{back,for}ward.
-autoload history-search-end
+autoload -Uz history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 bindkey "^O" history-beginning-search-backward-end
 
 # quote previous word in single or double quote
-autoload -U modify-current-argument
+autoload -Uz modify-current-argument
 _quote-previous-word-in-single() {
     modify-current-argument '${(qq)${(Q)ARG}}'
     zle vi-forward-blank-word
@@ -111,7 +111,7 @@ zle -N self-insert url-quote-magic
 ##############################
 
 #set PROMPT
-autoload -U colors
+autoload -Uz colors
 colors
 
 if [[ -z "${REMOTEHOST}${SSH_CONNECTION}" ]]; then
@@ -179,7 +179,7 @@ add-zsh-hook zshaddhistory _history_ignore
 
 
 #completion
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
