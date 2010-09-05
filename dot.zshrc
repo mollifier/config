@@ -163,6 +163,20 @@ setopt hist_save_nodups
 setopt hist_no_store
 setopt hist_ignore_space
 setopt hist_reduce_blanks
+# do not add unnecessary command line to history
+_history_ignore() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+
+    [[ ${#line} -ge 5
+        && ${cmd} != "rm"
+        && ${cmd} != (l|l[sal])
+        && ${cmd} != (c|cd)
+        && ${cmd} != (m|man)
+    ]]
+}
+add-zsh-hook zshaddhistory _history_ignore
+
 
 #completion
 autoload -U compinit
@@ -214,23 +228,6 @@ setopt ignore_eof
 
 #never ever beep ever
 setopt no_beep
-
-##############################
-#special functions
-##############################
-
-# do not add unnecessary command line to history
-zshaddhistory() {
-    local line=${1%%$'\n'}
-    local cmd=${line%% *}
-
-    [[ ${#line} -ge 5
-        && ${cmd} != "rm"
-        && ${cmd} != (l|l[sal])
-        && ${cmd} != (c|cd)
-        && ${cmd} != (m|man)
-    ]]
-}
 
 ##############################
 #utility functions
