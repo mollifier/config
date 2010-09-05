@@ -5,6 +5,8 @@ umask 022
 limit coredumpsize 0
 stty erase '^h'
 
+autoload -Uz add-zsh-hook
+
 ##############################
 #environment variables
 ##############################
@@ -122,7 +124,6 @@ else
 %# "
 fi
 
-typeset -ga precmd_functions
 # show vcs information
 # see man zshcontrib(1)
 # GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
@@ -132,6 +133,7 @@ zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
+
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
@@ -146,7 +148,7 @@ function _update_vcs_info_msg() {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
-precmd_functions+=_update_vcs_info_msg
+add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
 
