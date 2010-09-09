@@ -1,7 +1,7 @@
 "=============================================================================
-" FILE: snippets.vim
+" FILE: abbrev_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 26 Oct 2009
+" Last Modified: 10 Jun 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,35 +24,41 @@
 " }}}
 "=============================================================================
 
-" Only load this indent file when no other was loaded.
-if exists("b:did_indent")
-  finish
-endif
-let b:did_indent = 1
+let s:source = {
+      \ 'name' : 'abbrev_complete',
+      \ 'kind' : 'plugin',
+      \}
 
-setlocal expandtab
-setlocal shiftwidth=4
-setlocal softtabstop=4
-if !exists('b:undo_indent')
-    let b:undo_indent = ''
-endif
-
-setlocal indentexpr=SnippetsIndent()
-
-function! SnippetsIndent()"{{{
-    let l:line = getline('.')
-    let l:prev_line = (line('.') == 1)? '' : getline(line('.')-1)
-
-    if l:prev_line =~ '^\s*$'
-        return 0
-    elseif l:prev_line =~ '^\%(include\|snippet\|abbr\|prev_word\|rank\|delete\|alias\|condition\)'
-                \&& l:line !~ '^\s*\%(include\|snippet\|abbr\|prev_word\|rank\|delete\|alias\|condition\)'
-        return &shiftwidth
-    else
-        return match(l:line, '\S')
-    endif
+function! s:source.initialize()"{{{
+  " Initialize.
 endfunction"}}}
 
-let b:undo_indent .= '
-    \ | setlocal expandtab< shiftwidth< softtabstop<
-    \'
+function! s:source.finalize()"{{{
+endfunction"}}}
+
+function! s:source.get_keyword_list(cur_keyword_str)"{{{
+  " Get current abbrev list.
+  redir => l:abbrev_list
+  silent! iabbrev
+  redir END
+
+  let l:list = []
+  for l:line in split(l:abbrev_list, '\n')
+    let l:abbrev = split(l:line)
+
+    if l:abbrev[0] !~ '^[!ac]$'
+      " No abbreviation found.
+      return []
+    endif
+
+    call add(l:list, 
+          \{ 'word' : l:abbrev[1], 'menu' : printf('[A] %.'. g:neocomplcache_max_filename_width.'s', l:abbrev[2]) })
+  endfor
+
+  return l:list
+endfunction"}}}
+
+function! neocomplcache#sources#abbrev_complete#define()"{{{
+  return s:source
+endfunction"}}}
+" vim: foldmethod=marker
