@@ -3,7 +3,7 @@
 	email = mollifier@gmail.com
 [core]
 	pager = less --RAW-CONTROL-CHARS --quit-if-one-screen
-	excludesfile = /home/mollifier/.gitignore
+	excludesfile = ~/.gitignore
 [color]
 	diff = auto
 	status = auto
