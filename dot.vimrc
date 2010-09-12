@@ -25,6 +25,10 @@ set matchtime=1     "1/10sec time scale
 set matchpairs+=<:>
 let loaded_matchparen = 1
 
+" don't enable IM when entering Insert/Search mode
+set iminsert=0
+set imsearch=0
+
 set virtualedit+=block " Allow virtual editing in Visual block mode.
 
 set nolist        "show non-printing character
