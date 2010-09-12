@@ -3,7 +3,6 @@
 """""""""""""""""""""
 " option
 """""""""""""""""""""
-set runtimepath=$HOME/.vimperator
 
 " t : Open tabs
 " S : Search engine suggestions
