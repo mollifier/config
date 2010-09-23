@@ -210,6 +210,15 @@ cdpath=(${HOME} ${HOME}/work)
 zstyle ':completion:*:cd:*' group-name ''
 zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
 
+# set characters which are considered word characters
+# see man zshcontrib(1)
+# bash-style word functions
+autoload -Uz select-word-style
+select-word-style default
+# only these characters are not considered word characters
+zstyle ':zle:*' word-chars " /;@:{},|"
+zstyle ':zle:*' word-style unspecified
+
 
 #etc
 #allow comments in interactive shell
@@ -217,8 +226,6 @@ setopt interactive_comments
 setopt rm_star_silent
 setopt no_prompt_cr
 
-#not include / in word characters
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 setopt auto_remove_slash
 
 #disable flow control
