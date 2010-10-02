@@ -131,11 +131,59 @@ if (! my_utils) {
     var my_utils = {};
 }
 
+my_utils.encodeFormData = function(data) {
+    var pairs = [];
+    var spaceRegex = /%20/g;
+    var pair;
+
+    for (var name in data) {
+        if (data.hasOwnProperty(name)) {
+            var pair = encodeURIComponent(name).replace(spaceRegex, "+") + "=" +
+                       encodeURIComponent(data[name]).replace(spaceRegex, "+");
+            pairs.push(pair);
+        }
+    }
+
+    // return empty string if data is null or empty object.
+    return pairs.join("&");
+};
+
+// data are encoded in this function
+my_utils.httpPost = function(url, data, callback) {
+    try {
+        var xhr = new XMLHttpRequest();
+        xhr.mozBackgroundRequest = true;
+
+        if (callback) {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    callback(xhr);
+                }
+            }
+        }
+
+        xhr.open("POST", url, !!callback);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(my_utils.encodeFormData(data));
+
+        return xhr;
+    } catch (e) {
+        liberator.log("Error opening " + url + ": " + e, 1);
+        return null;
+    }
+};
+
 my_utils.getGoogleShortUrl = function() {
     var ret = "";
-    var xhr = util.httpGet("http://ggl-shortener.appspot.com/?url=" + encodeURIComponent(buffer.URL));
-    if (xhr && xhr.status === 200) {
-        ret = JSON.parse(xhr.responseText).short_url;
+    var response;
+    var data = {"url": buffer.URL};
+    var xhr = my_utils.httpPost("http://goo.gl/api/url", data);
+    // xhr.status will be '201 Created'
+    if (xhr) {
+        response = JSON.parse(xhr.responseText);
+        if (response.short_url) {
+            ret = response.short_url;
+        }
     }
     return ret;
 };
@@ -167,4 +215,4 @@ EOF
 
 source! ~/.vimperatorrc.local
 
-" vim: set ft=vimperator:
+" vim: set ts=4 sw=4 sts=0 ft=vimperator:
