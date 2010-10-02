@@ -270,6 +270,14 @@ g:quickrun_config	quickrun.jax	/*g:quickrun_config*
 g:quickrun_no_default_key_mappings	quickrun.jax	/*g:quickrun_no_default_key_mappings*
 include_complete	neocomplcache.jax	/*include_complete*
 keyword_complete	neocomplcache.jax	/*keyword_complete*
+l9	l9.jax	/*l9*
+l9-about	l9.jax	/*l9-about*
+l9-author	l9.jax	/*l9-author*
+l9-contact	l9.jax	/*l9-contact*
+l9-installation	l9.jax	/*l9-installation*
+l9-introduction	l9.jax	/*l9-introduction*
+l9-usage	l9.jax	/*l9-usage*
+l9.txt	l9.jax	/*l9.txt*
 neocomplcache	neocomplcache.jax	/*neocomplcache*
 neocomplcache#cancel_popup()	neocomplcache.jax	/*neocomplcache#cancel_popup()*
 neocomplcache#close_popup()	neocomplcache.jax	/*neocomplcache#close_popup()*
