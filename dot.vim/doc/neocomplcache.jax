@@ -1,6 +1,6 @@
 *neocomplcache.txt*	究極の自動補完環境
 
-Version: 5.1
+Version: 5.2
 Author : Shougo <Shougo.Matsu@gmail.com>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -25,12 +25,14 @@ License: MIT license  {{{
 CONTENTS						*neocomplcache-contents*
 
 Introduction		|neocomplcache-introduction|
+Install			|neocomplcache-install|
 Interface		|neocomplcache-interface|
   Commands		  |neocomplcache-commands|
   Variables		  |neocomplcache-variables|
   Key mappings		  |neocomplcache-key-mappings|
 Examples		|neocomplcache-examples|
 Plugins			|neocomplcache-plugins|
+  User plugins		  |neocomplcache-user-plugins|
 Snippet			|neocomplcache-snippet|
 Create plugin		|neocomplcache-create-plugin|
 Changelog		|neocomplcache-changelog|
@@ -47,6 +49,20 @@ INTRODUCTION						*neocomplcache-introduction*
 neocomplcache Ver.5では、かなりの変数名が変更されているため、後方互換性がなくな
 っている。移行の際には、thinca氏の作成した次のスクリプトを利用すると良いだろう。
 http://gist.github.com/422503
+
+neocomplcacheの導入については、yuitowest氏の作成したこの記事を参考にすると良い
+だろう。
+http://d.hatena.ne.jp/yuitowest/20100907/1283865197
+この記事はVer.5.1対応だが、Ver.5.2でもインストール方法はそれほど変わらない。
+
+==============================================================================
+INSTALL							*neocomplcache-install*
+
+1: 配布ファイルを解凍し、Vimスクリプトのディレクトリへインストールする
+   (普通は ~/.vim/ またはWindowsの場合、 $HOME/vimfiles)
+2: neocomplcacheはデフォルトで無効化されている。有効にするためには、
+|:NeoComplCacheEnable|コマンドを実行するか、
+let g:neocomplcache_enable_at_startup = 1 を.vimrc内に記述する。
 
 ==============================================================================
 INTERFACE						*neocomplcache-interface*
@@ -65,7 +81,7 @@ COMMANDS 						*neocomplcache-commands*
 		neocomplcacheのロック状態を切り替える。
 		ロックしている間は自動補完ができなくなる。
 
-:Neco 							*:Neco*
+:Neco [{anim-number}] 					*:Neco*
 		？？？
 
 :NeoComplCacheLock					*:NeoComplCacheLock*
@@ -97,6 +113,11 @@ COMMANDS 						*neocomplcache-commands*
 		[bufname]のタグをキャッシュする。 [bufname]を省略すると、カ
 		レントバッファのファイルタイプを指定したことになる。 これを
 		実行しなければ、tags_completeは動作しない。
+
+:NeoComplCacheCachingInclude [bufname]			*:NeoComplCacheCachingInclude*
+		[bufname]のインクルードファイルを再キャッシュする。 [bufname]を
+		省略すると、カレントバッファのファイルタイプを指定したことにな
+		る。
 
 :NeoComplCacheDisableCaching [bufname]			*:NeoComplCacheDisableCaching*
 		[bufname]で示されるバッファをキャッシュしないようにする。 バッ
@@ -242,6 +263,12 @@ g:neocomplcache_enable_auto_select			*g:neocomplcache_enable_auto_select*
 		
 		初期値は0である。
 
+g:neocomplcache_enable_auto_delimiter			*g:neocomplcache_enable_auto_delimiter*
+		neocomplcacheが補完時に自動でデリミタを補完するかどうかを制御す
+		る。デリミタとは、ファイル名補完での /やVim scriptでの#である。
+		
+		初期値は0である。
+
 g:neocomplcache_cursor_hold_i_time			*g:neocomplcache_cursor_hold_i_time*
 		|g:neocomplcache_enable_cursor_hold_i|が有効になっている場合、
 		自動補完を開始するための計算時間を定義する。このオプションは
@@ -264,10 +291,10 @@ g:neocomplcache_enable_underbar_completion		*g:neocomplcache_enable_underbar_com
 		
 		副作用があるので、初期値は0となっている。
 
-g:neocomplcache_enable_display_parameter		*g:neocomplcache_enable_display_parameter*
-		入力中に、関数のプロトタイプをCommand-lineに表示するかを制御
-		する。 現在はvim_completeのみ対応している。
-	
+g:neocomplcache_enable_caching_message			*g:neocomplcache_enable_caching_message*
+		キャッシュ中に、メッセージをCommand-lineに表示するかを制御
+		する。
+		
 		初期値は1である。
 
 g:neocomplcache_caching_limit_file_size			*g:neocomplcache_caching_limit_file_size*
@@ -278,13 +305,27 @@ g:neocomplcache_caching_limit_file_size			*g:neocomplcache_caching_limit_file_si
 
 g:neocomplcache_disable_caching_buffer_name_pattern	*g:neocomplcache_disable_caching_buffer_name_pattern*
 		キャッシュしないバッファ名のパターンを正規表現で設定する。空
-		文字列だと無効になる。
+		文字列だと無視される。
 		
 		初期値は空となっている。
 
 g:neocomplcache_lock_buffer_name_pattern		*g:neocomplcache_lock_buffer_name_pattern*
-		バッファをキャッシュしないバッファ名のパターンを正規表現で設
-		定する。 空文字列だと無効になる。
+		neocomplcacheの自動補完を無効化するバッファ名のパターンを正規表
+		現で設定する。空文字列だと無視される。
+		
+		初期値は空となっている。
+
+g:neocomplcache_force_caching_buffer_name_pattern	*g:neocomplcache_force_caching_buffer_name_pattern*
+		neocomplcacheが'readonly'や'nomodifiable'を無視して強制的にキャ
+		ッシュするバッファ名のパターンを正規表現で設定する。空文字列だ
+		と無視される。
+		
+		初期値は空となっている。
+
+g:neocomplcache_disable_auto_select_buffer_name_pattern	*g:neocomplcache_disable_auto_select_buffer_name_pattern*
+		|g:neocomplcache_enable_auto_select|による候補の自動選択を無効
+		化するバッファ名のパターンを正規表現で設定する。空文字列だと無
+		視される。
 		
 		初期値は空となっている。
 
@@ -429,8 +470,9 @@ g:neocomplcache_include_patterns			*g:neocomplcache_include_patterns*
 		s:source.initialize()を参照せよ。
                 
 g:neocomplcache_member_prefix_patterns			*g:neocomplcache_member_prefix_patterns*
-		include_completeやtags_completeでメンバ補完するためのキーワー
-		ドパターンを記録する。これはファイルタイプ毎に正規表現で指定
+		include_completeやtags_complete,
+		buffer_completeがメンバを認識するための
+		パターンを記録する。これはファイルタイプ毎に正規表現で指定
 		されている。
 		
 		初期値は複雑なので、autoload/neocomplcache.vimのneocomplcache#enable()を参照せよ。
@@ -579,7 +621,8 @@ neocomplcache#sources#snippets_complete#expandable()	*neocomplcache#sources#snip
 ==============================================================================
 EXAMPLES						*neocomplcache-examples*
 
-doc/neocomplcache.txtを参照せよ。
+doc/neocomplcache.txt(英語ヘルプ)の|neocomplcache-examples|を参照せよ。
+これは作者が普段使っている設定を基にしている。
 
 ==============================================================================
 PLUGINS							*neocomplcache-plugins*
@@ -609,38 +652,57 @@ tags_complete.vim					*tags_complete*
 		ルード補完を使用するべきである。
 
 syntax_complete.vim					*syntax_complete*
-		標準で提供されているautoload/syntaxcomplete.vimのように、 シ
-		ンタックスファイルを解析し、補完候補に加えるプラグイン。
+		標準で提供されているautoload/syntaxcomplete.vimのように、シン
+		タックスファイルを解析し、補完候補に加えるプラグイン。
 		autoload/syntaxcomplete.vimよりもたくさんの候補を認識できる。
 
 include_complete.vim					*include_complete*
-		開いているバッファを解析し、参照しているファイルを自動的に候
-		補に加えるプラグイン。 いちいちタグファイルや辞書ファイルを
-		用意しなくて良いので便利である。 ただし、'path'や'include',
+		開いているバッファを解析し、参照しているファイルを自動的に候補
+		に加えるプラグイン。 いちいちタグファイルや辞書ファイルを用意し
+		なくて良いので便利である。 ただし、'path'や'include',
 		'includeexpr'が適切に設定されている必要がある。
                 
 vim_complete.vim					*vim_complete*
-		実験的機能。文脈を解析し、VimScriptのオムニ補完を行う。
+		文脈を解析し、VimScriptのオムニ補完を行う。
 		VimScriptの編集時以外では動作しない。 neocomplcacheからは
-		|i_CTRL-X_CTRL-V|が呼び出せないため作られた。 標準で用意され
-		ている補完よりも、高機能なものにすることが目標である。 現在、
+		|i_CTRL-X_CTRL-V|が呼び出せないため作られた。 現在、
 		ローカル変数やスクリプト変数、関数やコマンドの解析が実装され
 		ている。
 
 dictionary_complete.vim					*dictionary_complete*
-		
+		'dictionary'または|g:neocomplcache_dictionary_filetype_lists|
+		から候補を収集し、補完候補に加えるプラグインである。
 
 filename_complete.vim					*filename_complete*
-		
+		このプラグインはファイル名を補完候補に加える。ヘッダーファイル
+		の補完などで便利であろう。
 
 omni_complete.vim					*omni_complete*
-		
+		このプラグインはカーソルが|g:neocomplcache_omni_patterns|にマッ
+		チする場合、'omnifunc'を自動的に呼び出す。
+		|g:neocomplcache_omni_function_list|が定義されている場合、そち
+		らが優先される。
 
 completefunc_complete.vim				*completefunc_complete*
-		
+		任意の補完関数から補完候補を収集するためのプラグインだが、未完
+		成である。 現在、補完関数を手動で呼び出すための
+		neocomplcache#sources#completefunc_complete#call_completefunc(funcname)
+		のみが使用できる。
 
 abbrev_complete.vim					*abbrev_complete*
-		
+		abbrevから補完候補を収集するプラグインである。Vimではabbrevがあ
+		まり使われないため、ほとんど使用することはないと思われる。
+
+------------------------------------------------------------------------------
+USER PLUGINS 						*neocomplcache-user-plugins*
+
+ここではneocomplcacheに添付されていない、非標準のプラグインを紹介する。
+
+ghc_complete.vim					*neocomplcache-plugins-ghc_complete*
+		http://github.com/ujihisa/ghc_complete
+		eagletmt氏が作成し、ujihisa氏がメンテナンスをしている。
+		Haskellのソースファイルを補完できるが、動作には
+		ghc-mod <http://www.mew.org/~kazu/proj/ghc-mod/>が必要である。
 
 ==============================================================================
 SNIPPET							*neocomplcache-snippet-completion*
@@ -666,6 +728,13 @@ neocomplcacheではスニペット機能を内蔵している。 スニペット
 詳しくは autoload/neocomplcache/snippet_completeにあるスニペット補完ファイ
 ルを参照せよ。 最近のsnipMateではシンタックスファイルが付属しているが、
 neocomplcacheが使用しているものの方が高機能なので、そちらを利用したほうがよい。
+
+ちなみに、そのsnippet名がすでに定義されていると警告される。
+snippetを明示的に上書きしたい場合は、
+>
+	delete snippets_name
+<
+すると良い。
 
 snipMateと違って、外部スニペットのインクルードも使える。
 	include c
@@ -731,7 +800,7 @@ vnoremapやvmap, mapはselect modeでも有効になるので、変なマッピ�
 インクルードしたスニペットや標準のスニペットを書き換えるときに便利である。
 
 どのファイルタイプでも読み込まれる、'_.snip'がある。
-さらに、snipMate形式のスニペットファイルもそのまま読み込めます。
+さらに、snipMate形式のスニペットファイルもそのまま読み込める。
 
 alias hoge hogera hogehoge
 のように空白もしくは, で区切って指定すると、スニペットの別名定義ができる。

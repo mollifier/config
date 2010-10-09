@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: buffer_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 29 Jul 2010
+" Last Modified: 16 Sep 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -39,7 +39,7 @@ function! s:source.initialize()"{{{
     " Caching events
     autocmd FileType,BufWritePost * call s:check_source()
     autocmd CursorHold * call s:rank_caching_current_cache_line(1)
-    autocmd CursorMoved,CursorHoldI * call s:rank_caching_current_cache_line(0)
+    autocmd InsertEnter,CursorHoldI * call s:rank_caching_current_cache_line(0)
     autocmd InsertLeave * call neocomplcache#sources#buffer_complete#caching_current_cache_line()
     autocmd VimLeavePre * call s:save_all_cache()
   augroup END"}}}
@@ -48,7 +48,7 @@ function! s:source.initialize()"{{{
   call neocomplcache#set_dictionary_helper(g:neocomplcache_plugin_rank, 'buffer_complete', 4)
   
   " Set completion length.
-  call neocomplcache#set_completion_length('buffer_complete', 1)
+  call neocomplcache#set_completion_length('buffer_complete', 0)
 
   " Create cache directory.
   if !isdirectory(g:neocomplcache_temporary_dir . '/buffer_cache')
@@ -93,12 +93,35 @@ endfunction"}}}
 
 function! s:source.get_keyword_list(cur_keyword_str)"{{{
   if neocomplcache#is_auto_complete() && len(a:cur_keyword_str) < s:completion_length
-    return []
+    
+    " Check member prefix pattern.
+    let l:filetype = neocomplcache#get_context_filetype()
+    if !has_key(g:neocomplcache_member_prefix_patterns, l:filetype)
+          \ || g:neocomplcache_member_prefix_patterns[l:filetype] == ''
+      return []
+    endif
+
+    let l:cur_text = neocomplcache#get_cur_text()
+    let l:var_name = matchstr(l:cur_text, '\%(\h\w*\%(()\?\)\?\%(' .
+          \ g:neocomplcache_member_prefix_patterns[l:filetype] . '\m\)\)\+$')
+    if l:var_name == ''
+      return []
+    endif
+
+    let l:keyword_list = []
+    for src in s:get_sources_list()
+      if has_key(s:buffer_sources[src].member_cache, l:var_name)
+        let l:keyword_list += values(s:buffer_sources[src].member_cache[l:var_name])
+      endif
+    endfor
+    
+    return l:keyword_list
   endif
   
   let l:keyword_list = []
 
   let l:current = bufnr('%')
+  
   if len(a:cur_keyword_str) < s:completion_length ||
         \neocomplcache#check_match_filter(a:cur_keyword_str, s:completion_length)
     for src in s:get_sources_list()
@@ -230,7 +253,7 @@ function! s:calc_frequency(list)"{{{
         " Garbage collect
         let l:ignorecase_save = &ignorecase
         let &ignorecase = 0
-        let l:pos = searchpos(neocomplcache#escape_match(l:word), 'ncw', 0, 300)
+        let l:pos = searchpos(neocomplcache#escape_match(l:word), 'ncw', 0)
         let &ignorecase = l:ignorecase_save
         
         if l:pos[0] == 0
@@ -276,7 +299,7 @@ function! s:get_sources_list()"{{{
 endfunction"}}}
 
 function! s:rank_caching_current_cache_line(is_force)"{{{
-  if !s:exists_current_source() || has_key(s:disable_caching_list, bufnr('%'))
+  if !s:exists_current_source() || neocomplcache#is_locked()
     return
   endif
 
@@ -322,6 +345,47 @@ function! s:rank_caching_current_cache_line(is_force)"{{{
 
       " Next match.
       let l:match = match(l:line, l:keyword_pattern, l:match + len(l:match_str))
+    endwhile"}}}
+
+    let l:line_num += 1
+  endwhile
+  
+  let l:filetype = neocomplcache#get_context_filetype(1)
+  if !has_key(g:neocomplcache_member_prefix_patterns, l:filetype)
+        \ || g:neocomplcache_member_prefix_patterns[l:filetype] == ''
+    return
+  endif
+  
+  let l:menu = '[B] member'
+  let l:keyword_pattern = '\%(\h\w*\%(()\?\)\?\%(' . g:neocomplcache_member_prefix_patterns[l:filetype] . '\m\)\)\+\h\w*\%(()\?\)\?'
+  let l:keyword_pattern2 = '^'.l:keyword_pattern
+  let l:member_pattern = '\h\w*\%(()\?\)\?$'
+  
+  " Cache member pattern.
+  let [l:line_num, l:max_lines] = [0, len(l:buflines)]
+  while l:line_num < l:max_lines
+    let l:line = buflines[l:line_num]
+    let l:match = match(l:line, l:keyword_pattern)
+
+    while l:match >= 0"{{{
+      let l:match_str = matchstr(l:line, l:keyword_pattern2, l:match)
+
+      " Next match.
+      let l:match = matchend(l:line, l:keyword_pattern, l:match + len(l:match_str))
+      
+      while l:match_str != ''
+        let l:member_name = matchstr(l:match_str, l:member_pattern)
+        let l:var_name = l:match_str[ : -len(l:member_name)-1]
+
+        if !has_key(l:source.member_cache, l:var_name)
+          let l:source.member_cache[l:var_name] = {}
+        endif
+        if !has_key(l:source.member_cache[l:var_name], l:member_name)
+          let l:source.member_cache[l:var_name][l:member_name] = { 'word' : l:member_name, 'menu' : l:menu }
+        endif
+
+        let l:match_str = matchstr(l:var_name, l:keyword_pattern2)
+      endwhile
     endwhile"}}}
 
     let l:line_num += 1
@@ -372,7 +436,7 @@ function! s:initialize_source(srcname)"{{{
   let l:keyword_pattern = neocomplcache#get_keyword_pattern(l:ft)
 
   let s:buffer_sources[a:srcname] = {
-        \'keyword_cache' : {}, 'rank_lines' : {},
+        \'keyword_cache' : {}, 'rank_lines' : {}, 'member_cache' : {},
         \'name' : l:filename, 'filetype' : l:ft, 'keyword_pattern' : l:keyword_pattern, 
         \'end_line' : l:end_line , 'cache_line_cnt' : l:cache_line_cnt, 
         \'frequencies' : {}, 'check_sum' : len(join(l:buflines[:4], '\n'))
@@ -456,16 +520,19 @@ function! s:check_source()"{{{
 
   " Check new buffer.
   while l:bufnumber <= bufnr('$')
-    if bufloaded(l:bufnumber)
+    if bufwinnr(l:bufnumber) >= 0
       let l:bufname = fnamemodify(bufname(l:bufnumber), ':p')
       if (!has_key(s:buffer_sources, l:bufnumber) || s:check_changed_buffer(l:bufnumber))
             \&& !has_key(s:disable_caching_list, l:bufnumber)
             \&& (g:neocomplcache_disable_caching_buffer_name_pattern == '' || l:bufname !~ g:neocomplcache_disable_caching_buffer_name_pattern)
-            \&& (g:neocomplcache_lock_buffer_name_pattern == '' || l:bufname !~ g:neocomplcache_lock_buffer_name_pattern)
-            \&& getfsize(l:bufname) < g:neocomplcache_caching_limit_file_size
-            \&& getbufvar(l:bufnumber, '&buftype') !~# 'help'
-        " Caching.
-        call s:word_caching(l:bufnumber)
+            \&& !neocomplcache#is_locked(l:bufnumber)
+        if getfsize(l:bufname) < g:neocomplcache_caching_limit_file_size
+              \ && ((g:neocomplcache_force_caching_buffer_name_pattern != '' && l:bufname =~ g:neocomplcache_force_caching_buffer_name_pattern)
+              \       || (getbufvar(l:bufnumber, '&modifiable') && !getbufvar(l:bufnumber, '&readonly') && getbufvar(l:bufnumber, '&buftype') !~ 'help')
+              \)
+          " Caching.
+          call s:word_caching(l:bufnumber)
+        endif
       endif
     endif
 

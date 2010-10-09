@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: keyword_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 29 Jul 2010
+" Last Modified: 20 Aug 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -49,15 +49,15 @@ endfunction"}}}
 
 function! s:source.get_keyword_pos(cur_text)"{{{
   let [l:cur_keyword_pos, l:cur_keyword_str] = neocomplcache#match_word(a:cur_text)
+  if l:cur_keyword_pos < 0
+    " Empty string.
+    return len(a:cur_text)
+  endif
 
   return l:cur_keyword_pos
 endfunction"}}}
 
 function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
-  if neocomplcache#is_eskk_enabled() && !neocomplcache#is_text_mode()
-    return []
-  endif
-  
   " Get keyword list.
   let l:cache_keyword_list = []
   for [l:name, l:plugin] in items(neocomplcache#available_plugins())
@@ -68,7 +68,16 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
       continue
     endif
     
-    let l:list = l:plugin.get_keyword_list(a:cur_keyword_str)
+    try
+      let l:list = l:plugin.get_keyword_list(a:cur_keyword_str)
+    catch
+      call neocomplcache#print_error(v:throwpoint)
+      call neocomplcache#print_error(v:exception)
+      call neocomplcache#print_error('Error occured in plugin''s get_keyword_list()!')
+      call neocomplcache#print_error('Plugin name is ' . l:name)
+      return []
+    endtry
+    
     let l:rank = has_key(g:neocomplcache_plugin_rank, l:name)? 
           \ g:neocomplcache_plugin_rank[l:name] : g:neocomplcache_plugin_rank['keyword_complete']
     for l:keyword in l:list
