@@ -1,25 +1,25 @@
 [user]
-	name = mollifier
-	email = mollifier@gmail.com
+  name = mollifier
+  email = mollifier@gmail.com
 [core]
-	pager = less --RAW-CONTROL-CHARS --quit-if-one-screen
-	excludesfile = ~/.gitignore
+  pager = less --RAW-CONTROL-CHARS --quit-if-one-screen
+  excludesfile = ~/.gitignore
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
-	grep = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  grep = auto
 [alias]
-	di = diff
-	dc = diff --cached
-	st = status
-	ci = commit
-	co = checkout
-	lo = log --name-status
-	l = log --pretty=oneline --abbrev-commit
-	br = branch
-	new = log HEAD@{1}..HEAD
-	newp = log HEAD@{1}..HEAD -p
+  di = diff
+  dc = diff --cached
+  st = status
+  ci = commit
+  co = checkout
+  lo = log --name-status
+  l = log --pretty=oneline --abbrev-commit
+  br = branch
+  new = log HEAD@{1}..HEAD
+  newp = log HEAD@{1}..HEAD -p
 
-# vim:set list ft=gitconfig noexpandtab:
+# vim:set ft=gitconfig:
