@@ -16,6 +16,10 @@ defbce on
 #status line
 hardstatus alwayslastline "%{= Kw}: %-w%{=b bw}[%n %t]%{-}%+w"
 
+# change message, window split line color
+# b : blue
+sorendition "+rb .b"
+
 ##################
 # keybindings
 ##################
