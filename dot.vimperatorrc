@@ -68,6 +68,8 @@ noremap o f
 " open link in new tab
 noremap t F
 
+noremap . r
+
 " tab
 cnoremap <C-n> <Tab>
 cnoremap <C-p> <S-Tab>
