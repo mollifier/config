@@ -324,6 +324,7 @@ alias di='diff -u'
 alias rlocate='locate --regex'
 alias ema='emacs -nw'
 alias ddir="mkdir $(date '+%Y-%m-%d')"
+alias mkzip='zip -q -r'
 
 #global aliases
 alias -g L='| less'
