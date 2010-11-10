@@ -4,6 +4,9 @@
 [core]
   pager = less --RAW-CONTROL-CHARS --quit-if-one-screen
   excludesfile = ~/.gitignore
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
 [color]
   diff = auto
   status = auto
