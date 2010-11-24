@@ -183,6 +183,9 @@ add-zsh-hook zshaddhistory _history_ignore
 autoload -Uz compinit
 compinit
 
+# match uppercase from lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 setopt auto_menu
