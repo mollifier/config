@@ -337,6 +337,9 @@ function make_date_dir_and_cd() {
 }
 alias ddir='make_date_dir_and_cd'
 
+alias svngrep='find . -type d -name .svn -prune -o -type f -print0 \
+  | xargs -0 grep --with-filename --line-number'
+
 #global aliases
 alias -g L='| less'
 alias -g H='| head'
