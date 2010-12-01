@@ -326,8 +326,16 @@ alias em="LANG=C man"
 alias di='diff -u'
 alias rlocate='locate --regex'
 alias ema='emacs -nw'
-alias ddir="mkdir $(date '+%Y-%m-%d')"
 alias mkzip='zip -q -r'
+
+function make_date_dir_and_cd() {
+    local date_dir=$(date '+%Y-%m-%d')
+    if [ ! -d "$date_dir" ]; then
+        mkdir "$date_dir" || return
+    fi
+    cd "$date_dir"
+}
+alias ddir='make_date_dir_and_cd'
 
 #global aliases
 alias -g L='| less'
