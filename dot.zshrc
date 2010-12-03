@@ -256,12 +256,14 @@ function presentation() {
     RPROMPT=""
 }
 
-# usage : body 5,8 [FILE]
 function body() {
-    local exp="${1}"
-    if [ $# -gt 0 ] ; then
-      shift
+    if [ $# -eq 0 ] ; then
+        echo "usage: $0 START,END [FILE]"
+        return
     fi
+
+    local exp="${1}"
+    shift
     sed -n -e "${exp}p" $@
 }
 
