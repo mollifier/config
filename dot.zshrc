@@ -384,4 +384,4 @@ if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
 fi
 
-# vim:set ft=zsh:
+# vim:set ft=zsh ts=4 sw=4 sts=0:
