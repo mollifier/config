@@ -265,6 +265,9 @@ function body() {
     sed -n -e "${exp}p" $@
 }
 
+function scouter() {
+    sed -e '/^\s*$/d' -e '/^\s*#/d' ~/.zshrc | wc -l
+}
 
 ##############################
 #aliases
