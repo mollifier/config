@@ -1,0 +1,3 @@
+[submodule "dotto"]
+	path = dotto
+	url = https://github.com/tyru/dotto.git
