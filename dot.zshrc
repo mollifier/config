@@ -379,6 +379,11 @@ if [[ -f $cdd_script_path ]]; then
 fi
 unset cdd_script_path
 
+# perl
+if [[ -f ~/perl5/perlbrew/etc/bashrc ]]; then
+    source ~/perl5/perlbrew/etc/bashrc
+fi
+
 # source local rcfile
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
