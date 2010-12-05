@@ -5,6 +5,12 @@ umask 022
 limit coredumpsize 0
 stty erase '^h'
 
+# make directory for cdd, completion cache, ...
+_zsh_user_config_dir="${HOME}/.zsh"
+if [[ ! -d ${_zsh_user_config_dir} ]]; then
+    mkdir -p ${_zsh_user_config_dir}
+fi
+
 autoload -Uz add-zsh-hook
 
 ##############################
@@ -198,9 +204,9 @@ setopt mail_warning
 setopt transient_rprompt
 
 zstyle ':completion:*:default' menu select=1
-if [[ -d ~/.zsh/cache ]]; then
+if [[ -d ${_zsh_user_config_dir}/cache ]]; then
     zstyle ':completion:*' use-cache yes
-    zstyle ':completion:*' cache-path ~/.zsh/cache
+    zstyle ':completion:*' cache-path ${_zsh_user_config_dir}/cache
 fi
 
 
@@ -388,5 +394,7 @@ fi
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
 fi
+
+unset _zsh_user_config_dir
 
 # vim:set ft=zsh ts=4 sw=4 sts=0:
