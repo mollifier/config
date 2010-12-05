@@ -10,7 +10,26 @@
 #定数
 #####################
 declare -r SCRIPT_NAME=${0##*/}
+declare -r SRC_DIR_NAME=$(dirname $0)
+declare -r DEST_DIR_NAME=${HOME}
 
+dotfiles=(
+  'dot.atoolrc'
+  'dot.bash_profile'
+  'dot.bashrc'
+  'dot.emacs'
+  'dot.gitconfig'
+  'dot.gitignore'
+  'dot.gvimrc'
+  'dot.screenrc'
+  'dot.vim'
+  'dot.vimperator'
+  'dot.vimperatorrc'
+  'dot.vimrc'
+  'dot.xmodmaprc'
+  'dot.zshenv'
+  'dot.zshrc'
+)
 
 #####################
 #関数
@@ -36,6 +55,11 @@ print_error()
     echo "Try \`-h' option for more information." 1>&2
 }
 
+# リンク元ファイル名からリンク先ファイル名を作成する
+get_dest_filename()
+{
+  echo "${1}" | sed -e 's/^dot\././'
+}
 
 #####################
 #メイン処理
@@ -71,18 +95,11 @@ while getopts ':vt:h' option; do
 done
 shift $(expr $OPTIND - 1)
 
-file_name=$1
-
-if [ -z "$file_name" ]; then
-    print_error 'you must specify filename'
-    exit 1
-fi
-
-    cat << EOF
-VERBOSE   = $verbose
-TYPE      = $type
-FILE NAME = $file_name
-EOF
+cd $SRC_DIR_NAME
+for src_filename in ${dotfiles[@]};do
+  dest_filename=$(get_dest_filename $src_filename)
+  echo ln -s -Fi ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
+done
 
 exit $?
 
