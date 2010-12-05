@@ -39,11 +39,11 @@ dotfiles=(
 print_usage()
 {
     cat << EOF
-Usage: $SCRIPT_NAME [-v] [-t TYPE] FILE
+Usage: $SCRIPT_NAME [-fd]
 Shell script template.
 
-  -v           verbosely display error message
-  -t TYPE      specify filetype
+  -f           verbosely display error message
+  -d           dry run
   -h           display this help and exit
 EOF
 }
@@ -65,19 +65,17 @@ get_dest_filename()
 #メイン処理
 #####################
 
-#変数
-verbose=0
-type=''
-file_name=''
+# false : not make link
+# true : make link actually
+make_link="false"
 
-#引数解析
-while getopts ':vt:h' option; do
+while getopts ':fdh' option; do
     case $option in
-    v)
-        verbose=1
+    f)
+        make_link="true"
         ;;
-    t)
-        type=$OPTARG
+    d)
+        make_link="false"
         ;;
     h)
         print_usage
@@ -98,7 +96,12 @@ shift $(expr $OPTIND - 1)
 cd $SRC_DIR_NAME
 for src_filename in ${dotfiles[@]};do
   dest_filename=$(get_dest_filename $src_filename)
-  echo ln -s -Fi ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
+
+  if [ "$make_link" == "true" ]; then
+    ln -s ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
+  else
+    echo ln -s ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
+  fi
 done
 
 exit $?
