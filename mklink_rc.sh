@@ -1,19 +1,19 @@
 #!/bin/bash
 
 ##########################################################
-# シェルスクリプト テンプレート
+# make symbolic links to dotfiles
 ##########################################################
 
 #set -o noglob
 
 #####################
-#定数
+# constatns
 #####################
 declare -r SCRIPT_NAME=${0##*/}
 declare -r SRC_DIR_NAME=$(dirname $0)
 declare -r DEST_DIR_NAME=${HOME}
 
-dotfiles=(
+declare -ar DOTFILES=(
   'dot.atoolrc'
   'dot.bash_profile'
   'dot.bashrc'
@@ -32,37 +32,39 @@ dotfiles=(
 )
 
 #####################
-#関数
+# functions
 #####################
 
-#ヘルプを出力する
 print_usage()
 {
     cat << EOF
-Usage: $SCRIPT_NAME [-fd]
-Shell script template.
+Usage: $SCRIPT_NAME [-df]
+Make symbolic links to dotfiles in HOME.
 
-  -f           verbosely display error message
   -d           dry run
+               not make link, but display ln command
+               [default]
+
+  -f           make symbolic actually
+
   -h           display this help and exit
 EOF
 }
 
-#エラーを出力する
 print_error()
 {
     echo "$SCRIPT_NAME: $@" 1>&2
     echo "Try \`-h' option for more information." 1>&2
 }
 
-# リンク元ファイル名からリンク先ファイル名を作成する
+# create dest filename by link src filename
 get_dest_filename()
 {
   echo "${1}" | sed -e 's/^dot\././'
 }
 
 #####################
-#メイン処理
+# main
 #####################
 
 # false : not make link
@@ -81,11 +83,11 @@ while getopts ':fdh' option; do
         print_usage
         exit 0
         ;;
-    :)  #オプション引数欠如
+    :)  # option argument is missing
         print_error "option requires an argument -- $OPTARG"
         exit 1
         ;;
-    *)  #不明なオプション
+    *)  # unknown option
         print_error "invalid option -- $OPTARG"
         exit 1
         ;;
@@ -94,12 +96,14 @@ done
 shift $(expr $OPTIND - 1)
 
 cd $SRC_DIR_NAME
-for src_filename in ${dotfiles[@]};do
+for src_filename in ${DOTFILES[@]};do
   dest_filename=$(get_dest_filename $src_filename)
 
   if [ "$make_link" == "true" ]; then
+    # make link actually
     ln -s ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
   else
+    # not make link, but echo command
     echo ln -s ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
   fi
 done
