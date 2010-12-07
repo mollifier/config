@@ -4,6 +4,7 @@
 [core]
   pager = less --RAW-CONTROL-CHARS --quit-if-one-screen
   excludesfile = ~/.gitignore
+  editor = /usr/bin/vim
 [branch "master"]
   remote = origin
   merge = refs/heads/master
