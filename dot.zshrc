@@ -33,12 +33,13 @@ fi
 
 #ls color
 if which dircolors >/dev/null 2>&1 ;then
+    # export LS_COLORS
     eval $(dircolors -b)
     #not use bold
     if which perl >/dev/null 2>&1 ;then
         LS_COLORS=$(echo $LS_COLORS | LANG=C perl -pe 's/(?<= [=;] ) 01 (?= [;:] )/00/xg')
-        zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
     fi
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 else
     # dircolors is not found
     export LS_COLORS='di=00;34:ln=00;35:so=00;32:ex=00;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
