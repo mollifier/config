@@ -45,7 +45,7 @@ Make symbolic links to dotfiles in HOME.
                not make link, but display ln command
                [default]
 
-  -f           make symbolic actually
+  -f           make link actually
 
   -h           display this help and exit
 EOF
