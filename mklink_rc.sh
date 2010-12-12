@@ -29,6 +29,7 @@ declare -ar DOTFILES=(
   'dot.xmodmaprc'
   'dot.zshenv'
   'dot.zshrc'
+  'dot.zlogout'
 )
 
 #####################
