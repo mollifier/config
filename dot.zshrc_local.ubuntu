@@ -1,0 +1,12 @@
+# zshrc local Ubuntu Desktop
+
+alias blog='vim ~/Dropbox/blog/{entry.txt,template.txt}'
+
+# ruby gems
+path=($HOME/.gem/ruby/1.8/bin(N-/) $path)
+
+
+alias fxdev="firefox -no-remote -P dev &"
+alias fxdeven="firefox -no-remote -P dev -UILocale en-US &"
+
+# vim:ft=zsh:
