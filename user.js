@@ -33,9 +33,9 @@ user_pref("browser.display.use_focus_colors", false);
 // ブラウザUI
 //
 // すべてのタブにクローズボタンを表示する
-user_pref("browser.tabs.closeButtons", 1);
+//user_pref("browser.tabs.closeButtons", 1);
 // タブバーの右端にクローズボタンを表示する
-//user_pref("browser.tabs.closeButtons", 3);
+user_pref("browser.tabs.closeButtons", 3);
 
 // 最後のタブを閉じてもブラウザを終了しない
 user_pref("browser.tabs.closeWindowWithLastTab", false);
