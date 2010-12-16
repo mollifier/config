@@ -267,7 +267,7 @@ function presentation() {
 }
 
 function body() {
-    if [ $# -eq 0 ] ; then
+    if [[ $# -eq 0 || "$1" == "-h" || "$1" == "--help" ]] ; then
         echo "usage: $0 START,END [FILE]"
         return
     fi
