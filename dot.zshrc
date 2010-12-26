@@ -344,6 +344,10 @@ alias rlocate='locate --regex'
 alias ema='emacs -nw'
 alias mkzip='zip -q -r'
 
+autoload -Uz zmv
+alias zmv='noglob zmv -n -W'
+alias dozmv='noglob zmv -W'
+
 function make_date_dir_and_cd() {
     local date_dir=$(date '+%Y-%m-%d')
     if [ ! -d "$date_dir" ]; then
