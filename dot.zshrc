@@ -278,7 +278,7 @@ function body() {
 }
 
 function scouter() {
-    sed -e '/^\s*$/d' -e '/^\s*#/d' ~/.zshrc | wc -l
+    sed -e '/^\s*$/d' -e '/^\s*#/d' ${ZDOTDIR:-$HOME}/.zshrc | wc -l
 }
 
 ##############################
