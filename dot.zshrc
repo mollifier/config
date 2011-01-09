@@ -281,6 +281,12 @@ function scouter() {
     sed -e '/^\s*$/d' -e '/^\s*#/d' ${ZDOTDIR:-$HOME}/.zshrc | wc -l
 }
 
+function 256colortest() {
+    for code in {0..255}; do
+        echo -e "\e[38;05;${code}m $code: Test"
+    done
+}
+
 ##############################
 #aliases
 ##############################
