@@ -10,7 +10,7 @@ fi
 
 # set PATH
 typeset -U path
-path=($HOME/bin(N-/) $JAVA_HOME/bin(N-/) $path)
+path=($HOME/bin(N-/) $JAVA_HOME/bin(N-/) /usr/local/bin(N-/) $path)
 
 
 # vim:set ft=zsh:
