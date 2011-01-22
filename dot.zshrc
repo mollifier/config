@@ -41,7 +41,7 @@ if which dircolors >/dev/null 2>&1 ;then
     fi
 else
     # dircolors is not found
-    export LS_COLORS='di=00;34:ln=00;35:so=00;32:ex=00;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    export LS_COLORS='di=00;34:ln=00;36:so=00;35:ex=00;32:bd=40;33;00:cd=40;33;00:su=37;41:sg=30;43:tw=30;42:ow=34;42'
 fi
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
