@@ -1,0 +1,25 @@
+function setMouseScrollSpeed() {
+    local showHelp="false"
+
+    if [[ $# -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then
+        showHelp="true"
+    elif echo "$1" | grep -v -E '^[1-9](\.[0-9]+)?$' >/dev/null 2>&1; then
+        showHelp="true"
+    fi
+
+    if [[ "$showHelp" == "true" ]]; then
+        cat <<EOF
+usage: $0 NUM
+
+set mouse scroll speed
+setting will be enabled after next login.
+e.g.
+$0 5.1
+EOF
+        return
+    fi
+
+    defaults write "Apple Global Domain" com.apple.mouse.scaling $1
+}
+
+# vim:set ft=zsh ts=4 sw=4 sts=0:
