@@ -22,4 +22,6 @@ EOF
     defaults write "Apple Global Domain" com.apple.mouse.scaling $1
 }
 
+alias ls='ls -G -F'
+
 # vim:set ft=zsh ts=4 sw=4 sts=0:
