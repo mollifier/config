@@ -19,6 +19,7 @@
   ci = commit
   co = checkout
   up = pull --rebase
+  pull-rebase = pull --rebase
 
   # branch
   br = branch
