@@ -23,7 +23,9 @@
   # branch
   br = branch
   brm = branch --merged
+  branch-merged = branch --merged
   brno = branch --no-merged
+  branch-no-merged = branch --no-merged
 
   # log
   l = log --pretty=oneline --abbrev-commit
@@ -33,6 +35,7 @@
   l1 = log HEAD@{1}..HEAD
   l1-with-diff = log HEAD@{1}..HEAD -p
   log-push = log --name-status origin/master..HEAD
+  log-push-with-diff = log origin/master..HEAD -p
   log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
   log-graph-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
 
@@ -44,7 +47,7 @@
   d2 = diff HEAD~~
   d3 = diff HEAD~~~
   dh = diff HEAD
-  diff-remote = diff origin/master
+  diff-from-remote = diff origin/master
   diff-push = diff origin/master..HEAD
 
   grepn = grep -n
