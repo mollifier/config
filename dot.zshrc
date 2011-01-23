@@ -296,6 +296,15 @@ function 256colortest() {
     done
 }
 
+function zsh-without-rcfiles-in-screen() {
+    # RCS option :
+    #   If this option is unset, source /etc/zsh/zshenv
+    #   but any other startup files will not be.
+    # +o :
+    #  unset RCS option
+    screen zsh +o RCS
+}
+
 ##############################
 #aliases
 ##############################
