@@ -277,6 +277,15 @@ function body() {
     sed -n -e "${exp}p" $@
 }
 
+# cd to git repository root directory
+# http://d.hatena.ne.jp/hitode909/20100211/1265879271
+function cdu() {
+    cd ./$(git rev-parse --show-cdup)
+    if [ $# = 1 ]; then
+        cd $1
+    fi
+}
+
 function scouter() {
     sed -e '/^\s*$/d' -e '/^\s*#/d' ${ZDOTDIR:-$HOME}/.zshrc | wc -l
 }
