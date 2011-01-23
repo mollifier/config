@@ -1,3 +1,9 @@
+export CLICOLOR=1
+# default = exfxcxdxbxegedabagacad
+# symbolic link : magenta -> cyan
+# executable : red -> green
+export LSCOLORS=exgxcxdxcxegedabagacad
+
 function setMouseScrollSpeed() {
     local showHelp="false"
 
