@@ -28,13 +28,13 @@
   # log
   l = log --pretty=oneline --abbrev-commit
   lo = log --name-status
-  logs = log --stat
-  logp = log -p   # show diff
+  log-with-stat = log --stat
+  log-with-diff = log -p
   l1 = log HEAD@{1}..HEAD
-  l1p = log HEAD@{1}..HEAD -p
+  l1-with-diff = log HEAD@{1}..HEAD -p
   log-push = log --name-status origin/master..HEAD
   log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
-  log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
+  log-graph-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
 
   # diff
   di = diff
@@ -49,9 +49,10 @@
 
   grepn = grep -n
 
+  utility-list-unmerged-files = ls-files --unmerged
   # edit conflicted files
-  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  utility-vim-unmerged-files = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   # add conflicted files
-  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  utility-add-unmerged-files = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
 # vim:set ft=gitconfig:
