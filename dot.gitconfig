@@ -15,7 +15,9 @@
   interactive = auto
   grep = auto
 [alias]
+  s = status
   st = status
+  u = status
   ci = commit
   co = checkout
   up = pull --rebase
