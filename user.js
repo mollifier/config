@@ -16,6 +16,11 @@ user_pref("nglayout.events.dispatchLeftClickOnly", true);
 //フレームをいつでもリサイズできる
 user_pref("layout.frames.force_resizability", true);
 
+// スペルチェックを無効にする
+user_pref("layout.spellcheckDefault", 0);
+// スペルチェックを有効にする
+//user_pref("layout.spellcheckDefault", 1);
+
 // フォーカス
 //
 //フォーカスした文字列に色をつける
