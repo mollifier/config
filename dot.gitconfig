@@ -43,6 +43,7 @@
   log-graph-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
 
   # diff
+  d = diff
   di = diff
   dc = diff --cached
   dw = diff --color-words
