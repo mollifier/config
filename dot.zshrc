@@ -286,6 +286,10 @@ function cdu() {
     fi
 }
 
+function pwd-clip() {
+    echo -n $PWD C
+}
+
 function scouter() {
     sed -e '/^\s*$/d' -e '/^\s*#/d' ${ZDOTDIR:-$HOME}/.zshrc | wc -l
 }
