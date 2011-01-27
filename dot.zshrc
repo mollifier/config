@@ -360,6 +360,7 @@ alias sudo='sudo '
 #etc
 alias c='cd'
 alias g='git'
+alias s='svn'
 alias dirs='dirs -p'
 alias ln='ln -s'
 alias jb='jobs -l'
