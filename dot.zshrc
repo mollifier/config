@@ -302,7 +302,9 @@ function pwd-clip() {
         copyToClipboard='cat'
     fi
 
-    echo -n $PWD | $copyToClipboard
+    # ${=VAR} enables SH_WORD_SPLIT option
+    # so ${=VAR] is splited in words, for example "a" "b" "c"
+    echo -n $PWD | ${=copyToClipboard}
 }
 
 function scouter() {
