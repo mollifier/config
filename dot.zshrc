@@ -287,7 +287,22 @@ function cdu() {
 }
 
 function pwd-clip() {
-    echo -n $PWD C
+    local copyToClipboard
+
+    if which pbcopy >/dev/null 2>&1 ; then
+        # Mac
+        copyToClipboard='pbcopy'
+    elif which xsel >/dev/null 2>&1 ; then
+        # Linux
+        copyToClipboard='xsel --input --clipboard'
+    elif which putclip >/dev/null 2>&1 ; then
+        # Cygwin
+        copyToClipboard='putclip'
+    else
+        copyToClipboard='cat'
+    fi
+
+    echo -n $PWD | $copyToClipboard
 }
 
 function scouter() {
