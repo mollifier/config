@@ -15,5 +15,8 @@ fi
 typeset -U path
 path=($HOME/bin(N-/) ${JAVA_HOME:+${JAVA_HOME}/bin}(N-/) /usr/local/bin(N-/) $path)
 
+# node.js
+path=($HOME/local/node/bin(N-/) $path)
+
 
 # vim:set ft=zsh:
