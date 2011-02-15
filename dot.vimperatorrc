@@ -110,7 +110,7 @@ command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc
 lazy fmaps -u='(fastladder|livedoor)\.com/reader' j k s a p o v c i p <Space> <S-Space> z b < > q w e g ?
 lazy fmaps -u='www\.google\.com/calendar/' -events=vkeydown t a d w m x c e <Del> / + q s ?
-lazy fmaps -u='https?://twitter\.com/' f r t m n <Enter> ? j k <Space> / . gh gr gp gf gm gu
+lazy fmaps -u='https?://(api\.)?twitter\.com/' f r t m n <Enter> ? j k <Space> / . gh gr gp gf gm gu
 
 " hatena bookmark
 javascript <<EOF
