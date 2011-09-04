@@ -86,11 +86,6 @@ map <silent> gh :tabmove! -1<CR>
 map <silent> gl :tabmove! +1<CR>
 
 
-" set guioptions on/off
-map <silent> sgo :set guioptions+=mT<CR>
-map <silent> sgf :set guioptions-=mT<CR>
-
-
 " pass-through pages
 " jsdo.it edit page
 autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
