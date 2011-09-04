@@ -20,6 +20,9 @@ set popups=""
 set visualbell
 highlight Bell display: none
 
+" https://github.com/vimpr/vimperator-rc/blob/master/retlet/color/hint.vimp
+colorscheme hint
+
 """""""""""""""""""""
 " map
 """""""""""""""""""""
