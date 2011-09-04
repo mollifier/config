@@ -9,7 +9,7 @@
 " l : Firefox location bar entries
 set complete=tSl
 
-set gui=nobookmarks,menu,nonavigation,tabs
+set gui=noaddons,nobookmarks,menu,nonavigation,tabs
 
 set focuscontent
 
@@ -90,6 +90,7 @@ map <silent> gl :tabmove! +1<CR>
 map <silent> sgo :set guioptions+=mT<CR>
 map <silent> sgf :set guioptions-=mT<CR>
 
+
 " pass-through pages
 " jsdo.it edit page
 autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
@@ -106,7 +107,7 @@ autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/spreadsheets\.goo
 """"""""""""""""""""""
 
 let g:plugin_loader_roots = "~/etc/config/dot.vimperator/vimpr-plugins/"
-let g:plugin_loader_plugins = "_libly,commandBookmarklet,copy,feedSomeKeys_3,hatena_highlight,hints-yank-paste,multi_requester,pluginManager"
+let g:plugin_loader_plugins = "_libly,commandBookmarklet,copy,feedSomeKeys_3,hatena_highlight,hints-yank-paste,multi_requester,pluginManager,statusline-toolbar"
 
 " feedSomeKeys_3.js
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
