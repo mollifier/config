@@ -3,6 +3,8 @@
 //IPv6形式でDNS解決を行わない
 user_pref("network.dns.disableIPv6", true);
 
+user_pref("network.http.pipelining", true);
+
 // ページ表示
 //
 //blink を無効化する
