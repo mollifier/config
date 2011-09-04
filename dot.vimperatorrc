@@ -9,12 +9,7 @@
 " l : Firefox location bar entries
 set complete=tSl
 
-colorscheme sweets_snaka
-
-" n: tab number
-" r: right scrollbar
-" b: bottom scrollbar
-set guioptions=nrb
+set gui=nobookmarks,menu,nonavigation,tabs
 
 set focuscontent
 
@@ -62,15 +57,16 @@ noremap b <C-b>
 
 noremap sm '
 
-
-" open link in current tab
+"" open link in current tab
 noremap o f
-" open link in new tab
+"" open link in new tab
 noremap t F
 
 noremap . r
 
-" tab
+""""""""""""""""""""""""""""""""""""""""
+
+"" tab
 cnoremap <C-n> <Tab>
 cnoremap <C-p> <S-Tab>
 
@@ -100,10 +96,14 @@ autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/d\.hatena\.ne\.jp\/
 autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/docs\.google\.com\//.test(buffer.URL)
 autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/spreadsheets\.google\.com\//.test(buffer.URL)
 
+""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""
-" For plugins
-"""""""""""""""""""""
+""""""""""""""""""""""
+"" For plugins
+""""""""""""""""""""""
+
+let g:plugin_loader_roots = "~/etc/config/dot.vimperator/vimpr-plugins/"
+let g:plugin_loader_plugins = "_libly,commandBookmarklet,copy,feedSomeKeys_3,hatena_highlight,hints-yank-paste,multi_requester,pluginManager"
 
 " feedSomeKeys_3.js
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
@@ -123,9 +123,6 @@ liberator.globalVariables.hBookmark_shortcuts = {
 EOF
 
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
-
-" migemo_hint.js
-set hintmatching=custom
 
 " copy.js
 js <<EOF
@@ -212,9 +209,12 @@ EOF
 
 " hatena_highlight.js
 " clear search highlight automatically
-:autocmd PageLoad 'd\.hatena\.ne\.jp' :nohatenahighlight
-:autocmd PageLoad 'g\.hatena\.ne\.jp' :nohatenahighlight
+autocmd PageLoad 'd\.hatena\.ne\.jp' :nohatenahighlight
+autocmd PageLoad 'g\.hatena\.ne\.jp' :nohatenahighlight
+
+
 
 source! ~/.vimperatorrc.local
+
 
 " vim: set ts=4 sw=4 sts=0 ft=vimperator:
