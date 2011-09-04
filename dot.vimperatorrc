@@ -35,6 +35,9 @@ noremap <C-k>  <ESC>
 cnoremap <C-k>  <ESC>
 inoremap <C-k>  <ESC>
 
+noremap <silent> <C-l> :messclear<CR>
+cnoremap <silent> <C-l> :messclear<CR>
+
 
 """""""""""""""""""""
 " scroll
