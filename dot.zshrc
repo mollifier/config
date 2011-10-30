@@ -411,11 +411,11 @@ alias -g L='| less'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
-alias -g W='| wc'
 alias -g V='| vim -R -'
 alias -g U=' --help | head'
 alias -g P=' --help | less'
 alias -g N='> /dev/null'
+alias -g W='| w3m -T text/html'
 
 if which pbcopy >/dev/null 2>&1 ; then
     # Mac
