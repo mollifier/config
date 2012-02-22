@@ -414,6 +414,12 @@ nnoremap <SPACE>p :<C-u>cprevious<CR>
 "invert number and list options
 nnoremap <silent> sv :<C-u>call InvertList()<CR>
 
+" format json
+" require python 2.6 or later
+vnoremap <Space>json !python -m json.tool<CR>
+nnoremap <Space>json :<C-u>% !python -m json.tool<CR>
+
+
 " For plugins "{{{1
 "NERD_tree
 nnoremap sd :<C-u>NERDTreeToggle<CR>
