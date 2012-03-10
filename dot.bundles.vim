@@ -25,11 +25,13 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdtree.git'
+Bundle 'thinca/vim-quickrun'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
 Bundle 'eregex.vim'
 Bundle 'errormarker.vim'
+Bundle 'surround.vim'
 
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
