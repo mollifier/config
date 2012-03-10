@@ -27,7 +27,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdtree.git'
 
 " vim-scripts repos
-"Bundle 'matchit.zip'
+Bundle 'matchit.zip'
 
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
