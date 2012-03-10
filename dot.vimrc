@@ -451,41 +451,6 @@ let xul_noclose_script = 1
 "hatena.vim (Syntax for hatena)
 let g:hatena_syntax_html = 1
 
-" autocomplpop.vim JavaScript "{{{2
-let g:AutoComplPop_Behavior={'javascript' : [
-      \     {
-      \       'command'  : "\<C-n>",
-      \       'pattern'  : '\k\k$',
-      \       'excluded' : '^$',
-      \       'repeat'   : 0,
-      \     },
-      \     {
-      \       'command'  : "\<C-x>\<C-f>",
-      \       'pattern'  : (has('win32') || has('win64') ? '\f[/\\]\f*$' : '\f[/]\f*$'),
-      \       'excluded' : '[*/\\][/\\]\f*$\|[^[:print:]]\f*$',
-      \       'repeat'   : 1,
-      \     },
-      \     {
-      \       'command'  : "\<C-x>\<C-o>",
-      \       'pattern'  : '\([^. \t]\.\)$',
-      \       'excluded' : '^$',
-      \       'repeat'   : 0,
-      \     },
-      \   ]}
-
-" fuzzyfinder.vim "{{{2
-let g:fuf_ignoreCase = 1
-let g:fuf_keyOpenVsplit = '<C-v>'
-let g:fuf_file_exclude = '\v\.svn/$|\.git/$|\~$|\.o$|\.exe$|\.bak$|\.swp$|\.swo$|((^|[/\\])\.[/\\]$)'
-let g:fuf_dir_exclude = '\v\.svn/$|\.git/$|((^|[/\\])\.{1,2}[/\\]$)'
-
-nnoremap <silent> <SPACE>b :<C-u>FufBuffer<CR>
-nnoremap <silent> <SPACE>f :<C-u>FufFile<CR>
-nnoremap <silent> <SPACE>r :<C-u>FufMruFile<CR>
-nnoremap <silent> <SPACE>d :<C-u>FufDir<CR>
-nnoremap <silent> <SPACE>A :<C-u>FufAddBookmark<CR>
-nnoremap <silent> <SPACE>B :<C-u>FufBookmark<CR>
-
 " neocomplcache "{{{2
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
