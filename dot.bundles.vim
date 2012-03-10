@@ -28,6 +28,7 @@ Bundle 'scrooloose/nerdtree.git'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
+Bundle 'eregex.vim'
 
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
