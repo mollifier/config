@@ -24,9 +24,10 @@ Bundle 'gmarik/vundle'
 
 " original repos on github
 Bundle 'Shougo/neocomplcache'
+Bundle 'scrooloose/nerdtree.git'
 
 " vim-scripts repos
-"Bundle 'FuzzyFinder'
+"Bundle 'matchit.zip'
 
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
