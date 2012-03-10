@@ -3,6 +3,12 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
+" vundle.vim
+if filereadable($HOME . '/.bundles.vim')
+    source $HOME/.bundles.vim
+endif
+
+
 " Basic  "{{{1
 language C
 set nocompatible

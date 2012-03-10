@@ -16,6 +16,7 @@ declare -r DEST_DIR_NAME=${HOME}
 declare -ar DOTFILES=(
   'dot.atoolrc'
   'dot.bash_profile'
+  'dot.bundles.vim'
   'dot.bashrc'
   'dot.emacs'
   'dot.gitconfig'
