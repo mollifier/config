@@ -1,8 +1,13 @@
 " vundle.vim
 " https://github.com/gmarik/vundle
 "
-" setup vundle
+" install vundle
 " % git submodule add http://github.com/gmarik/vundle.git ~/etc/config/dot.vim/vundle.git
+"
+" git submodule init
+" % cd ~/etc/config
+" % git submodule init
+" % git submodule update
 "
 " install plugins from shell
 " % vim -u ~/.bundles.vim +BundleInstall +q
