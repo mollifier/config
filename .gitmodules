@@ -1,6 +1,6 @@
 [submodule "dot.vimperator/vimpr-plugins"]
 	path = dot.vimperator/vimpr-plugins
 	url = https://github.com/vimpr/vimperator-plugins.git
-[submodule "/home/mollifier/etc/config/dot.vim/vundle.git"]
-	path = /home/mollifier/etc/config/dot.vim/vundle.git
-	url = http://github.com/gmarik/vundle.git
+[submodule "dot.vim/vundle.git"]
+	path = dot.vim/vundle.git
+	url = https://github.com/gmarik/vundle.git
