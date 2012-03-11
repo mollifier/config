@@ -404,8 +404,8 @@ nnoremap <C-h> :<C-u>help<Space>
 nnoremap <Space>m :<C-u>make<CR>
 
 "move to next/previous line with same indentation
-nnoremap <silent> <SPACE>k k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-nnoremap <silent> <SPACE>j :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+nnoremap <silent> <SPACE>kk k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+nnoremap <silent> <SPACE>jj :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 "call function
 "invert scrollbind
@@ -427,28 +427,28 @@ nnoremap <Space>json :<C-u>% !python -m json.tool<CR>
 
 
 " For plugins "{{{1
-"NERD_tree
+" NERD_tree "{{{2
 nnoremap sd :<C-u>NERDTreeToggle<CR>
 
-"eregex
+" eregex "{{{2
 nnoremap / :<C-u>M/
 nnoremap ,/ /
 
-"closetag.vimg
+" closetag.vim "{{{2
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim
 endif
 
-"surround.vim
+" surround.vim "{{{2
 "see also :help surround-mappings Note
 "remove surround mappings in visual mode
 vmap <Leader>s <Plug>Vsurround
 vmap <Leader>S <Plug>VSurround
 
-"xul.vim (Syntax for XUL)
+" xul.vim (Syntax for XUL) "{{{2
 let xul_noclose_script = 1
 
-"hatena.vim (Syntax for hatena)
+" hatena.vim (Syntax for hatena) "{{{2
 let g:hatena_syntax_html = 1
 
 " neocomplcache "{{{2
@@ -495,6 +495,9 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+
+" unite.vim "{{{2
 
 " quickrun "{{{2
 nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
