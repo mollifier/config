@@ -390,6 +390,7 @@ alias di='diff -u'
 alias rlocate='locate --regex'
 alias ema='emacs -nw'
 alias mkzip='zip -q -r'
+alias pc=pwd-clip
 
 autoload -Uz zmv
 alias zmv='noglob zmv -n -W'
