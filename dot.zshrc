@@ -435,11 +435,24 @@ fi
 cdd_script_path=~/etc/config/zsh/cdd
 if [[ -f $cdd_script_path ]]; then
     source $cdd_script_path
-    function chpwd() {
+    function _cdd_chpwd() {
         _reg_pwd_screennum
     }
+    add-zsh-hook chpwd _cdd_chpwd
 fi
 unset cdd_script_path
+
+# z
+# https://github.com/rupa/z
+rupa_z_script_path=~/etc/config/zsh/z.sh
+if [[ -f $rupa_z_script_path ]]; then
+    source $rupa_z_script_path
+    function _rupa_z_chpwd() {
+        _z --add "$(pwd -P)"
+    }
+    add-zsh-hook chpwd _rupa_z_chpwd
+fi
+unset rupa_z_script_path
 
 # perl
 if [[ -f ~/perl5/perlbrew/etc/bashrc ]]; then
