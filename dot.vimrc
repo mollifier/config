@@ -498,25 +498,26 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
 " unite.vim "{{{2
+" start in insert mode
+let g:unite_enable_start_insert = 1
+
 " unite startup mappings "{{{3
 nnoremap <silent> <SPACE>b :<C-u>Unite buffer<CR>
-"nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
+nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
 " file_rec/async requires vimproc
-nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
+"nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
+nnoremap <silent> <SPACE>e :<C-u>Unite file_mru file_rec<CR>
 
 nnoremap <silent> <SPACE>ub :<C-u>Unite buffer<CR>
-"nnoremap <silent> <SPACE>uf :<C-u>Unite file_rec<CR>
+nnoremap <silent> <SPACE>uf :<C-u>Unite file_rec<CR>
 " file_rec/async requires vimproc
-nnoremap <silent> <SPACE>uf :<C-u>Unite file_rec/async<CR>
+"nnoremap <silent> <SPACE>uf :<C-u>Unite file_rec/async<CR>
 nnoremap <silent> <SPACE>ur :<C-u>Unite file_mru<CR>
 nnoremap <silent> <SPACE>uu :<C-u>Unite file_mru file_rec<CR>
 
 " mappings in unite buffer "{{{3
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
-    " start in insert mode
-    let g:unite_enable_start_insert = 1
-
     nmap <buffer> <ESC> <Plug>(unite_exit)
     nmap <buffer> <C-K> <Plug>(unite_exit)
     imap <buffer> <C-W> <Plug>(unite_delete_backward_path)
