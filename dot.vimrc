@@ -507,6 +507,7 @@ nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
 " file_rec/async requires vimproc
 "nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
 nnoremap <silent> <SPACE>e :<C-u>Unite file_mru file_rec<CR>
+nnoremap <silent> <SPACE>r :<C-u>Unite file_mru<CR>
 
 nnoremap <silent> <SPACE>ub :<C-u>Unite buffer<CR>
 nnoremap <silent> <SPACE>uf :<C-u>Unite file_rec<CR>
@@ -522,10 +523,10 @@ function! s:unite_my_settings()
     nmap <buffer> <C-K> <Plug>(unite_exit)
     imap <buffer> <C-W> <Plug>(unite_delete_backward_path)
 
-    " user x instead of <SPACE>
-    nmap <buffer> x <Plug>(unite_toggle_mark_current_candidate)
-    imap <buffer> x <Plug>(unite_toggle_mark_current_candidate)
-    vmap <buffer> x <Plug>(unite_toggle_selected_candidates)
+    " use <SPACE>x instead of <SPACE>
+    nmap <buffer> <SPACE>x <Plug>(unite_toggle_mark_current_candidate)
+    imap <buffer> <SPACE>x <Plug>(unite_toggle_mark_current_candidate)
+    vmap <buffer> <SPACE>x <Plug>(unite_toggle_selected_candidates)
 endfunction
 
 
