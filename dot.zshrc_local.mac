@@ -30,4 +30,15 @@ EOF
 
 alias ls='ls -G -F'
 
+# firefox
+alias fxdev="firefox -no-remote -P dev &"
+
+export SVN_EDITOR="/usr/bin/vim"
+
+# XCode 4.2 path
+path=(/Developer/usr/bin(N-/) $path)
+
+# android
+path=($path /Users/miyake/lib/android-sdk-mac_x86/tools(N-/))
+
 # vim:set ft=zsh ts=4 sw=4 sts=0:
