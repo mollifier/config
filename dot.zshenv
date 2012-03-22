@@ -20,7 +20,7 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
     source ~/.nvm/nvm.sh
 
     if which nvm >/dev/null 2>&1 ;then
-        _nodejs_use_version="v0.6.9"
+        _nodejs_use_version="v0.6.13"
         if nvm ls | grep -F -e "${_nodejs_use_version}" >/dev/null 2>&1 ;then
             nvm use "${_nodejs_use_version}" >/dev/null
 
@@ -28,12 +28,11 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
             #
             # Use -g option to install npm module
             # for example : % npm install -g formidable.
-            # When install npm module with -g option,
-            # it is installed only for the version in use.
             #
-            # $NVM_PATH is ${HOME}/.nvm/${_nodejs_use_version}/lib/node
             # ${NODE_PATH:+:} is substituted ":" if and only if $NODE_PATH is not empty.
-            export NODE_PATH=${NVM_PATH}_modules${NODE_PATH:+:}${NODE_PATH}
+            export NODE_PATH=$HOME/.npm/lib/node_modules${NODE_PATH:+:}${NODE_PATH}
+
+            path=($HOME/.npm/bin(N-/) $path)
         fi
         unset _nodejs_use_version
     fi
