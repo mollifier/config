@@ -22,6 +22,7 @@ declare -ar DOTFILES=(
   'dot.gitconfig'
   'dot.gitignore'
   'dot.gvimrc'
+  'dot.npmrc'
   'dot.screenrc'
   'dot.vim'
   'dot.vimperator'
