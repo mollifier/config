@@ -11,9 +11,10 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=jsl\ --nologo\ --nofilelisting\ --nosummary\ %
-
-CompilerSet errorformat=%f(%l):\ %m
+" nodelint -- Run JSLint from the command-line under node.js
+" npm install nodelint
+CompilerSet makeprg=nodelint\ --config\ ~/.vim/compiler/nodelintconfig.js\ %
+CompilerSet errorformat=%A%f\\,\ line\ %l\\,\ character\ %c:%m,%C%.%#,%Z%.%#
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
