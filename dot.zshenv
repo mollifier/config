@@ -39,7 +39,10 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
 
             path=(${_nodejs_npm_prefix}/bin(N-/) $path)
 
-            manpath=(${_nodejs_npm_prefix}/share/man(N-/) $manpath)
+            # On Linux(Ubuntu) system, if $MANPATH is set, /etc/manpath.config will be igored.
+            # But if the colon comes at the end of the value in the variable,
+            # then the  determined list is appended to the content of the variable.
+            MANPATH=${_nodejs_npm_prefix}/share/man(N-/):${MANPATH}
         fi
         unset _nodejs_use_version
         unset _nodejs_npm_prefix
