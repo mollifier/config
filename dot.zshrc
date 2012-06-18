@@ -21,7 +21,8 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export TERM=xterm-256color
 export PAGER=less
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case'
+# --SILENT : terminal bell is not rung
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --SILENT'
 export GREP_OPTIONS='--color=auto'
 export MAIL=/var/mail/$USERNAME
 #export PS4 for bash

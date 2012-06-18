@@ -37,6 +37,9 @@ set imsearch=0
 
 set virtualedit+=block " Allow virtual editing in Visual block mode.
 
+" no beep
+set vb t_vb=
+
 set nolist        "show non-printing character
 set listchars=tab:>\ 
 
