@@ -46,4 +46,7 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
     fi
 fi
 
+# haskell (cabal)
+path=($HOME/Library/Haskell/bin $path)
+
 # vim:set ft=zsh:
