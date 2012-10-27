@@ -32,10 +32,12 @@ Bundle 'gmarik/vundle'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/neocomplcache-snippets-complete'
+Bundle 'Shougo/neosnippet'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'thinca/vim-quickrun'
 Bundle 'othree/eregex.vim'
+Bundle 'kana/vim-filetype-haskell'
+
 
 " vim-scripts repos
 Bundle 'matchit.zip'
