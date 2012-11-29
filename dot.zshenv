@@ -3,11 +3,9 @@
 typeset -U path cdpath fpath manpath
 
 # java
-if [[ -d "/usr/lib/jvm/java-6-sun" ]]; then
-  export JAVA_HOME="/usr/lib/jvm/java-6-sun"
-elif [[ -d "/usr/lib/jvm/java-6-openjdk" ]]; then
-  export JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
-elif [[ -d   "/System/Library/Frameworks/JavaVM.framework/Home" ]]; then
+if [[ -d "/usr/lib/jvm/java-7-oracle" ]]; then
+  export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+elif [[ -d "/System/Library/Frameworks/JavaVM.framework/Home" ]]; then
   # Mac
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
 fi
