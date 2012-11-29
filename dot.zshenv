@@ -2,6 +2,10 @@
 
 typeset -U path cdpath fpath manpath
 
+if [[ -f ~/.zshenv_dev ]]; then
+    source ~/.zshenv_dev
+fi
+
 # java
 if [[ -d "/usr/lib/jvm/java-7-oracle" ]]; then
   export JAVA_HOME="/usr/lib/jvm/java-7-oracle"

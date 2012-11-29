@@ -460,6 +460,10 @@ if [[ -f ~/perl5/perlbrew/etc/bashrc ]]; then
     source ~/perl5/perlbrew/etc/bashrc
 fi
 
+if [[ -f ~/.zshrc_dev ]]; then
+    source ~/.zshrc_dev
+fi
+
 # source local rcfile
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
