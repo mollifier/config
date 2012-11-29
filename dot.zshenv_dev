@@ -1,18 +1,25 @@
 # zshenv for development environment settings
 
-# java
+## java ##
 if [[ -d "/usr/lib/jvm/java-7-oracle" ]]; then
-  export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+    # Ubuntu
+    export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
 elif [[ -d "/System/Library/Frameworks/JavaVM.framework/Home" ]]; then
-  # Mac
-  export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
+    # Mac
+    export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
+fi
+
+path=(${JAVA_HOME:+${JAVA_HOME}/bin}(N-/) $path)
+
+
+## scala ##
+if [[ -d "/usr/share/java" ]]; then
+    # Ubuntu apt get install
+    export SCALA_HOME="/usr/share/java"
 fi
 
 
-# set PATH
-path=(${JAVA_HOME:+${JAVA_HOME}/bin}(N-/) $path)
-
-# node.js (nvm)
+## node.js (nvm) ##
 if [[ -f ~/.nvm/nvm.sh ]]; then
     source ~/.nvm/nvm.sh
 
@@ -45,7 +52,8 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
     fi
 fi
 
-# haskell (cabal)
+
+## haskell (cabal) ##
 path=($HOME/Library/Haskell/bin $path)
 
 
