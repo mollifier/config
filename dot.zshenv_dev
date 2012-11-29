@@ -1,5 +1,53 @@
 # zshenv for development environment settings
 
-# vim:set ft=zsh ts=4 sw=4 sts=0:
+# java
+if [[ -d "/usr/lib/jvm/java-7-oracle" ]]; then
+  export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+elif [[ -d "/System/Library/Frameworks/JavaVM.framework/Home" ]]; then
+  # Mac
+  export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
+fi
 
+
+# set PATH
+path=(${JAVA_HOME:+${JAVA_HOME}/bin}(N-/) $path)
+
+# node.js (nvm)
+if [[ -f ~/.nvm/nvm.sh ]]; then
+    source ~/.nvm/nvm.sh
+
+    if which nvm >/dev/null 2>&1 ;then
+        _nodejs_use_version="v0.6.13"
+
+        _nodejs_npm_prefix="$HOME/.npm"
+
+        if nvm ls | grep -F -e "${_nodejs_use_version}" >/dev/null 2>&1 ;then
+
+            nvm use "${_nodejs_use_version}" >/dev/null
+
+            # Set module search path for node
+            #
+            # Use -g option to install npm module
+            # for example : % npm install -g formidable.
+            [ -z "$node_path" ] && typeset -xT NODE_PATH node_path
+            typeset -U node_path
+            node_path=(${_nodejs_npm_prefix}/lib/node_modules(N-/) $node_path)
+
+            path=(${_nodejs_npm_prefix}/bin(N-/) $path)
+
+            # On Linux(Ubuntu) system, if $MANPATH is set, /etc/manpath.config will be igored.
+            # But if the colon comes at the end of the value in the variable,
+            # then the  determined list is appended to the content of the variable.
+            MANPATH=${_nodejs_npm_prefix}/share/man(N-/):${MANPATH}
+        fi
+        unset _nodejs_use_version
+        unset _nodejs_npm_prefix
+    fi
+fi
+
+# haskell (cabal)
+path=($HOME/Library/Haskell/bin $path)
+
+
+# vim:set ft=zsh ts=4 sw=4 sts=0:
 

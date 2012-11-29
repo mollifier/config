@@ -455,11 +455,6 @@ if [[ -f $rupa_z_script_path ]]; then
 fi
 unset rupa_z_script_path
 
-# perl
-if [[ -f ~/perl5/perlbrew/etc/bashrc ]]; then
-    source ~/perl5/perlbrew/etc/bashrc
-fi
-
 if [[ -f ~/.zshrc_dev ]]; then
     source ~/.zshrc_dev
 fi
