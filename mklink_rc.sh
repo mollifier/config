@@ -29,9 +29,11 @@ declare -ar DOTFILES=(
   'dot.vimperator'
   'dot.vimperatorrc'
   'dot.vimrc'
-  'dot.xmodmaprc'
+  'dot.Xmodmap'
   'dot.zshenv'
+  'dot.zshenv_dev'
   'dot.zshrc'
+  'dot.zshrc_dev'
   'dot.zlogout'
 )
 
