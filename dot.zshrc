@@ -197,6 +197,10 @@ compinit
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# ignore current directory
+# .. : only when the word on the line contains the substring '../'
+zstyle ':completion:*' ignore-parents parent pwd ..
+
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 setopt auto_menu
