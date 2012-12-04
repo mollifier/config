@@ -36,6 +36,7 @@ Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'thinca/vim-quickrun'
 Bundle 'othree/eregex.vim'
+Bundle 'derekwyatt/vim-scala'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
