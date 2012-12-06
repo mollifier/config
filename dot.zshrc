@@ -159,36 +159,63 @@ if is-at-least 4.3.10; then
 fi
 
 if is-at-least 4.3.11; then
+    zstyle ':vcs_info:git*+set-message:*' hooks git-untracked \
+                                                git-push-status \
+                                                git-stash-count
+    
     # git: show marker (?) if there are untracked files in repository
-    # Make sure you have added misc to your 'formats':  %u
-    zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
     function +vi-git-untracked() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-            git status --porcelain | grep '\?\?' &> /dev/null ; then
+        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 0
+        fi
 
+        if git status --porcelain | grep '^\?\?' > /dev/null 2>&1 ; then
+            # unstaged = %u
             hook_com[unstaged]+='?'
         fi
+
+        return 0
     }
 
     # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
-    # Make sure you have added misc to your 'formats':  %m
-    zstyle ':vcs_info:git*+set-message:*' hooks git-push-status
     function +vi-git-push-status() {
+        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 0
+        fi
+
         local ahead behind
         local -a gitstatus
 
         # not push
         ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
-        (( $ahead )) && gitstatus+=( "p${ahead}" )
+        [[ "$ahead" -gt 0 ]] && gitstatus+=( "p${ahead}" )
 
         behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
-        (( $behind )) && gitstatus+=( "o${behind}" )
+        [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
 
-        if (( ${#gitstatus} )); then
+        if [[ ${#gitstatus} -gt 0 ]]; then
+            # misc = %m
             hook_com[misc]+="(${(j:/:)gitstatus})"
         fi
+
+        return 0
     }
 
+    # git: Show stash count.
+    function +vi-git-stash-count() {
+        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 0
+        fi
+
+        local stash
+        stash=$(git stash list | wc -l)
+        if [[ "${stash}" -gt 0 ]] then
+            # misc = %m
+            hook_com[misc]+=":S${stash}"
+        fi
+        
+        return 0
+    }
 fi
 
 function _update_vcs_info_msg() {
