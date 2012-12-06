@@ -154,12 +154,13 @@ if is-at-least 4.3.10; then
   zstyle ':vcs_info:git:*' check-for-changes true
   zstyle ':vcs_info:git:*' stagedstr "+"    # %c
   zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
+  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u %m'
+  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u %m'
 fi
 
 if is-at-least 4.3.11; then
     # git: show marker (?) if there are untracked files in repository
+    # Make sure you have added misc to your 'formats':  %u
     zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
     function +vi-git-untracked() {
         if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
@@ -168,6 +169,26 @@ if is-at-least 4.3.11; then
             hook_com[unstaged]+='?'
         fi
     }
+
+    # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
+    # Make sure you have added misc to your 'formats':  %m
+    zstyle ':vcs_info:git*+set-message:*' hooks git-push-status
+    function +vi-git-push-status() {
+        local ahead behind
+        local -a gitstatus
+
+        # not push
+        ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+        (( $ahead )) && gitstatus+=( "p${ahead}" )
+
+        behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+        (( $behind )) && gitstatus+=( "o${behind}" )
+
+        if (( ${#gitstatus} )); then
+            hook_com[misc]+="(${(j:/:)gitstatus})"
+        fi
+    }
+
 fi
 
 function _update_vcs_info_msg() {
