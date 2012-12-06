@@ -242,6 +242,11 @@ select-word-style default
 zstyle ':zle:*' word-chars " /;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
+# run-help
+[ -n "$(alias run-help)" ] && unalias run-help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svn
 
 #etc
 #allow comments in interactive shell
