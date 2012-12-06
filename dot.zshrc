@@ -1,6 +1,9 @@
 # zshrc
 
 
+############################################################
+# basic #{{{1
+
 umask 022
 limit coredumpsize 0
 stty erase '^h'
@@ -13,9 +16,9 @@ fi
 
 autoload -Uz add-zsh-hook
 
-##############################
-#environment variables
-##############################
+
+############################################################
+# environment variables #{{{1
 
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
@@ -32,7 +35,7 @@ if [[ -d "/usr/share/zsh/help/" ]]; then
     export HELPDIR=/usr/share/zsh/help/
 fi
 
-#ls color
+# ls color #{{{2
 if which dircolors >/dev/null 2>&1 ;then
     # export LS_COLORS
     eval $(dircolors -b)
@@ -47,9 +50,9 @@ fi
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
-##############################
-#key bind
-##############################
+############################################################
+# key bind #{{{1
+
 bindkey -e
 
 bindkey '^V' vi-quoted-insert
@@ -117,9 +120,9 @@ bindkey '^[d' _quote-previous-word-in-double
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-##############################
-#default configuration
-##############################
+
+############################################################
+# default configuration #{{{1
 
 #set PROMPT
 autoload -Uz colors
@@ -135,7 +138,7 @@ else
 %# "
 fi
 
-# show vcs information
+# show vcs information #{{{2
 # see man zshcontrib(1)
 # GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
 autoload -Uz vcs_info
@@ -162,7 +165,7 @@ function _update_vcs_info_msg() {
 }
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%1(v|%F{green}%1v%f|)"
-
+# }}}2
 
 #history configuration
 HISTFILE=~/.zsh_history
@@ -190,7 +193,7 @@ _history_ignore() {
 add-zsh-hook zshaddhistory _history_ignore
 
 
-#completion
+# completion #{{{2
 autoload -Uz compinit
 compinit
 
@@ -218,15 +221,17 @@ if [[ -d ${_zsh_user_config_dir}/cache ]]; then
     zstyle ':completion:*' cache-path ${_zsh_user_config_dir}/cache
 fi
 
+# grouping cd completions
+zstyle ':completion:*:cd:*' group-name ''
+zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
+# }}}2
+
 
 #cd
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 cdpath=(${HOME} ${HOME}/work)
-# grouping cd completions
-zstyle ':completion:*:cd:*' group-name ''
-zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
 
 # set characters which are considered word characters
 # see man zshcontrib(1)
@@ -255,9 +260,10 @@ setopt ignore_eof
 #never ever beep ever
 setopt no_beep
 
-##############################
-#utility functions
-##############################
+
+############################################################
+# utility functions #{{{1
+
 function alc() {
     if [ -n "$1" ]; then
         w3m "http://eow.alc.co.jp/${1}/UTF-8/?ref=sa" | sed '1,36d' | less
@@ -332,9 +338,9 @@ function zsh-without-rcfiles-in-screen() {
     screen zsh +o RCS
 }
 
-##############################
-#aliases
-##############################
+
+############################################################
+# aliases #{{{1
 
 #list
 alias ls='ls -F --color=auto'
@@ -436,6 +442,7 @@ elif which putclip >/dev/null 2>&1 ; then
 fi
 
 
+# for plugins #{{{1
 # cdd
 cdd_script_path=~/etc/config/zsh/cdd
 if [[ -f $cdd_script_path ]]; then
@@ -470,4 +477,4 @@ fi
 
 unset _zsh_user_config_dir
 
-# vim:set ft=zsh ts=4 sw=4 sts=0:
+# vim:set ft=zsh ts=4 sw=4 sts=0 foldmethod=marker:
