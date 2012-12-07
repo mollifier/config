@@ -1,6 +1,9 @@
 # zshrc
 
 
+############################################################
+# basic #{{{1
+
 umask 022
 limit coredumpsize 0
 stty erase '^h'
@@ -13,9 +16,9 @@ fi
 
 autoload -Uz add-zsh-hook
 
-##############################
-#environment variables
-##############################
+
+############################################################
+# environment variables #{{{1
 
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
@@ -32,7 +35,7 @@ if [[ -d "/usr/share/zsh/help/" ]]; then
     export HELPDIR=/usr/share/zsh/help/
 fi
 
-#ls color
+# ls color #{{{2
 if which dircolors >/dev/null 2>&1 ;then
     # export LS_COLORS
     eval $(dircolors -b)
@@ -47,9 +50,9 @@ fi
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
-##############################
-#key bind
-##############################
+############################################################
+# key bind #{{{1
+
 bindkey -e
 
 bindkey '^V' vi-quoted-insert
@@ -117,9 +120,9 @@ bindkey '^[d' _quote-previous-word-in-double
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-##############################
-#default configuration
-##############################
+
+############################################################
+# default configuration #{{{1
 
 #set PROMPT
 autoload -Uz colors
@@ -135,7 +138,7 @@ else
 %# "
 fi
 
-# show vcs information
+# show vcs information #{{{2
 # see man zshcontrib(1)
 # GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
 autoload -Uz vcs_info
@@ -149,10 +152,70 @@ zstyle ':vcs_info:bzr:*' use-simple true
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
   zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "+"
-  zstyle ':vcs_info:git:*' unstagedstr "-"
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
+  zstyle ':vcs_info:git:*' stagedstr "+"    # %c
+  zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
+  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u %m'
+  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u %m'
+fi
+
+if is-at-least 4.3.11; then
+    zstyle ':vcs_info:git*+set-message:*' hooks git-untracked \
+                                                git-push-status \
+                                                git-stash-count
+    
+    # git: show marker (?) if there are untracked files in repository
+    function +vi-git-untracked() {
+        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 0
+        fi
+
+        if git status --porcelain | grep '^\?\?' > /dev/null 2>&1 ; then
+            # unstaged = %u
+            hook_com[unstaged]+='?'
+        fi
+
+        return 0
+    }
+
+    # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
+    function +vi-git-push-status() {
+        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 0
+        fi
+
+        local ahead behind
+        local -a gitstatus
+
+        # not push
+        ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+        [[ "$ahead" -gt 0 ]] && gitstatus+=( "p${ahead}" )
+
+        behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+        [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
+
+        if [[ ${#gitstatus} -gt 0 ]]; then
+            # misc = %m
+            hook_com[misc]+="(${(j:/:)gitstatus})"
+        fi
+
+        return 0
+    }
+
+    # git: Show stash count.
+    function +vi-git-stash-count() {
+        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            return 0
+        fi
+
+        local stash
+        stash=$(git stash list | wc -l)
+        if [[ "${stash}" -gt 0 ]] then
+            # misc = %m
+            hook_com[misc]+=":S${stash}"
+        fi
+        
+        return 0
+    }
 fi
 
 function _update_vcs_info_msg() {
@@ -162,7 +225,7 @@ function _update_vcs_info_msg() {
 }
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%1(v|%F{green}%1v%f|)"
-
+# }}}2
 
 #history configuration
 HISTFILE=~/.zsh_history
@@ -190,12 +253,16 @@ _history_ignore() {
 add-zsh-hook zshaddhistory _history_ignore
 
 
-#completion
+# completion #{{{2
 autoload -Uz compinit
 compinit
 
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# ignore current directory
+# .. : only when the word on the line contains the substring '../'
+zstyle ':completion:*' ignore-parents parent pwd ..
 
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
@@ -214,15 +281,17 @@ if [[ -d ${_zsh_user_config_dir}/cache ]]; then
     zstyle ':completion:*' cache-path ${_zsh_user_config_dir}/cache
 fi
 
+# grouping cd completions
+zstyle ':completion:*:cd:*' group-name ''
+zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
+# }}}2
+
 
 #cd
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 cdpath=(${HOME} ${HOME}/work)
-# grouping cd completions
-zstyle ':completion:*:cd:*' group-name ''
-zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
 
 # set characters which are considered word characters
 # see man zshcontrib(1)
@@ -233,6 +302,11 @@ select-word-style default
 zstyle ':zle:*' word-chars " /;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
+# run-help
+[ -n "$(alias run-help)" ] && unalias run-help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svn
 
 #etc
 #allow comments in interactive shell
@@ -251,9 +325,10 @@ setopt ignore_eof
 #never ever beep ever
 setopt no_beep
 
-##############################
-#utility functions
-##############################
+
+############################################################
+# utility functions #{{{1
+
 function alc() {
     if [ -n "$1" ]; then
         w3m "http://eow.alc.co.jp/${1}/UTF-8/?ref=sa" | sed '1,36d' | less
@@ -328,9 +403,9 @@ function zsh-without-rcfiles-in-screen() {
     screen zsh +o RCS
 }
 
-##############################
-#aliases
-##############################
+
+############################################################
+# aliases #{{{1
 
 #list
 alias ls='ls -F --color=auto'
@@ -432,6 +507,7 @@ elif which putclip >/dev/null 2>&1 ; then
 fi
 
 
+# for plugins #{{{1
 # cdd
 cdd_script_path=~/etc/config/zsh/cdd
 if [[ -f $cdd_script_path ]]; then
@@ -466,4 +542,4 @@ fi
 
 unset _zsh_user_config_dir
 
-# vim:set ft=zsh ts=4 sw=4 sts=0:
+# vim:set ft=zsh ts=4 sw=4 sts=0 foldmethod=marker:
