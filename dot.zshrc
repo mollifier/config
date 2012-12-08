@@ -162,8 +162,8 @@ zstyle ':vcs_info:bzr:*' use-simple true
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u%m'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u%m' '<!%a>'
+  zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
+  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
   zstyle ':vcs_info:git:*' check-for-changes true
   zstyle ':vcs_info:git:*' stagedstr "+"    # %c
   zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
