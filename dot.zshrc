@@ -159,7 +159,7 @@ zstyle ':vcs_info:bzr:*' use-simple true
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
   zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u%m'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u%m' '%a'
+  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u%m' '<!%a>'
   zstyle ':vcs_info:git:*' check-for-changes true
   zstyle ':vcs_info:git:*' stagedstr "+"    # %c
   zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
@@ -238,9 +238,9 @@ function _update_vcs_info_msg() {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     
-    psvar[1]="${vcs_info_msg_0_:-}"
-    psvar[2]="${vcs_info_msg_1_:-}"
-    psvar[3]="${vcs_info_msg_2_:-}"
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    [[ -n "$vcs_info_msg_1_" ]] && psvar[2]="$vcs_info_msg_1_"
+    [[ -n "$vcs_info_msg_2_" ]] && psvar[3]="$vcs_info_msg_2_"
 }
 add-zsh-hook precmd _update_vcs_info_msg
 RPROMPT="%1(v|%F{green}%1v%f|)%2(v| %F{yellow}%2v%f|)%3(v| %F{red}%3v%f|)"
