@@ -138,6 +138,9 @@ else
 %# "
 fi
 
+# set RPROMPT in vcs_info
+RPROMPT=""
+
 # show vcs information #{{{2
 # see man zshcontrib(1)
 # GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
@@ -235,15 +238,26 @@ if is-at-least 4.3.11; then
 fi
 
 function _update_vcs_info_msg() {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
+    local -a messages
+    local prompt
     
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-    [[ -n "$vcs_info_msg_1_" ]] && psvar[2]="$vcs_info_msg_1_"
-    [[ -n "$vcs_info_msg_2_" ]] && psvar[3]="$vcs_info_msg_2_"
+    LANG=en_US.UTF-8 vcs_info
+
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        # nothing from vcs_info
+        prompt=""
+    else
+        # vcs_info found something
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+    
+        prompt="${(j: :)messages}"
+    fi
+
+    RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-RPROMPT="%1(v|%F{green}%1v%f|)%2(v| %F{yellow}%2v%f|)%3(v| %F{red}%3v%f|)"
 # }}}2
 
 #history configuration
