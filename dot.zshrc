@@ -145,21 +145,21 @@ autoload -Uz vcs_info
 
 # message format
 #   $vcs_info_msg_0_ : main message
-#   $vcs_info_msg_1_ : error message
-#   $vcs_info_msg_2_ : misc message
+#   $vcs_info_msg_1_ : warning message
+#   $vcs_info_msg_2_ : error message
 zstyle ':vcs_info:*' max-exports 3
 
 zstyle ':vcs_info:*' enable git svn hg bzr
-zstyle ':vcs_info:*' formats '(%s)-[%b]' '' ''
-zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%a' ''
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '' '%a'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u' '' '%m'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b] %c%u' '%a' '%m'
+  zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u%m'
+  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u%m' '%a'
   zstyle ':vcs_info:git:*' check-for-changes true
   zstyle ':vcs_info:git:*' stagedstr "+"    # %c
   zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
@@ -184,6 +184,10 @@ if is-at-least 4.3.11; then
     
     # git: show marker (?) if there are untracked files in repository
     function +vi-git-untracked() {
+        if [[ "$1" != "0" ]]; then
+            return 0
+        fi
+
         if git status --porcelain \
             | awk '{print $1}' \
             | command grep -F '??' > /dev/null 2>&1 ; then
@@ -195,6 +199,10 @@ if is-at-least 4.3.11; then
 
     # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
     function +vi-git-push-status() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
         local ahead behind
         local -a gitstatus
 
@@ -213,6 +221,10 @@ if is-at-least 4.3.11; then
 
     # git: Show stash count.
     function +vi-git-stash-count() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
         local stash
         stash=$(git stash list | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]]; then
@@ -225,20 +237,13 @@ fi
 function _update_vcs_info_msg() {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
-    #[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    
     psvar[1]="${vcs_info_msg_0_:-}"
     psvar[2]="${vcs_info_msg_1_:-}"
     psvar[3]="${vcs_info_msg_2_:-}"
-    
-
-    echo "msg 0 = [${vcs_info_msg_0_}]"
-    echo "msg 1 = [${vcs_info_msg_1_}]"
-    echo "msg 2 = [${vcs_info_msg_2_}]"
-    echo "msg 3 = [${vcs_info_msg_3_}]"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-#RPROMPT="%1(v|%F{green}%1v%f|)"
-RPROMPT="%1(v|%1v|) !!!%2(v| %2v|)___%3(v| %3v|)"
+RPROMPT="%1(v|%F{green}%1v%f|)%2(v| %F{yellow}%2v%f|)%3(v| %F{red}%3v%f|)"
 # }}}2
 
 #history configuration
