@@ -159,30 +159,35 @@ if is-at-least 4.3.10; then
 fi
 
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:git*+set-message:*' hooks git-untracked \
+    zstyle ':vcs_info:git*+set-message:*' hooks git-hook-begin \
+                                                git-untracked \
                                                 git-push-status \
                                                 git-stash-count
     
-    # git: show marker (?) if there are untracked files in repository
-    function +vi-git-untracked() {
+    function +vi-git-hook-begin() {
         if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-            return 0
-        fi
-
-        if git status --porcelain | awk '{print $1}' | command grep -F '??' > /dev/null 2>&1 ; then
-            # unstaged = %u
-            hook_com[unstaged]+='?'
+            # if not in git work tree
+            # some git command (e.g. git status --porcelain) causes fatal error.
+            # so break and don't change message
+            return 1
         fi
 
         return 0
     }
+    
+    # git: show marker (?) if there are untracked files in repository
+    function +vi-git-untracked() {
+        if git status --porcelain \
+            | awk '{print $1}' \
+            | command grep -F '??' > /dev/null 2>&1 ; then
+
+            # unstaged = %u
+            hook_com[unstaged]+='?'
+        fi
+    }
 
     # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
     function +vi-git-push-status() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-            return 0
-        fi
-
         local ahead behind
         local -a gitstatus
 
@@ -197,24 +202,16 @@ if is-at-least 4.3.11; then
             # misc = %m
             hook_com[misc]+="(${(j:/:)gitstatus})"
         fi
-
-        return 0
     }
 
     # git: Show stash count.
     function +vi-git-stash-count() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-            return 0
-        fi
-
         local stash
         stash=$(git stash list | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]] then
             # misc = %m
             hook_com[misc]+=":S${stash}"
         fi
-        
-        return 0
     }
 fi
 
