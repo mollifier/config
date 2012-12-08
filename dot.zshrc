@@ -174,7 +174,9 @@ if is-at-least 4.3.11; then
     zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin \
                                                 git-untracked \
                                                 git-push-status \
+                                                git-nomerge-branch \
                                                 git-stash-count
+    
     
     function +vi-git-hook-begin() {
         if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
@@ -226,6 +228,26 @@ if is-at-least 4.3.11; then
         fi
     }
 
+    # git: Show marker (m) if current branch isn't merged to master.
+    # set misc string(%m) in second format
+    function +vi-git-nomerge-branch() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" == "master" ]]; then
+            # do nothing in master branch
+            return 0
+        fi
+
+        if git branch --no-merged master \
+            | command grep -F "* ${hook_com[branch]}" > /dev/null 2>&1 ; then
+        
+            # misc (%m)
+            hook_com[misc]+="(m)"
+        fi
+    }
+    
     # git: Show stash count.
     # set misc string(%m) in second format
     function +vi-git-stash-count() {
@@ -240,6 +262,7 @@ if is-at-least 4.3.11; then
             hook_com[misc]+=":S${stash}"
         fi
     }
+    
 fi
 
 function _update_vcs_info_msg() {
