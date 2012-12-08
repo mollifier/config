@@ -189,7 +189,7 @@ if is-at-least 4.3.11; then
         return 0
     }
     
-    # git: show marker (?) if there are untracked files in repository
+    # git: show marker '?' if there are untracked files in repository
     # set unstaged string(%u) in second format
     function +vi-git-untracked() {
         if [[ "$1" != "1" ]]; then
@@ -205,7 +205,7 @@ if is-at-least 4.3.11; then
         fi
     }
 
-    # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
+    # git: Show pN/oN when your local branch is ahead-of or behind remote HEAD.
     # set misc string(%m) in second format
     function +vi-git-push-status() {
         if [[ "$1" != "1" ]]; then
@@ -228,7 +228,7 @@ if is-at-least 4.3.11; then
         fi
     }
 
-    # git: Show marker (m) if current branch isn't merged to master.
+    # git: Show marker (mN) if current branch isn't merged to master.
     # set misc string(%m) in second format
     function +vi-git-nomerge-branch() {
         if [[ "$1" != "1" ]]; then
@@ -240,11 +240,11 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        if git branch --no-merged master \
-            | command grep -F "* ${hook_com[branch]}" > /dev/null 2>&1 ; then
+        local nomerged
+        nomerged=$(git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
         
-            # misc (%m)
-            hook_com[misc]+="(m)"
+        if [[ "$nomerged" -gt 0 ]] ; then
+            hook_com[misc]+="(m${nomerged})"
         fi
     }
     
