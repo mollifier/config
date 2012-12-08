@@ -169,7 +169,7 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        if git status --porcelain | command grep -F '??' > /dev/null 2>&1 ; then
+        if git status --porcelain | awk '{print $1}' | command grep -F '??' > /dev/null 2>&1 ; then
             # unstaged = %u
             hook_com[unstaged]+='?'
         fi
