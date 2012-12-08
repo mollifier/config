@@ -187,10 +187,10 @@ if is-at-least 4.3.11; then
         local -a gitstatus
 
         # not push
-        ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+        ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l | tr -d ' ')
         [[ "$ahead" -gt 0 ]] && gitstatus+=( "p${ahead}" )
 
-        behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+        behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l | tr -d ' ')
         [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
 
         if [[ ${#gitstatus} -gt 0 ]]; then
@@ -208,7 +208,7 @@ if is-at-least 4.3.11; then
         fi
 
         local stash
-        stash=$(git stash list | wc -l)
+        stash=$(git stash list | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]] then
             # misc = %m
             hook_com[misc]+=":S${stash}"
