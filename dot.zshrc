@@ -179,7 +179,7 @@ if is-at-least 4.3.11; then
     
     
     function +vi-git-hook-begin() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
             # if not in git work tree
             # some git command (e.g. git status --porcelain) causes fatal error.
             # so break and don't change message
@@ -196,7 +196,7 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        if git status --porcelain \
+        if command git status --porcelain \
             | awk '{print $1}' \
             | command grep -F '??' > /dev/null 2>&1 ; then
 
@@ -216,10 +216,10 @@ if is-at-least 4.3.11; then
         local -a gitstatus
 
         # not push
-        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
+        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
         [[ "$ahead" -gt 0 ]] && gitstatus+=( "p${ahead}" )
 
-        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l | tr -d ' ')
+        behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l | tr -d ' ')
         [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
 
         if [[ ${#gitstatus} -gt 0 ]]; then
@@ -241,7 +241,7 @@ if is-at-least 4.3.11; then
         fi
 
         local nomerged
-        nomerged=$(git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
         
         if [[ "$nomerged" -gt 0 ]] ; then
             hook_com[misc]+="(m${nomerged})"
@@ -256,7 +256,7 @@ if is-at-least 4.3.11; then
         fi
 
         local stash
-        stash=$(git stash list | wc -l | tr -d ' ')
+        stash=$(command git stash list | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]]; then
             # misc (%m)
             hook_com[misc]+=":S${stash}"
