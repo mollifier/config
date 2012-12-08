@@ -171,7 +171,7 @@ fi
 
 # hooks
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:git*+set-message:*' hooks git-hook-begin \
+    zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin \
                                                 git-untracked \
                                                 git-push-status \
                                                 git-stash-count
