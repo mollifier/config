@@ -154,7 +154,8 @@ zstyle ':vcs_info:*' max-exports 3
 
 zstyle ':vcs_info:*' enable git svn hg bzr
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '' '%a'
+# %m is expanded to empty string
+zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
@@ -168,6 +169,7 @@ if is-at-least 4.3.10; then
   zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
 fi
 
+# hooks
 if is-at-least 4.3.11; then
     zstyle ':vcs_info:git*+set-message:*' hooks git-hook-begin \
                                                 git-untracked \
@@ -186,8 +188,9 @@ if is-at-least 4.3.11; then
     }
     
     # git: show marker (?) if there are untracked files in repository
+    # set unstaged string(%u) in second format
     function +vi-git-untracked() {
-        if [[ "$1" != "0" ]]; then
+        if [[ "$1" != "1" ]]; then
             return 0
         fi
 
@@ -195,12 +198,13 @@ if is-at-least 4.3.11; then
             | awk '{print $1}' \
             | command grep -F '??' > /dev/null 2>&1 ; then
 
-            # unstaged = %u
+            # unstaged (%u)
             hook_com[unstaged]+='?'
         fi
     }
 
     # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
+    # set misc string(%m) in second format
     function +vi-git-push-status() {
         if [[ "$1" != "1" ]]; then
             return 0
@@ -217,12 +221,13 @@ if is-at-least 4.3.11; then
         [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
 
         if [[ ${#gitstatus} -gt 0 ]]; then
-            # misc = %m
+            # misc (%m)
             hook_com[misc]+="(${(j:/:)gitstatus})"
         fi
     }
 
     # git: Show stash count.
+    # set misc string(%m) in second format
     function +vi-git-stash-count() {
         if [[ "$1" != "1" ]]; then
             return 0
@@ -231,7 +236,7 @@ if is-at-least 4.3.11; then
         local stash
         stash=$(git stash list | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]]; then
-            # misc = %m
+            # misc (%m)
             hook_com[misc]+=":S${stash}"
         fi
     }
@@ -248,6 +253,7 @@ function _update_vcs_info_msg() {
         prompt=""
     else
         # vcs_info found something
+        # require 'autoload -Uz colors'
         [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
         [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
         [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
