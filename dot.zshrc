@@ -162,22 +162,23 @@ zstyle ':vcs_info:bzr:*' use-simple true
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
-  zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "+"    # %c
-  zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
+    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
+    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' stagedstr "+"    # %c
+    zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
 fi
 
 # hooks
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:git+set-message:*' hooks git-hook-begin \
-                                                git-untracked \
-                                                git-push-status \
-                                                git-nomerge-branch \
-                                                git-stash-count
-    
-    
+    zstyle ':vcs_info:git+set-message:*' hooks \
+                                            git-hook-begin \
+                                            git-untracked \
+                                            git-push-status \
+                                            git-nomerge-branch \
+                                            git-stash-count
+
+
     function +vi-git-hook-begin() {
         if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
             # if not in git work tree
@@ -205,7 +206,7 @@ if is-at-least 4.3.11; then
         fi
     }
 
-    # git: Show pN/oN when your local branch is ahead-of or behind remote HEAD.
+    # git: Show pN when your local branch is ahead-of remote HEAD.
     # set misc string(%m) in second format
     function +vi-git-push-status() {
         if [[ "$1" != "1" ]]; then
@@ -216,15 +217,13 @@ if is-at-least 4.3.11; then
         local -a gitstatus
 
         # not push
-        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
-        [[ "$ahead" -gt 0 ]] && gitstatus+=( "p${ahead}" )
+        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null \
+            | wc -l \
+            | tr -d ' ')
 
-        behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l | tr -d ' ')
-        [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
-
-        if [[ ${#gitstatus} -gt 0 ]]; then
+        if [[ "$ahead" -gt 0 ]]; then
             # misc (%m)
-            hook_com[misc]+="(${(j:/:)gitstatus})"
+            hook_com[misc]+="(p${ahead})"
         fi
     }
 
