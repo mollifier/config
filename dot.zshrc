@@ -213,10 +213,13 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        local ahead behind
-        local -a gitstatus
+        if [[ "${hook_com[branch]}" != "master" ]]; then
+            # do nothing if NOT in master branch
+            return 0
+        fi
 
         # not push
+        local ahead
         ahead=$(command git rev-list origin/master..master 2>/dev/null \
             | wc -l \
             | tr -d ' ')
@@ -241,12 +244,12 @@ if is-at-least 4.3.11; then
 
         local nomerged
         nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
-        
+
         if [[ "$nomerged" -gt 0 ]] ; then
             hook_com[misc]+="(m${nomerged})"
         fi
     }
-    
+
     # git: Show stash count.
     # set misc string(%m) in second format
     function +vi-git-stash-count() {
@@ -261,7 +264,7 @@ if is-at-least 4.3.11; then
             hook_com[misc]+=":S${stash}"
         fi
     }
-    
+
 fi
 
 function _update_vcs_info_msg() {
