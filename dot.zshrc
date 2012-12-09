@@ -197,7 +197,7 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        if command git status --porcelain \
+        if command git status --porcelain 2> /dev/null \
             | awk '{print $1}' \
             | command grep -F '??' > /dev/null 2>&1 ; then
 
@@ -255,7 +255,7 @@ if is-at-least 4.3.11; then
         fi
 
         local stash
-        stash=$(command git stash list | wc -l | tr -d ' ')
+        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]]; then
             # misc (%m)
             hook_com[misc]+=":S${stash}"
