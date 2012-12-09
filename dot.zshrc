@@ -217,7 +217,7 @@ if is-at-least 4.3.11; then
         local -a gitstatus
 
         # not push
-        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null \
+        ahead=$(command git rev-list origin/master..master 2>/dev/null \
             | wc -l \
             | tr -d ' ')
 
