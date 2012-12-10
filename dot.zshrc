@@ -138,93 +138,157 @@ else
 %# "
 fi
 
+# set RPROMPT in vcs_info
+RPROMPT=""
+
 # show vcs information #{{{2
 # see man zshcontrib(1)
 # GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
 autoload -Uz vcs_info
+
+# message format
+#   $vcs_info_msg_0_ : main message
+#   $vcs_info_msg_1_ : warning message
+#   $vcs_info_msg_2_ : error message
+zstyle ':vcs_info:*' max-exports 3
+
 zstyle ':vcs_info:*' enable git svn hg bzr
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+# %m is expanded to empty string
+zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-  zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "+"    # %c
-  zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u %m'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u %m'
+    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
+    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' stagedstr "+"    # %c
+    zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
 fi
 
+# hooks
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:git*+set-message:*' hooks git-untracked \
-                                                git-push-status \
-                                                git-stash-count
-    
-    # git: show marker (?) if there are untracked files in repository
-    function +vi-git-untracked() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-            return 0
-        fi
+    zstyle ':vcs_info:git+set-message:*' hooks \
+                                            git-hook-begin \
+                                            git-untracked \
+                                            git-push-status \
+                                            git-nomerge-branch \
+                                            git-stash-count
 
-        if git status --porcelain | grep '^\?\?' > /dev/null 2>&1 ; then
-            # unstaged = %u
-            hook_com[unstaged]+='?'
+
+    function +vi-git-hook-begin() {
+        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            # if not in git work tree
+            # some git command (e.g. git status --porcelain) causes fatal error.
+            # so break and don't change message
+            return 1
         fi
 
         return 0
     }
-
-    # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
-    function +vi-git-push-status() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+    
+    # git: show marker '?' if there are untracked files in repository
+    # set unstaged string(%u) in second format
+    function +vi-git-untracked() {
+        if [[ "$1" != "1" ]]; then
             return 0
         fi
 
-        local ahead behind
-        local -a gitstatus
+        if command git status --porcelain 2> /dev/null \
+            | awk '{print $1}' \
+            | command grep -F '??' > /dev/null 2>&1 ; then
 
-        # not push
-        ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
-        [[ "$ahead" -gt 0 ]] && gitstatus+=( "p${ahead}" )
+            # unstaged (%u)
+            hook_com[unstaged]+='?'
+        fi
+    }
 
-        behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
-        [[ "$behind" -gt 0 ]] && gitstatus+=( "o${behind}" )
-
-        if [[ ${#gitstatus} -gt 0 ]]; then
-            # misc = %m
-            hook_com[misc]+="(${(j:/:)gitstatus})"
+    # git: Show pN when your local branch is ahead-of remote HEAD.
+    # set misc string(%m) in second format
+    function +vi-git-push-status() {
+        if [[ "$1" != "1" ]]; then
+            return 0
         fi
 
-        return 0
+        if [[ "${hook_com[branch]}" != "master" ]]; then
+            # do nothing if NOT in master branch
+            return 0
+        fi
+
+        # not push
+        local ahead
+        ahead=$(command git rev-list origin/master..master 2>/dev/null \
+            | wc -l \
+            | tr -d ' ')
+
+        if [[ "$ahead" -gt 0 ]]; then
+            # misc (%m)
+            hook_com[misc]+="(p${ahead})"
+        fi
+    }
+
+    # git: Show marker (mN) if current branch isn't merged to master.
+    # set misc string(%m) in second format
+    function +vi-git-nomerge-branch() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" == "master" ]]; then
+            # do nothing in master branch
+            return 0
+        fi
+
+        local nomerged
+        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+
+        if [[ "$nomerged" -gt 0 ]] ; then
+            hook_com[misc]+="(m${nomerged})"
+        fi
     }
 
     # git: Show stash count.
+    # set misc string(%m) in second format
     function +vi-git-stash-count() {
-        if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+        if [[ "$1" != "1" ]]; then
             return 0
         fi
 
         local stash
-        stash=$(git stash list | wc -l)
-        if [[ "${stash}" -gt 0 ]] then
-            # misc = %m
+        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+        if [[ "${stash}" -gt 0 ]]; then
+            # misc (%m)
             hook_com[misc]+=":S${stash}"
         fi
-        
-        return 0
     }
+
 fi
 
 function _update_vcs_info_msg() {
-    psvar=()
+    local -a messages
+    local prompt
+    
     LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        # nothing from vcs_info
+        prompt=""
+    else
+        # vcs_info found something
+        # require 'autoload -Uz colors'
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+    
+        prompt="${(j: :)messages}"
+    fi
+
+    RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-RPROMPT="%1(v|%F{green}%1v%f|)"
 # }}}2
 
 #history configuration
