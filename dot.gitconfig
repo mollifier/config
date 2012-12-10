@@ -15,7 +15,7 @@
   interactive = auto
   grep = auto
 [alias]
-  s = status
+  s = status --short --branch
   st = status
   u = status
   ci = commit
