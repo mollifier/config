@@ -499,6 +499,11 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
+" Define dictionary.
+let g:NeoComplCache_DictionaryFileTypeLists = {
+            \ 'default' : '',
+            \ 'scala' : $HOME . '/.vim/dict/scala.dict'
+            \ }
 
 " unite.vim "{{{2
 " start in insert mode
