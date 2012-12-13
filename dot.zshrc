@@ -532,6 +532,8 @@ alias rlocate='locate --regex'
 alias ema='emacs -nw'
 alias mkzip='zip -q -r'
 alias pc=pwd-clip
+alias sc=scala
+alias scc=scalac
 
 autoload -Uz zmv
 alias zmv='noglob zmv -n -W'
