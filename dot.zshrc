@@ -1,6 +1,9 @@
 # zshrc
 
 
+############################################################
+# basic #{{{1
+
 umask 022
 limit coredumpsize 0
 stty erase '^h'
@@ -13,9 +16,9 @@ fi
 
 autoload -Uz add-zsh-hook
 
-##############################
-#environment variables
-##############################
+
+############################################################
+# environment variables #{{{1
 
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
@@ -32,7 +35,7 @@ if [[ -d "/usr/share/zsh/help/" ]]; then
     export HELPDIR=/usr/share/zsh/help/
 fi
 
-#ls color
+# ls color #{{{2
 if which dircolors >/dev/null 2>&1 ;then
     # export LS_COLORS
     eval $(dircolors -b)
@@ -47,9 +50,9 @@ fi
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
-##############################
-#key bind
-##############################
+############################################################
+# key bind #{{{1
+
 bindkey -e
 
 bindkey '^V' vi-quoted-insert
@@ -117,9 +120,9 @@ bindkey '^[d' _quote-previous-word-in-double
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-##############################
-#default configuration
-##############################
+
+############################################################
+# default configuration #{{{1
 
 #set PROMPT
 autoload -Uz colors
@@ -135,34 +138,158 @@ else
 %# "
 fi
 
-# show vcs information
+# set RPROMPT in vcs_info
+RPROMPT=""
+
+# show vcs information #{{{2
 # see man zshcontrib(1)
 # GATHERING INFORMATION FROM VERSION CONTROL SYSTEMS
 autoload -Uz vcs_info
+
+# message format
+#   $vcs_info_msg_0_ : main message
+#   $vcs_info_msg_1_ : warning message
+#   $vcs_info_msg_2_ : error message
+zstyle ':vcs_info:*' max-exports 3
+
 zstyle ':vcs_info:*' enable git svn hg bzr
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+# %m is expanded to empty string
+zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-  zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "+"
-  zstyle ':vcs_info:git:*' unstagedstr "-"
-  zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
-  zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
+    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
+    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' stagedstr "+"    # %c
+    zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
+fi
+
+# hooks
+if is-at-least 4.3.11; then
+    zstyle ':vcs_info:git+set-message:*' hooks \
+                                            git-hook-begin \
+                                            git-untracked \
+                                            git-push-status \
+                                            git-nomerge-branch \
+                                            git-stash-count
+
+
+    function +vi-git-hook-begin() {
+        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            # if not in git work tree
+            # some git command (e.g. git status --porcelain) causes fatal error.
+            # so break and don't change message
+            return 1
+        fi
+
+        return 0
+    }
+    
+    # git: show marker '?' if there are untracked files in repository
+    # set unstaged string(%u) in second format
+    function +vi-git-untracked() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if command git status --porcelain 2> /dev/null \
+            | awk '{print $1}' \
+            | command grep -F '??' > /dev/null 2>&1 ; then
+
+            # unstaged (%u)
+            hook_com[unstaged]+='?'
+        fi
+    }
+
+    # git: Show pN when your local branch is ahead-of remote HEAD.
+    # set misc string(%m) in second format
+    function +vi-git-push-status() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" != "master" ]]; then
+            # do nothing if NOT in master branch
+            return 0
+        fi
+
+        # not push
+        local ahead
+        ahead=$(command git rev-list origin/master..master 2>/dev/null \
+            | wc -l \
+            | tr -d ' ')
+
+        if [[ "$ahead" -gt 0 ]]; then
+            # misc (%m)
+            hook_com[misc]+="(p${ahead})"
+        fi
+    }
+
+    # git: Show marker (mN) if current branch isn't merged to master.
+    # set misc string(%m) in second format
+    function +vi-git-nomerge-branch() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" == "master" ]]; then
+            # do nothing in master branch
+            return 0
+        fi
+
+        local nomerged
+        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+
+        if [[ "$nomerged" -gt 0 ]] ; then
+            hook_com[misc]+="(m${nomerged})"
+        fi
+    }
+
+    # git: Show stash count.
+    # set misc string(%m) in second format
+    function +vi-git-stash-count() {
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        local stash
+        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+        if [[ "${stash}" -gt 0 ]]; then
+            # misc (%m)
+            hook_com[misc]+=":S${stash}"
+        fi
+    }
+
 fi
 
 function _update_vcs_info_msg() {
-    psvar=()
+    local -a messages
+    local prompt
+    
     LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        # nothing from vcs_info
+        prompt=""
+    else
+        # vcs_info found something
+        # require 'autoload -Uz colors'
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+    
+        prompt="${(j: :)messages}"
+    fi
+
+    RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-RPROMPT="%1(v|%F{green}%1v%f|)"
-
+# }}}2
 
 #history configuration
 HISTFILE=~/.zsh_history
@@ -190,12 +317,16 @@ _history_ignore() {
 add-zsh-hook zshaddhistory _history_ignore
 
 
-#completion
+# completion #{{{2
 autoload -Uz compinit
 compinit
 
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# ignore current directory
+# .. : only when the word on the line contains the substring '../'
+zstyle ':completion:*' ignore-parents parent pwd ..
 
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
@@ -214,15 +345,17 @@ if [[ -d ${_zsh_user_config_dir}/cache ]]; then
     zstyle ':completion:*' cache-path ${_zsh_user_config_dir}/cache
 fi
 
+# grouping cd completions
+zstyle ':completion:*:cd:*' group-name ''
+zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
+# }}}2
+
 
 #cd
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 cdpath=(${HOME} ${HOME}/work)
-# grouping cd completions
-zstyle ':completion:*:cd:*' group-name ''
-zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
 
 # set characters which are considered word characters
 # see man zshcontrib(1)
@@ -233,6 +366,11 @@ select-word-style default
 zstyle ':zle:*' word-chars " /;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
+# run-help
+[ -n "$(alias run-help)" ] && unalias run-help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svn
 
 #etc
 #allow comments in interactive shell
@@ -251,9 +389,10 @@ setopt ignore_eof
 #never ever beep ever
 setopt no_beep
 
-##############################
-#utility functions
-##############################
+
+############################################################
+# utility functions #{{{1
+
 function alc() {
     if [ -n "$1" ]; then
         w3m "http://eow.alc.co.jp/${1}/UTF-8/?ref=sa" | sed '1,36d' | less
@@ -328,9 +467,9 @@ function zsh-without-rcfiles-in-screen() {
     screen zsh +o RCS
 }
 
-##############################
-#aliases
-##############################
+
+############################################################
+# aliases #{{{1
 
 #list
 alias ls='ls -F --color=auto'
@@ -432,6 +571,7 @@ elif which putclip >/dev/null 2>&1 ; then
 fi
 
 
+# for plugins #{{{1
 # cdd
 cdd_script_path=~/etc/config/zsh/cdd
 if [[ -f $cdd_script_path ]]; then
@@ -455,9 +595,8 @@ if [[ -f $rupa_z_script_path ]]; then
 fi
 unset rupa_z_script_path
 
-# perl
-if [[ -f ~/perl5/perlbrew/etc/bashrc ]]; then
-    source ~/perl5/perlbrew/etc/bashrc
+if [[ -f ~/.zshrc_dev ]]; then
+    source ~/.zshrc_dev
 fi
 
 # source local rcfile
@@ -467,4 +606,4 @@ fi
 
 unset _zsh_user_config_dir
 
-# vim:set ft=zsh ts=4 sw=4 sts=0:
+# vim:set ft=zsh ts=4 sw=4 sts=0 foldmethod=marker:

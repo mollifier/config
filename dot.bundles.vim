@@ -40,7 +40,7 @@ Bundle 'othree/eregex.vim'
 Bundle 'kana/vim-filetype-haskell'
 Bundle 'ujihisa/ref-hoogle'
 Bundle 'ujihisa/neco-ghc'
-
+Bundle 'derekwyatt/vim-scala'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
