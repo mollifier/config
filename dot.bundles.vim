@@ -35,8 +35,11 @@ Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/neosnippet'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'thinca/vim-quickrun'
+Bundle 'thinca/vim-ref'
 Bundle 'othree/eregex.vim'
 Bundle 'kana/vim-filetype-haskell'
+Bundle 'ujihisa/ref-hoogle'
+Bundle 'ujihisa/neco-ghc'
 
 
 " vim-scripts repos
