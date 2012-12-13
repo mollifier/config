@@ -474,8 +474,6 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-imap <C-j> <Plug>(neocomplcache_snippets_expand)
-smap <C-j> <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g> neocomplcache#undo_completion()
 inoremap <expr><C-l> neocomplcache#complete_common_string()
 
@@ -504,6 +502,12 @@ let g:NeoComplCache_DictionaryFileTypeLists = {
             \ 'default' : '',
             \ 'scala' : $HOME . '/.vim/dict/scala.dict'
             \ }
+
+" neosnippet "{{{2
+imap <C-j>     <Plug>(neosnippet_expand_or_jump)
+smap <C-j>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-j>     <Plug>(neosnippet_expand_target)
+
 
 " unite.vim "{{{2
 " start in insert mode
