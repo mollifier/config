@@ -4,4 +4,6 @@
 .~lock.*#
 doc/tags
 doc/tags-ja
+*.class
+*.class
 

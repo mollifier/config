@@ -363,11 +363,12 @@ cdpath=(${HOME} ${HOME}/work)
 autoload -Uz select-word-style
 select-word-style default
 # only these characters are not considered word characters
-zstyle ':zle:*' word-chars " /;@:{},|"
+zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
 # run-help
-[ -n "$(alias run-help)" ] && unalias run-help
+# delete alias
+alias run-help >/dev/null 2>&1 && unalias run-help
 autoload -Uz run-help
 autoload -Uz run-help-git
 autoload -Uz run-help-svn
@@ -531,6 +532,8 @@ alias rlocate='locate --regex'
 alias ema='emacs -nw'
 alias mkzip='zip -q -r'
 alias pc=pwd-clip
+alias sc=scala
+alias scc=scalac
 
 autoload -Uz zmv
 alias zmv='noglob zmv -n -W'
