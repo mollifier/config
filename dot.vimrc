@@ -319,6 +319,9 @@ let is_bash=1
 "see also :help zip-extension
 au BufReadCmd *.jar,*.xpi call zip#Browse(expand("<amatch>"))
 
+"Markdown
+" disable * and _
+autocmd! FileType markdown hi! def link markdownItalic Normal
 
 " Fold  "{{{1
 set foldmethod=expr
