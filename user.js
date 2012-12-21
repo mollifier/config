@@ -56,7 +56,7 @@ user_pref("browser.link.open_newwindow", 1);
 
 // true : 新しいタブを現在のタブのすぐ右隣に追加する
 // false : 新しいタブを全てのタブの末尾に追加する
-user_pref("browser.tabs.insertRelatedAfterCurrent", false);
+user_pref("browser.tabs.insertRelatedAfterCurrent", true);
 
 // ソース表示
 //

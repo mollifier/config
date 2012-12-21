@@ -321,6 +321,17 @@ add-zsh-hook zshaddhistory _history_ignore
 autoload -Uz compinit
 compinit
 
+# use zsh-completions
+# Additional completion definitions for Zsh
+# http://github.com/zsh-users/zsh-completions
+# Install
+#   % cd ~/.zsh/
+#   % git clone git://github.com/zsh-users/zsh-completions.git
+#   % rm -f ~/.zcompdump; compinit   # clear cache
+if [[ -d "$HOME/.zsh/zsh-completions/src" ]]; then
+    fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
+fi
+
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -534,6 +545,7 @@ alias mkzip='zip -q -r'
 alias pc=pwd-clip
 alias sc=scala
 alias scc=scalac
+alias csc=scalac
 
 autoload -Uz zmv
 alias zmv='noglob zmv -n -W'
