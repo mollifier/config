@@ -41,6 +41,8 @@ Bundle 'kana/vim-filetype-haskell'
 Bundle 'ujihisa/ref-hoogle'
 Bundle 'ujihisa/neco-ghc'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'tomasr/molokai'
+Bundle 'nanotech/jellybeans.vim'
 
 " vim-scripts repos
 Bundle 'matchit.zip'

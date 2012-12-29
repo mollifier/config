@@ -203,6 +203,8 @@ nnoremap <SPACE>c :<C-u>nohlsearch<CR>
 set t_Co=256
 colorscheme mrkn256
 "colorscheme lucius
+"colorscheme molokai
+"colorscheme jellybeans
 
 set background=light
 "set background=dark
