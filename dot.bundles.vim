@@ -43,6 +43,7 @@ Bundle 'ujihisa/neco-ghc'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
+Bundle 'tyru/coolgrep.vim'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
