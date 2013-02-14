@@ -359,6 +359,12 @@ inoremap <C-Z> <C-O>:set paste<CR><C-R>"<C-O>:set nopaste<CR>
 "end completion and begin new line
 inoremap <C-J> <C-E><CR>
 
+" put text from register 0
+" register 0 contains the text from the most recent yank command
+vnoremap <silent> <C-p> "0p
+nnoremap <silent> <C-p> "0P
+
+
 
 "scroll
 noremap J <C-D>
