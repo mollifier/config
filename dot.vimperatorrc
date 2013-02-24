@@ -191,8 +191,6 @@ my_utils.getGoogleShortUrl = function() {
 liberator.globalVariables.copy_templates = [
     { label: 'Markdown', value: '[%TITLE%](%URL%)' },
     { label: 'Title : URL', value: '%TITLE% : %URL%' },
-    { label: 'Hatena-Title', value: '[%URL%:title=%TITLE%]' },
-    { label: 'Hatena-Quote', value: '>%URL%:title=%TITLE%>\n%SEL%\n<<' },
     { label: 'goo.gl', value: 'get goo.gl short url', custom: my_utils.getGoogleShortUrl },
     { label: 'tweet', value: 'title shorturl',
         custom: function() {
