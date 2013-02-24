@@ -173,30 +173,9 @@ my_utils.httpPost = function(url, data, callback) {
     }
 };
 
-my_utils.getGoogleShortUrl = function() {
-    var ret = "";
-    var response;
-    var data = {"url": buffer.URL};
-    var xhr = my_utils.httpPost("http://goo.gl/api/url", data);
-    // xhr.status will be '201 Created'
-    if (xhr) {
-        response = JSON.parse(xhr.responseText);
-        if (response.short_url) {
-            ret = response.short_url;
-        }
-    }
-    return ret;
-};
-
 liberator.globalVariables.copy_templates = [
     { label: 'Markdown', value: '[%TITLE%](%URL%)' },
     { label: 'Title : URL', value: '%TITLE% : %URL%' },
-    { label: 'goo.gl', value: 'get goo.gl short url', custom: my_utils.getGoogleShortUrl },
-    { label: 'tweet', value: 'title shorturl',
-        custom: function() {
-            return content.document.title + ' ' + my_utils.getGoogleShortUrl();
-        }
-    }
 ];
 EOF
 
