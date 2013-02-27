@@ -44,6 +44,7 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'tyru/coolgrep.vim'
+Bundle 'rhysd/clever-f.vim'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
