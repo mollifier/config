@@ -591,9 +591,7 @@ fi
 cdd_script_path=~/etc/config/zsh/cdd
 if [[ -f $cdd_script_path ]]; then
     source $cdd_script_path
-    function _cdd_chpwd() {
-        _reg_pwd_screennum
-    }
+    touch $CDD_FILE
     add-zsh-hook chpwd _cdd_chpwd
 fi
 unset cdd_script_path
