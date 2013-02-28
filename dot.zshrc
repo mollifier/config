@@ -509,7 +509,6 @@ alias eucvi='vim -c "edit ++enc=euc-jp"'
 alias gm='gvim'
 
 #grep
-alias grep='grep -E'
 alias gf='grep --with-filename --line-number'
 alias gr='grep --with-filename --line-number --recursive --exclude-dir=.svn'
 
