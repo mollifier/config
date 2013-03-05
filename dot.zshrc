@@ -499,6 +499,15 @@ alias mv='mv -i'
 
 alias mkdir='mkdir -p'
 
+#cd
+alias c='cd'
+alias c-='cd -'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+
 #vi
 alias vi='vim'
 alias v='vim'
@@ -527,7 +536,6 @@ alias h=my_history_func
 alias sudo='sudo '
 
 #etc
-alias c='cd'
 alias g='git'
 alias s='svn'
 alias dirs='dirs -p'
