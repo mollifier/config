@@ -465,6 +465,9 @@ let xul_noclose_script = 1
 " hatena.vim (Syntax for hatena) "{{{2
 let g:hatena_syntax_html = 1
 
+" teramako/jscomplete-vim  "{{{2
+let g:jscomplete_use = ['dom']
+
 " neocomplcache "{{{2
 " Disable AutoComplPop.
 "let g:acp_enableAtStartup = 0
@@ -507,6 +510,10 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+let g:neocomplcache_source_rank = {
+  \ 'jscomplete' : 500,
+  \ }
 
 " Define dictionary.
 let g:NeoComplCache_DictionaryFileTypeLists = {
