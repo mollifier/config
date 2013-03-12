@@ -341,6 +341,7 @@ map <SPACE> <Nop>
 noremap <C-K> <ESC>
 cnoremap <C-K> <C-C>
 inoremap <C-K> <ESC>
+snoremap <C-K> <ESC>
 
 noremap Y y$
 noremap gh ^
