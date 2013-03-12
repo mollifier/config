@@ -5,9 +5,6 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal softtabstop=0
 
-nnoremap <buffer> ,f i(function() {<CR><CR>})();<C-o>k<Tab>
-inoremap <buffer> ,f (function() {<CR><CR>})();<C-o>k<Tab>
-
 compiler javascriptlint
 "au BufWritePost <buffer> silent make
 
@@ -22,7 +19,5 @@ let b:undo_ftplugin .= '
 \ | setlocal softtabstop<
 \ | setlocal makeprg<
 \ | setlocal errorformat<
-\ | execute "nunmap <buffer> ,f"
-\ | execute "iunmap <buffer> ,f"
 \'
 
