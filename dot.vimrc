@@ -532,6 +532,9 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
+" User defined snippet directory
+let g:neosnippet#snippets_directory='$HOME/.vim/snippets/,$HOME/vimfiles/snippets/'
+
 
 " unite.vim "{{{2
 " start in insert mode
