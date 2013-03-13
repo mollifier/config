@@ -14,7 +14,10 @@ set guifont=Monospace\ 14
 "disable blink
 set guicursor=a:blinkoff0
 
+"disable bell
+set noerrorbells
 set novisualbell
+set visualbell t_vb=
 
 " Disable useless bars"{{{1
 "toolbar
