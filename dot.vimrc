@@ -6,6 +6,8 @@ autocmd!
 " vundle.vim
 if filereadable($HOME . '/.bundles.vim')
     source $HOME/.bundles.vim
+elseif filereadable($HOME . '/_bundles.vim')
+    source $HOME/_bundles.vim
 endif
 
 
