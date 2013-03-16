@@ -429,6 +429,11 @@ function body() {
     sed -n -e "${exp}p" $@
 }
 
+# search zsh document
+function zman() {
+    PAGER="less -g -s '+/^       "$1"'" man zshall
+}
+
 # cd to git repository root directory
 # http://d.hatena.ne.jp/hitode909/20100211/1265879271
 function cdu() {
