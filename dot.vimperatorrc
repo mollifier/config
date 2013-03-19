@@ -1,8 +1,7 @@
 " vimperatorrc
 
-"""""""""""""""""""""
-" option
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" option "{{{1
 
 " t : Open tabs
 " S : Search engine suggestions
@@ -23,9 +22,9 @@ highlight Bell display: none
 " https://github.com/vimpr/vimperator-rc/blob/master/retlet/color/hint.vimp
 colorscheme hint
 
-"""""""""""""""""""""
-" map
-"""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" map "{{{1
 
 noremap <C-i>  <TAB>
 cnoremap <C-i>  <TAB>
@@ -42,11 +41,10 @@ noremap <silent> <C-l> :messclear<CR>
 cnoremap <silent> <C-l> :messclear<CR>
 
 
-"""""""""""""""""""""
-" scroll
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" scroll "{{{1
 
-" reset number of lines to scroll 
+" reset number of lines to scroll
 set scroll=0
 
 noremap j 4j
@@ -70,9 +68,7 @@ noremap t F
 
 noremap . r
 
-""""""""""""""""""""""""""""""""""""""""
-
-"" tab
+" tab "{{{2
 cnoremap <C-n> <Tab>
 cnoremap <C-p> <S-Tab>
 
@@ -89,7 +85,7 @@ map <silent> gh :tabmove! -1<CR>
 map <silent> gl :tabmove! +1<CR>
 
 
-" pass-through pages
+" pass-through pages "{{{2
 " jsdo.it edit page
 autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/jsdo\.it\/[^\/]+\/[^\/]+\/edit/.test(buffer.URL)
 " hatena diary edit page
@@ -98,22 +94,20 @@ autocmd LocationChange .* :js modes.passAllKeys = /^http:\/\/d\.hatena\.ne\.jp\/
 autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/docs\.google\.com\//.test(buffer.URL)
 autocmd LocationChange .* :js modes.passAllKeys = /^https?:\/\/spreadsheets\.google\.com\//.test(buffer.URL)
 
-""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""
-"" For plugins
-""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" For plugins "{{{1
 
 let g:plugin_loader_roots = "~/etc/config/dot.vimperator/vimpr-plugins/"
 let g:plugin_loader_plugins = "_libly,commandBookmarklet,copy,feedSomeKeys_3,hatena_highlight,hints-yank-paste,multi_requester,pluginManager,statusline-toolbar"
 
-" feedSomeKeys_3.js
+" feedSomeKeys_3.js "{{{2
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc
 lazy fmaps -u='(fastladder|livedoor)\.com/reader' j k s a p o v c i p <Space> <S-Space> z b < > q w e g ?
 lazy fmaps -u='www\.google\.com/calendar/' -events=vkeydown t a d w m x c e <Del> / + q s ?
 
-" hatena bookmark
+" hatena bookmark "{{{2
 javascript <<EOF
 liberator.globalVariables.hBookmark_shortcuts = {
     hintsAdd : 'c',
@@ -125,7 +119,7 @@ EOF
 
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 
-" copy.js
+" copy.js "{{{2
 js <<EOF
 if (! my_utils) {
     var my_utils = {};
@@ -179,14 +173,14 @@ liberator.globalVariables.copy_templates = [
 ];
 EOF
 
-" multi_requester.js
+" multi_requester.js "{{{2
 js <<EOF
 liberator.globalVariables.multi_requester_mappings = [
     [',ma', 'alc'],
 ];
 EOF
 
-" hatena_highlight.js
+" hatena_highlight.js "{{{2
 " clear search highlight automatically
 autocmd PageLoad 'd\.hatena\.ne\.jp' :nohatenahighlight
 autocmd PageLoad 'g\.hatena\.ne\.jp' :nohatenahighlight
@@ -196,4 +190,4 @@ autocmd PageLoad 'g\.hatena\.ne\.jp' :nohatenahighlight
 source! ~/.vimperatorrc.local
 
 
-" vim: set ts=4 sw=4 sts=0 ft=vimperator:
+" vim: set ts=4 sw=4 sts=0 ft=vimperator foldmethod=marker:
