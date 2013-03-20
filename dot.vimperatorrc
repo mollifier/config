@@ -6,7 +6,7 @@
 " t : Open tabs
 " S : Search engine suggestions
 " l : Firefox location bar entries
-set complete=tSl
+set complete=Sl
 
 set gui=noaddons,nobookmarks,menu,nonavigation,tabs
 
