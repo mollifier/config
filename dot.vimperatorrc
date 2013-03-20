@@ -29,7 +29,7 @@ colorscheme hint
 noremap <C-i>  <TAB>
 cnoremap <C-i>  <TAB>
 
-noremap <C-h>  <BS>
+noremap <C-h>  :h 
 cnoremap <C-h>  <BS>
 inoremap <C-h>  <BS>
 
@@ -40,6 +40,7 @@ inoremap <C-k>  <ESC>
 noremap <silent> <C-l> :messclear<CR>
 cnoremap <silent> <C-l> :messclear<CR>
 
+noremap <C-z>  <S-ESC>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " scroll "{{{1
@@ -106,6 +107,12 @@ command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc
 lazy fmaps -u='(fastladder|livedoor)\.com/reader' j k s a p o v c i p <Space> <S-Space> z b < > q w e g ?
 lazy fmaps -u='www\.google\.com/calendar/' -events=vkeydown t a d w m x c e <Del> / + q s ?
+
+" Twitter
+lazy fmaps -u='^https?://twitter\.com/' -events=vkeydown j k .
+lazy fmaps -u='^https?://twitter\.com/' -events=vkeydown n f r
+lazy fmaps -u='^https?://twitter\.com/' -events=keydown <Esc>
+lazy fmaps -u='^https?://twitter\.com/' -events=keydown -modes=INSERT <Esc>
 
 " hatena bookmark "{{{2
 javascript <<EOF
