@@ -5,7 +5,7 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal softtabstop=0
 
-compiler javascriptlint
+compiler jshint
 "au BufWritePost <buffer> silent make
 
 if !exists('b:undo_ftplugin')
