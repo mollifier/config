@@ -27,6 +27,8 @@ path=($HOME/.nodebrew/current/bin(N-/) $path)
 ## haskell (cabal) ##
 path=($HOME/Library/Haskell/bin(N-/) $path)
 
+# ruby
+path=($HOME/.rbenv/bin/(N-/) $path)
 
 # vim:set ft=zsh ts=4 sw=4 sts=0:
 
