@@ -33,5 +33,8 @@ if which rbenv >/dev/null 2>&1 ;then
     eval "$(rbenv init -)"
 fi
 
+### Added by the Heroku Toolbelt
+path=(/usr/local/heroku/bin(N-/) $path)
+
 # vim:set ft=zsh ts=4 sw=4 sts=0:
 
