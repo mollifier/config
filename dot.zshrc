@@ -16,6 +16,8 @@ fi
 
 autoload -Uz add-zsh-hook
 
+autoload -Uz compinit
+compinit
 
 ############################################################
 # environment variables #{{{1
@@ -119,6 +121,12 @@ bindkey '^[d' _quote-previous-word-in-double
 # quote URL
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+
+# Edit the command line using your visual editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
+bindkey '^X^E' edit-command-line
 
 
 ############################################################
@@ -318,8 +326,6 @@ add-zsh-hook zshaddhistory _history_ignore
 
 
 # completion #{{{2
-autoload -Uz compinit
-compinit
 
 # use zsh-completions
 # Additional completion definitions for Zsh
