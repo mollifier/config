@@ -13,10 +13,13 @@ path=(${JAVA_HOME:+${JAVA_HOME}/bin}(N-/) $path)
 
 
 ## scala ##
-if [[ -d "/usr/share/java" ]]; then
-    # Ubuntu apt get install
-    export SCALA_HOME="/usr/share/java"
+# svm
+# http://github.com/yuroyoro/svm
+if [[ -d "${HOME}/.svm/current/rt" ]]; then
+    export SCALA_HOME=${HOME}/.svm/current/rt
+    path=(${SCALA_HOME:+${SCALA_HOME}/bin}(N-/) $path)
 fi
+
 
 ## Play Framework ##
 path=($HOME/local/play/latest(N-/) $path)
