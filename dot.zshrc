@@ -29,6 +29,9 @@ if [[ -d "$HOME/.zsh/zsh-completions/src" ]]; then
     fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
 fi
 
+# load user completion files
+fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
+
 autoload -Uz compinit
 compinit
 
