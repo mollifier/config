@@ -16,6 +16,19 @@ fi
 
 autoload -Uz add-zsh-hook
 
+# use zsh-completions
+# Additional completion definitions for Zsh
+# http://github.com/zsh-users/zsh-completions
+# Install
+#   % cd ~/.zsh/
+#   % git clone git://github.com/zsh-users/zsh-completions.git
+#   % rm -f ~/.zcompdump; compinit   # clear cache
+#
+# NOTE: set fpath before compinit
+if [[ -d "$HOME/.zsh/zsh-completions/src" ]]; then
+    fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
+fi
+
 autoload -Uz compinit
 compinit
 
@@ -326,17 +339,6 @@ add-zsh-hook zshaddhistory _history_ignore
 
 
 # completion #{{{2
-
-# use zsh-completions
-# Additional completion definitions for Zsh
-# http://github.com/zsh-users/zsh-completions
-# Install
-#   % cd ~/.zsh/
-#   % git clone git://github.com/zsh-users/zsh-completions.git
-#   % rm -f ~/.zcompdump; compinit   # clear cache
-if [[ -d "$HOME/.zsh/zsh-completions/src" ]]; then
-    fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
-fi
 
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
