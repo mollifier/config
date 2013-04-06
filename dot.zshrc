@@ -221,10 +221,8 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        if command git status --porcelain 2> /dev/null \
-            | awk '{print $1}' \
-            | command grep -F '??' > /dev/null 2>&1 ; then
-
+        local untracked_line=${${(@f)"$(command git status --porcelain 2> /dev/null)"}[(r)\?\? *]}
+        if [ "$untracked_line" != "" ]; then
             # unstaged (%u)
             hook_com[unstaged]+='?'
         fi
@@ -243,11 +241,9 @@ if is-at-least 4.3.11; then
         fi
 
         # not push
-        local ahead
-        ahead=$(command git rev-list origin/master..master 2>/dev/null \
-            | wc -l \
-            | tr -d ' ')
-
+        local -a head_lines
+        ahead_lines=( ${(@f)"$(command git rev-list origin/master..master 2>/dev/null)"} )
+        local ahead=${#ahead_lines}
         if [[ "$ahead" -gt 0 ]]; then
             # misc (%m)
             hook_com[misc]+="(p${ahead})"
@@ -266,9 +262,9 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        local nomerged
-        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
-
+        local -a nomerged_lines
+        nomerged_lines=( ${(@f)"$(command git rev-list master..${hook_com[branch]} 2>/dev/null)"} )
+        local nomerged=${#nomerged_lines}
         if [[ "$nomerged" -gt 0 ]] ; then
             hook_com[misc]+="(m${nomerged})"
         fi
@@ -281,8 +277,9 @@ if is-at-least 4.3.11; then
             return 0
         fi
 
-        local stash
-        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+        local -a stash_lines
+        stash_lines=( ${(@f)"$(command git stash list 2>/dev/null)"} )
+        stash=${#stash_lines}
         if [[ "${stash}" -gt 0 ]]; then
             # misc (%m)
             hook_com[misc]+=":S${stash}"
