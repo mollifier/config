@@ -65,6 +65,10 @@ bind ^x copy
 bind v paste .
 bind ^v paste .
 
+# colon
+bind : colon
+bind ^: colon
+
 #change window title
 bind i eval 'title ""' title
 bind ^i eval 'title ""' title
