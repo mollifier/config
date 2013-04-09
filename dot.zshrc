@@ -244,7 +244,7 @@ if is-at-least 4.3.11; then
         local -a head_lines
         ahead_lines=( ${(@f)"$(command git rev-list origin/master..master 2>/dev/null)"} )
         local ahead=${#ahead_lines}
-        if [[ "$ahead" -gt 0 ]]; then
+        if [[ "$ahead_lines[*]" != "" && "$ahead" -gt 0 ]]; then
             # misc (%m)
             hook_com[misc]+="(p${ahead})"
         fi
@@ -265,7 +265,7 @@ if is-at-least 4.3.11; then
         local -a nomerged_lines
         nomerged_lines=( ${(@f)"$(command git rev-list master..${hook_com[branch]} 2>/dev/null)"} )
         local nomerged=${#nomerged_lines}
-        if [[ "$nomerged" -gt 0 ]] ; then
+        if [[ "$nomerged_lines[*]" != "" && "$nomerged" -gt 0 ]] ; then
             hook_com[misc]+="(m${nomerged})"
         fi
     }
@@ -280,7 +280,7 @@ if is-at-least 4.3.11; then
         local -a stash_lines
         stash_lines=( ${(@f)"$(command git stash list 2>/dev/null)"} )
         stash=${#stash_lines}
-        if [[ "${stash}" -gt 0 ]]; then
+        if [[ "$stash_lines[*]" != "" && "${stash}" -gt 0 ]]; then
             # misc (%m)
             hook_com[misc]+=":S${stash}"
         fi
