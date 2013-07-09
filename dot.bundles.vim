@@ -51,6 +51,8 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'tyru/coolgrep.vim'
+Bundle 'editorconfig/editorconfig-vim'
+
 
 " vim-scripts repos
 Bundle 'matchit.zip'
