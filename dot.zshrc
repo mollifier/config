@@ -29,6 +29,11 @@ if [[ -d "$HOME/.zsh/zsh-completions/src" ]]; then
     fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
 fi
 
+# Mac homebrew
+if [[ -d "/usr/local/share/zsh/site-functions" ]]; then
+    fpath=("/usr/local/share/zsh/site-functions" $fpath)
+fi
+
 # load user completion files
 fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
 
