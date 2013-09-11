@@ -25,14 +25,10 @@ autoload -Uz add-zsh-hook
 #   % rm -f ~/.zcompdump; compinit   # clear cache
 #
 # NOTE: set fpath before compinit
-if [[ -d "$HOME/.zsh/zsh-completions/src" ]]; then
-    fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
-fi
+fpath=($HOME/.zsh/zsh-completions/src(N-/) $fpath)
 
 # Mac homebrew
-if [[ -d "/usr/local/share/zsh/site-functions" ]]; then
-    fpath=("/usr/local/share/zsh/site-functions" $fpath)
-fi
+fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 
 # load user completion files
 fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
