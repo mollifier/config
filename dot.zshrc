@@ -153,13 +153,14 @@ bindkey '^X^E' edit-command-line
 autoload -Uz colors
 colors
 
+# %1v, %2v, %3v are set by vcs_info
 if [[ -z "${REMOTEHOST}${SSH_CONNECTION}" ]]; then
     #local shell
-    PROMPT="%U%{${fg[red]}%}[%n@%m]%{${reset_color}%}%u(%j) %~
+    PROMPT="%U%{${fg[red]}%}[%n@%m]%{${reset_color}%}%u(%j) %1(v|%1v%U%2v%u%3v|%~)
 %# "
 else
     #remote shell
-    PROMPT="%U%{${fg[blue]}%}[%n@%m]%{${reset_color}%}%u(%j) %~
+    PROMPT="%U%{${fg[blue]}%}[%n@%m]%{${reset_color}%}%u(%j) %1(v|%1v%U%2v%u%3v|%~)
 %# "
 fi
 
@@ -174,21 +175,24 @@ autoload -Uz vcs_info
 # message format
 #   $vcs_info_msg_0_ : main message
 #   $vcs_info_msg_1_ : warning message
-#   $vcs_info_msg_2_ : error message
-zstyle ':vcs_info:*' max-exports 3
+#   $vcs_info_msg_2_ : base directory name
+#   $vcs_info_msg_3_ : repository name
+#   $vcs_info_msg_4_ : subdirectory within a repository name
+#   $vcs_info_msg_5_ : error message
+zstyle ':vcs_info:*' max-exports 6
 
 zstyle ':vcs_info:*' enable git svn hg bzr
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' formats '(%s)-[%b]' '%m' '%R' '%r' '%S'
 # %m is expanded to empty string
-zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '%R' '%r' '%S' '<!%a>'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
 
 autoload -Uz is-at-least
 if is-at-least 4.3.10; then
-    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
-    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m' '%R' '%r' '%S'
+    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '%R' '%r' '%S' '<!%a>'
     zstyle ':vcs_info:git:*' check-for-changes true
     zstyle ':vcs_info:git:*' stagedstr "+"    # %c
     zstyle ':vcs_info:git:*' unstagedstr "-"  # %u
@@ -293,6 +297,8 @@ function _update_vcs_info_msg() {
     local -a messages
     local prompt
     
+    psvar=()
+
     LANG=en_US.UTF-8 vcs_info
 
     if [[ -z ${vcs_info_msg_0_} ]]; then
@@ -303,9 +309,27 @@ function _update_vcs_info_msg() {
         # require 'autoload -Uz colors'
         [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
         [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
-        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+        [[ -n "$vcs_info_msg_5_" ]] && messages+=( "%F{red}${vcs_info_msg_5_}%f" )
     
         prompt="${(j: :)messages}"
+
+        # set psvar for PROMPT
+        # substitute $HOME to ~
+        local base_directory=$(echo "$vcs_info_msg_2_" | sed "s=^$HOME=~=")
+        local repository_name="$vcs_info_msg_3_"
+        local up_directory=${base_directory%${repository_name}}
+
+        local subdirectory_within_a_repository="$vcs_info_msg_4_"
+
+        if [[ "$subdirectory_within_a_repository" == "" || "$subdirectory_within_a_repository" == "." ]]; then
+            subdirectory_within_a_repository=""
+        else
+            subdirectory_within_a_repository="/$subdirectory_within_a_repository"
+        fi
+
+        psvar[1]="$up_directory"
+        psvar[2]="$repository_name"
+        psvar[3]="$subdirectory_within_a_repository"
     fi
 
     RPROMPT="$prompt"
