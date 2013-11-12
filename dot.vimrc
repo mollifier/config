@@ -575,6 +575,10 @@ endfunction
 nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
 vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
 
+" ctrlp "{{{2
+let g:ctrlp_map = '<SPACE>p'
+
+
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
     source $HOME/.vimrc_local

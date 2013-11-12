@@ -52,7 +52,7 @@ Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'tyru/coolgrep.vim'
 Bundle 'editorconfig/editorconfig-vim'
-
+Bundle 'kien/ctrlp.vim'
 
 " vim-scripts repos
 Bundle 'matchit.zip'
