@@ -315,7 +315,7 @@ function _update_vcs_info_msg() {
 
         # set psvar for PROMPT
         # substitute $HOME to ~
-        local base_directory=$(echo "$vcs_info_msg_2_" | sed "s=^$HOME=~=")
+        local base_directory=$(print -nD "$vcs_info_msg_2_")
         local repository_name="$vcs_info_msg_3_"
         local up_directory=${base_directory%${repository_name}}
 
