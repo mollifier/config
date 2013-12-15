@@ -643,6 +643,41 @@ fi
 # note :
 # () { ... } defines anonymous function and it is executed immediately
 
+# pick-web-browser #{{{2
+autoload -Uz pick-web-browser
+alias -s html=pick-web-browser
+alias web=pick-web-browser
+
+zstyle ':mime:*' browser-style running x
+zstyle ':mime:*' x-browsers firefox opera
+# opera '-newpage' option is deprecated
+zstyle ':mime:browser:running:opera:' command 'opera -newtab %u'
+
+function wiki() {
+    if [ -n "$1" ]; then
+        pick-web-browser "http://ja.wikipedia.org/wiki/$1"
+    else
+        echo "usage: $0 word"
+    fi
+}
+
+function google() {
+    if [ -n "$1" ]; then
+        pick-web-browser "https://www.google.co.jp/search?q=${1}&ie=utf-8&oe=utf-8&hl=ja"
+    else
+        echo "usage: $0 word"
+    fi
+}
+
+function alc() {
+    if [ -n "$1" ]; then
+        pick-web-browser "http://eow.alc.co.jp/search?q=${1}"
+    else
+        echo "usage: $0 word"
+    fi
+}
+# }}}2
+
 # cdd
 () {
     local cdd_script_path=~/etc/config/zsh/cdd
