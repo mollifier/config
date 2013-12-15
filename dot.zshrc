@@ -25,6 +25,7 @@ autoload -Uz add-zsh-hook
 #   % rm -f ~/.zcompdump; compinit   # clear cache
 #
 # NOTE: set fpath before compinit
+fpath=($HOME/.zsh/functions/*(N-/) $fpath)
 fpath=($HOME/.zsh/zsh-completions/src(N-/) $fpath)
 
 # Mac homebrew
@@ -32,9 +33,6 @@ fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 
 # load user completion files
 fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
-
-autoload -Uz compinit
-compinit
 
 ############################################################
 # environment variables #{{{1
@@ -467,15 +465,6 @@ function zman() {
     PAGER="less -g -s '+/^       "$1"'" man zshall
 }
 
-# cd to git repository root directory
-# http://d.hatena.ne.jp/hitode909/20100211/1265879271
-function cdu() {
-    cd ./$(git rev-parse --show-cdup)
-    if [ $# = 1 ]; then
-        cd $1
-    fi
-}
-
 function pwd-clip() {
     local copyToClipboard
 
@@ -693,6 +682,11 @@ function alc() {
     fi
 }
 
+# cd-gitroot
+# https://github.com/mollifier/cd-gitroot
+autoload -Uz cd-gitroot
+alias cdu='cd-gitroot'
+
 if [[ -f ~/.zshrc_dev ]]; then
     source ~/.zshrc_dev
 fi
@@ -701,6 +695,11 @@ fi
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
 fi
+
+# compinit after set fpath
+autoload -Uz compinit
+compinit
+
 
 unset _zsh_user_config_dir
 
