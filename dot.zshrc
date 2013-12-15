@@ -80,6 +80,8 @@ bindkey "^[r" redo
 # not accept-line, but insert newline
 bindkey '^J' self-insert
 bindkey '^R' history-incremental-pattern-search-backward
+# kill backward one word
+bindkey '^Y' backward-delete-word
 
 # like insert-last-word,
 # except that non-words are ignored
@@ -100,16 +102,6 @@ function _delete-char-or-list-expand() {
 }
 zle -N _delete-char-or-list-expand
 bindkey '^D' _delete-char-or-list-expand
-
-# kill backward one word,
-# where a word is defined as a series of non-blank characters
-function _kill-backward-blank-word() {
-    zle set-mark-command
-    zle vi-backward-blank-word
-    zle kill-region
-}
-zle -N _kill-backward-blank-word
-bindkey '^Y' _kill-backward-blank-word
 
 # history-search-end:
 # This implements functions like history-beginning-search-{back,for}ward,
