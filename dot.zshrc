@@ -34,6 +34,9 @@ fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 # load user completion files
 fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
 
+autoload -Uz compinit
+compinit
+
 ############################################################
 # environment variables #{{{1
 
@@ -695,11 +698,6 @@ fi
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
 fi
-
-# compinit after set fpath
-autoload -Uz compinit
-compinit
-
 
 unset _zsh_user_config_dir
 
