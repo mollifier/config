@@ -3,11 +3,11 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
-" vundle.vim
-if filereadable($HOME . '/.bundles.vim')
-    source $HOME/.bundles.vim
-elseif filereadable($HOME . '/_bundles.vim')
-    source $HOME/_bundles.vim
+" neobundle.vim
+if filereadable($HOME . '/.neobundles.vim')
+    source $HOME/.neobundles.vim
+elseif filereadable($HOME . '/_neobundles.vim')
+    source $HOME/_neobundles.vim
 endif
 
 
