@@ -38,15 +38,21 @@ endif
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " original repos on github
-" build vimproc : % cd dot.vim/bundle/vimproc/ && make -f make_gcc.mak
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'windows' : 'make -f make_mingw32.mak',
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+\ }
+
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'scrooloose/nerdtree.git'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'teramako/jscomplete-vim'
 NeoBundle 'heavenshell/vim-jsdoc'
 NeoBundle 'othree/eregex.vim'
 NeoBundle 'kana/vim-filetype-haskell'
@@ -66,7 +72,6 @@ NeoBundle 'surround.vim'
 
 " non github repos
 "NeoBundle 'git://git.wincent.com/command-t.git'
-
 
 filetype plugin indent on
 
