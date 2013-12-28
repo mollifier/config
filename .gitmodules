@@ -1,6 +1,3 @@
 [submodule "dot.vimperator/vimpr-plugins"]
 	path = dot.vimperator/vimpr-plugins
 	url = https://github.com/vimpr/vimperator-plugins.git
-[submodule "dot.vim/vundle.git"]
-	path = dot.vim/vundle.git
-	url = https://github.com/gmarik/vundle.git
