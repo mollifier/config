@@ -4,8 +4,4 @@ alias fxdev="firefox -no-remote -P dev &"
 alias fxdeven="firefox -no-remote -P dev -UILocale en-US &"
 
 
-if which xmodmap >/dev/null 2>&1 ;then
-  xmodmap ~/.Xmodmap
-fi
-
 # vim:ft=zsh:

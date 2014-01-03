@@ -1,0 +1,5 @@
+if which xmodmap >/dev/null 2>&1 ;then
+  xmodmap ~/.Xmodmap
+fi
+
+# vim:ft=zsh:

@@ -32,6 +32,8 @@ declare -ar DOTFILES=(
   'dot.Xmodmap'
   'dot.zshenv'
   'dot.zshenv_dev'
+  'dot.zlogin'
+  'dot.zprofile'
   'dot.zshrc'
   'dot.zshrc_dev'
   'dot.zlogout'
