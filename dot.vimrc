@@ -203,10 +203,11 @@ nnoremap <SPACE>c :<C-u>nohlsearch<CR>
 
 " enable 256 colors
 set t_Co=256
-colorscheme mrkn256
+"colorscheme mrkn256
 "colorscheme lucius
 "colorscheme molokai
 "colorscheme jellybeans
+colorscheme wombat256mod
 
 set background=light
 "set background=dark

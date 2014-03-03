@@ -69,6 +69,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'errormarker.vim'
 NeoBundle 'surround.vim'
+NeoBundle 'wombat256.vim'
 
 " non github repos
 "NeoBundle 'git://git.wincent.com/command-t.git'
