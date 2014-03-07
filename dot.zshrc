@@ -41,6 +41,7 @@ compinit
 # environment variables #{{{1
 
 export LANG=ja_JP.UTF-8
+[ "0" = $UID ] && LANG=en_US.UTF-8
 export EDITOR=vim
 export TERM=xterm-256color
 export PAGER=less
