@@ -81,10 +81,9 @@ foreground()
 ##############################
 
 #list
-alias ls='ls -F --color=auto'
+alias ls='ls -F'
 alias la='ls -a'
 alias ll='ls -l'
-alias lr='tree -F'
 
 #file operation
 alias rm='rm -i'
