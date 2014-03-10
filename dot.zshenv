@@ -3,7 +3,7 @@
 typeset -U path cdpath fpath manpath
 
 # set PATH
-path=($HOME/bin(N-/) /usr/local/bin(N-/) $path)
+path=($HOME/bin(N-/) /usr/local/sbin(N-/) /usr/local/bin(N-/) $path)
 
 if [[ -f ~/.zshenv_dev ]]; then
     source ~/.zshenv_dev
