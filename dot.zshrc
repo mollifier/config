@@ -510,6 +510,12 @@ function zsh-without-rcfiles-in-screen() {
     screen zsh +o RCS
 }
 
+# reload compdef or autoload function
+function reload_function() {
+    unfunction "$1"; autoload -Uz +X "$1"
+}
+compctl -F reload_function
+
 
 ############################################################
 # aliases #{{{1
