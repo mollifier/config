@@ -700,7 +700,7 @@ alias cdu='cd-gitroot'
 # cd-bookmark
 # https://github.com/mollifier/cd-bookmark
 autoload -Uz cd-bookmark
-alias cdb='cd-bookmark'
+alias b='cd-bookmark'
 
 if [[ -f ~/.zshrc_dev ]]; then
     source ~/.zshrc_dev
