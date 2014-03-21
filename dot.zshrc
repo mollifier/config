@@ -537,6 +537,37 @@ function zload {
     done
 }
 
+# helper function to reload autoloading functions which are already defined
+function reload_autoloading_functions() {
+    if [[ "${#}" -le 0 ]]; then
+        echo "Usage: $0 PATH..."
+        echo 'Reload autoloading functions in PATH'
+        return 1
+    fi
+
+    local target_path file function_name
+    for target_path in "$@"; do
+        if [[ -z "$target_path" ]]; then
+            continue
+        fi
+
+        for file in $target_path/*(N.,@); do
+            function_name="${file:t}"
+
+            if (( $+functions[$function_name] )) ; then
+                # "function_name" is defined
+                unfunction "$function_name"
+                autoload -Uz +X "$function_name"
+            fi
+        done
+    done
+}
+
+function zreload {
+    reload_autoloading_functions ~/.zsh/functions/*(N-/)
+}
+
+
 ############################################################
 # aliases #{{{1
 
