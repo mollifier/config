@@ -546,34 +546,49 @@ function zload {
 }
 
 # helper function to reload autoloading functions which are already defined
-function reload_autoloading_functions() {
+# Example : zreload "$PWD"
+function zreload() {
     if [[ "${#}" -le 0 ]]; then
-        echo "Usage: $0 PATH..."
-        echo 'Reload autoloading functions in PATH'
+        echo "Usage: $0 DIR..."
+        echo 'Reload autoloading functions in DIR'
         return 1
     fi
 
-    local target_path file function_name
+    local target_path file function_path function_name
     for target_path in "$@"; do
         if [[ -z "$target_path" ]]; then
             continue
         fi
 
         for file in $target_path/*(N.,@); do
+            function_path="${file:h}"
             function_name="${file:t}"
 
             if (( $+functions[$function_name] )) ; then
                 # "function_name" is defined
                 unfunction "$function_name"
-                autoload -Uz +X "$function_name"
+                FPATH="$function_path" autoload -Uz +X "$function_name"
             fi
         done
     done
 }
 
-function zreload {
-    reload_autoloading_functions ~/.zsh/functions/*(N-/)
+function _auto_reload_hook {
+    # reload functions in current directory automatically
+    [[ -n "$AUTO_RELOAD_TARGET_DIRECTORY" ]] \
+    && [[ "$AUTO_RELOAD_TARGET_DIRECTORY" == "$PWD" ]] \
+    && zreload "$PWD"
 }
+add-zsh-hook preexec _auto_reload_hook
+
+function enable_auto_reload {
+    AUTO_RELOAD_TARGET_DIRECTORY=$PWD
+}
+
+function disable_auto_reload {
+    AUTO_RELOAD_TARGET_DIRECTORY=""
+}
+
 
 
 ############################################################
