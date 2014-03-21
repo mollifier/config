@@ -510,6 +510,33 @@ function zsh-without-rcfiles-in-screen() {
     screen zsh +o RCS
 }
 
+# helper function to autoload
+# Example 1 : zload ~/work/function/_f
+# Example 2 : zload *
+function zload {
+    if [[ "${#}" -le 0 ]]; then
+        echo "Usage: $0 PATH..."
+        echo 'Load specified files as an autoloading function'
+        return 1
+    fi
+
+    local file function_path function_name
+    for file in "$@"; do
+        if [[ -z "$file" ]]; then
+            continue
+        fi
+
+        function_path="${file:h}"
+        function_name="${file:t}"
+
+        if (( $+functions[$function_name] )) ; then
+            # "function_name" is defined
+            unfunction "$function_name"
+        fi
+        FPATH="$function_path" autoload -Uz +X "$function_name"
+    done
+}
+
 ############################################################
 # aliases #{{{1
 
