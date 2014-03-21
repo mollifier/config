@@ -534,6 +534,14 @@ function zload {
             unfunction "$function_name"
         fi
         FPATH="$function_path" autoload -Uz +X "$function_name"
+
+        if [[ "$function_name" == _* ]]; then
+            # "function_name" is a completion script
+
+            # fpath requires absolute path
+            # convert relative path to absolute path with :a modifier
+            fpath=("${function_path:a}" $fpath) compinit
+        fi
     done
 }
 
