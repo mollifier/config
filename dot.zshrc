@@ -546,30 +546,28 @@ function zload {
 }
 
 # helper function to reload autoloading functions which are already defined
-# Example : zreload "$PWD"
+# Example : zreload /path/to/file
 function zreload() {
     if [[ "${#}" -le 0 ]]; then
-        echo "Usage: $0 DIR..."
-        echo 'Reload autoloading functions in DIR'
+        echo "Usage: $0 FILE..."
+        echo 'Reload specified files as an autoloading function'
         return 1
     fi
 
-    local target_path file function_path function_name
-    for target_path in "$@"; do
-        if [[ -z "$target_path" ]]; then
+    local file function_path function_name
+    for file in "$@"; do
+        if [[ -z "$file" ]]; then
             continue
         fi
 
-        for file in $target_path/*(N.,@); do
-            function_path="${file:h}"
-            function_name="${file:t}"
+        function_path="${file:h}"
+        function_name="${file:t}"
 
-            if (( $+functions[$function_name] )) ; then
-                # "function_name" is defined
-                unfunction "$function_name"
-                FPATH="$function_path" autoload -Uz +X "$function_name"
-            fi
-        done
+        if (( $+functions[$function_name] )) ; then
+            # "function_name" is defined
+            unfunction "$function_name"
+            FPATH="$function_path" autoload -Uz +X "$function_name"
+        fi
     done
 }
 
@@ -577,7 +575,7 @@ function _auto_reload_hook {
     # reload functions in current directory automatically
     [[ -n "$AUTO_RELOAD_TARGET_DIRECTORY" ]] \
     && [[ "$AUTO_RELOAD_TARGET_DIRECTORY" == "$PWD" ]] \
-    && zreload "$PWD"
+    && zreload $PWD/*(N.,@)
 }
 add-zsh-hook preexec _auto_reload_hook
 
