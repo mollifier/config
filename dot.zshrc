@@ -661,9 +661,9 @@ function alc() {
         echo "usage: $0 word"
     fi
 }
-# }}}2
 
-# cdd
+# cdd #{{{2
+# https://github.com/m4i/cdd
 () {
     local cdd_script_path=~/etc/config/zsh/cdd
     if [[ -f $cdd_script_path ]]; then
@@ -673,7 +673,7 @@ function alc() {
     fi
 }
 
-# z
+# z #{{{2
 # https://github.com/rupa/z
 () {
     local rupa_z_script_path=~/etc/config/zsh/z.sh
@@ -686,15 +686,21 @@ function alc() {
     fi
 }
 
-# cd-gitroot
+# cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
 autoload -Uz cd-gitroot
 alias cdu='cd-gitroot'
 
-# cd-bookmark
+# cd-bookmark #{{{2
 # https://github.com/mollifier/cd-bookmark
 autoload -Uz cd-bookmark
 alias b='cd-bookmark'
+
+# zload #{{{2
+# https://github.com/mollifier/zload
+autoload -Uz zload
+
+# }}}1
 
 if [[ -f ~/.zshrc_dev ]]; then
     source ~/.zshrc_dev
