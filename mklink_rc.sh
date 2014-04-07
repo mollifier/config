@@ -25,6 +25,7 @@ declare -ar DOTFILES=(
   'dot.inputc'
   'dot.npmrc'
   'dot.screenrc'
+  'dot.tmux.conf'
   'dot.vim'
   'dot.vimperator'
   'dot.vimperatorrc'
