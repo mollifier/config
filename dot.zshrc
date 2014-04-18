@@ -585,6 +585,8 @@ alias sc=scala
 alias scc=scalac
 alias csc=scalac
 
+alias be='bundle exec'
+
 autoload -Uz zmv
 alias zmv='noglob zmv -n -W'
 alias dozmv='noglob zmv -W'
