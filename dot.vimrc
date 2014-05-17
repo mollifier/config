@@ -201,19 +201,18 @@ nnoremap <SPACE>c :<C-u>nohlsearch<CR>
 
 " Color  "{{{1
 
-" enable 256 colors
-set t_Co=256
+set t_Co=16
+"set background=light
+set background=dark
+
+syntax enable
+"syntax off
+
 colorscheme mrkn256
 "colorscheme lucius
 "colorscheme molokai
 "colorscheme jellybeans
 "colorscheme wombat256mod
-
-set background=light
-"set background=dark
-
-syntax enable
-"syntax off
 
 "Tab
 highlight SpecialKey ctermfg=Grey
