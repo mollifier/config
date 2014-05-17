@@ -105,8 +105,13 @@ done
 shift $(expr $OPTIND - 1)
 
 cd $SRC_DIR_NAME
-for src_filename in ${DOTFILES[@]};do
+for src_filename in ${DOTFILES[@]}; do
   dest_filename=$(get_dest_filename $src_filename)
+
+  if [ -e "${DEST_DIR_NAME}/${dest_filename}" ]; then
+    # skip file which already exists
+    continue
+  fi
 
   if [ "$make_link" == "true" ]; then
     # make link actually
