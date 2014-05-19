@@ -6,7 +6,7 @@
 
 umask 022
 limit coredumpsize 0
-stty erase '^h'
+
 
 # make directory for cdd, completion cache, ...
 _zsh_user_config_dir="${HOME}/.zsh"
@@ -584,6 +584,8 @@ alias pc=pwd-clip
 alias sc=scala
 alias scc=scalac
 alias csc=scalac
+
+alias be='bundle exec'
 
 autoload -Uz zmv
 alias zmv='noglob zmv -n -W'
