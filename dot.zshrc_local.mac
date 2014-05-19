@@ -38,4 +38,9 @@ export SVN_EDITOR="/usr/bin/vim"
 # android
 path=($path /Users/miyake/lib/android-sdk-mac_x86/tools(N-/))
 
+# wip-pr
+export WIP_PR_BACKLOG_USERNAME="miyake"
+export WIP_PR_GITHUB_USERNAME="mollifier"
+export WIP_PR_GITHUB_UPSTREAM_USERNAME="faithcreates"
+
 # vim:set ft=zsh ts=4 sw=4 sts=0:
