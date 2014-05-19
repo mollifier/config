@@ -1,5 +1,6 @@
-if which xmodmap >/dev/null 2>&1 ;then
-  xmodmap ~/.Xmodmap
+# make Caps_Lock an additional Control
+if which setxkbmap >/dev/null 2>&1 ;then
+  setxkbmap -option ctrl:nocaps
 fi
 
 # vim:ft=zsh:
