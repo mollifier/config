@@ -6,7 +6,7 @@
 
 umask 022
 limit coredumpsize 0
-stty erase '^h'
+
 
 # make directory for cdd, completion cache, ...
 _zsh_user_config_dir="${HOME}/.zsh"
