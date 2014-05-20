@@ -65,6 +65,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'tyru/coolgrep.vim'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-rails'
 
 " vim-scripts repos
 NeoBundle 'matchit.zip'

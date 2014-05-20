@@ -578,6 +578,11 @@ vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
 " ctrlp "{{{2
 let g:ctrlp_map = '<SPACE>p'
 
+" rails.vim "{{{2
+nnoremap <silent> <SPACE>rc :Rcontroller<CR>
+nnoremap <silent> <SPACE>rm :Rmodel<CR>
+nnoremap <silent> <SPACE>rv :Rview<CR>
+
 
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
