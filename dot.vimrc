@@ -570,6 +570,9 @@ function! s:unite_my_settings()
     vmap <buffer> <SPACE>x <Plug>(unite_toggle_selected_candidates)
 endfunction
 
+" vim-jsdoc "{{{2
+let g:jsdoc_default_mapping = 0
+nnoremap <silent> <SPACE>jd :JsDoc<CR>
 
 " quickrun "{{{2
 nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
