@@ -585,6 +585,7 @@ let g:ctrlp_map = '<SPACE>p'
 nnoremap <silent> <SPACE>rc :Rcontroller<CR>
 nnoremap <silent> <SPACE>rm :Rmodel<CR>
 nnoremap <silent> <SPACE>rv :Rview<CR>
+nnoremap <silent> <SPACE>rt :Runittest<CR>
 
 
 " Source local rc file"{{{1
