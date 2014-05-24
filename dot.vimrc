@@ -575,6 +575,9 @@ nnoremap <silent> <SPACE>urm :<C-u>Unite rails/model<CR>
 nnoremap <silent> <SPACE>urc :<C-u>Unite rails/controller<CR>
 nnoremap <silent> <SPACE>urv :<C-u>Unite rails/view<CR>
 
+" unite-outline "{{{2
+nnoremap <silent> <SPACE>uo :<C-u>Unite outline<CR>
+
 " vim-jsdoc "{{{2
 let g:jsdoc_default_mapping = 0
 nnoremap <silent> <SPACE>jd :JsDoc<CR>

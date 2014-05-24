@@ -53,6 +53,7 @@ NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'basyura/unite-rails'
+NeoBundle 'Shougo/unite-outline'
 
 NeoBundle 'scrooloose/nerdtree.git'
 NeoBundle 'thinca/vim-quickrun'
