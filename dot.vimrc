@@ -570,6 +570,11 @@ function! s:unite_my_settings()
     vmap <buffer> <SPACE>x <Plug>(unite_toggle_selected_candidates)
 endfunction
 
+" unite-rails "{{{2
+nnoremap <silent> <SPACE>urm :<C-u>Unite rails/model<CR>
+nnoremap <silent> <SPACE>urc :<C-u>Unite rails/controller<CR>
+nnoremap <silent> <SPACE>urv :<C-u>Unite rails/view<CR>
+
 " vim-jsdoc "{{{2
 let g:jsdoc_default_mapping = 0
 nnoremap <silent> <SPACE>jd :JsDoc<CR>
