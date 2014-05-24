@@ -55,6 +55,9 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'Shougo/unite-outline'
 
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'rhysd/vim-textobj-ruby'
+
 NeoBundle 'scrooloose/nerdtree.git'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
