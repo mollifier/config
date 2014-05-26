@@ -570,11 +570,6 @@ function! s:unite_my_settings()
     vmap <buffer> <SPACE>x <Plug>(unite_toggle_selected_candidates)
 endfunction
 
-" unite-rails "{{{2
-nnoremap <silent> <SPACE>urm :<C-u>Unite rails/model<CR>
-nnoremap <silent> <SPACE>urc :<C-u>Unite rails/controller<CR>
-nnoremap <silent> <SPACE>urv :<C-u>Unite rails/view<CR>
-
 " unite-outline "{{{2
 nnoremap <silent> <SPACE>uo :<C-u>Unite outline<CR>
 
@@ -589,13 +584,15 @@ vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
 " ctrlp "{{{2
 let g:ctrlp_map = '<SPACE>p'
 
+" unite-rails "{{{2
+nnoremap <silent> <SPACE>rm :<C-u>Unite rails/model<CR>
+nnoremap <silent> <SPACE>rc :<C-u>Unite rails/controller<CR>
+nnoremap <silent> <SPACE>rv :<C-u>Unite rails/view<CR>
+nnoremap <silent> <SPACE>rt :<C-u>Unite rails/spec<CR>
+
 " rails.vim "{{{2
 nnoremap <silent> <SPACE>rr :<C-u>R<CR>
 nnoremap <silent> <SPACE>rs :<C-u>RS<CR>
-nnoremap <silent> <SPACE>rc :<C-u>Rcontroller<CR>
-nnoremap <silent> <SPACE>rm :<C-u>Rmodel<CR>
-nnoremap <silent> <SPACE>rv :<C-u>Rview<CR>
-nnoremap <silent> <SPACE>rt :<C-u>Runittest<CR>
 nnoremap <silent> <SPACE>ra :<C-u>A<CR>
 
 
