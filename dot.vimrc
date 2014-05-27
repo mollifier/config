@@ -170,7 +170,7 @@ command! -bar -bang -nargs=? -complete=file GScouter
 
 " Statusline  "{{{1
 set laststatus=2    "always show statusline
-let &statusline = ' %f %m %r%{&foldenable!=0?"[fen]":""}%=%l/%L (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
+let &statusline = '[%n] %f %m %r%{&foldenable!=0?"[fen]":""}%=%l/%L (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
 
 
 " Indent  "{{{1
