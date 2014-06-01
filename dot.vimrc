@@ -448,8 +448,8 @@ nnoremap <Space>json :<C-u>% !python -m json.tool<CR>
 nnoremap sd :<C-u>NERDTreeToggle<CR>
 
 " eregex "{{{2
-nnoremap / :<C-u>M/
-nnoremap ,/ /
+let g:eregex_default_enable = 0
+nnoremap ,/ :<C-u>M/
 
 " closetag.vim "{{{2
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
