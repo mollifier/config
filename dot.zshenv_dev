@@ -48,5 +48,8 @@ if [[ -n "$ANDROID_HOME" && -d "$ANDROID_HOME" ]]; then
     path=($path ${ANDROID_HOME}/tools(N-/) ${ANDROID_HOME}/platform-tools(N-/) ${ANDROID_HOME}/build-tools/android-4.4(N-/))
 fi
 
+# added by travis gem
+[ -f ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
+
 # vim:set ft=zsh ts=4 sw=4 sts=0:
 
