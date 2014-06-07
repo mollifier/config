@@ -25,6 +25,7 @@ autoload -Uz add-zsh-hook
 #   % rm -f ~/.zcompdump; compinit   # clear cache
 #
 # NOTE: set fpath before compinit
+fpath=($HOME/.zsh/Completion(N-/) $fpath)
 fpath=($HOME/.zsh/functions/*(N-/) $fpath)
 fpath=($HOME/.zsh/zsh-completions/src(N-/) $fpath)
 
