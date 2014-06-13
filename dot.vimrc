@@ -227,6 +227,20 @@ hi PmenuSel cterm=underline,bold ctermfg=White ctermbg=DarkBlue
 hi PmenuSbar term=NONE cterm=NONE
 hi PmenuThumb term=reverse cterm=reverse
 
+" markdown
+let g:markdown_fenced_languages = [
+\  'sh',
+\  'coffee',
+\  'css',
+\  'erb=eruby',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'ruby',
+\  'sass',
+\  'xml',
+\]
+
 
 " show invisible characters "{{{2
 if has('autocmd') && has('syntax')
