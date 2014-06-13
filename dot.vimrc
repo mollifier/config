@@ -230,6 +230,7 @@ hi PmenuThumb term=reverse cterm=reverse
 " markdown
 let g:markdown_fenced_languages = [
 \  'sh',
+\  'zsh',
 \  'coffee',
 \  'css',
 \  'erb=eruby',
