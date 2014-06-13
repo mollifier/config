@@ -73,6 +73,7 @@ NeoBundle 'tyru/coolgrep.vim'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'kchmck/vim-coffee-script'
 
 " vim-scripts repos
 NeoBundle 'matchit.zip'
