@@ -74,6 +74,7 @@ NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'tomtom/tcomment_vim'
 
 " vim-scripts repos
 NeoBundle 'matchit.zip'
