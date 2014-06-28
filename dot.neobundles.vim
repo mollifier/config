@@ -57,6 +57,7 @@ NeoBundle 'Shougo/unite-outline'
 
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'rhysd/vim-textobj-ruby'
+NeoBundle 'kana/vim-textobj-indent'
 
 NeoBundle 'scrooloose/nerdtree.git'
 NeoBundle 'thinca/vim-quickrun'
