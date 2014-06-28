@@ -602,6 +602,13 @@ nnoremap <silent> <SPACE>rr :<C-u>R<CR>
 nnoremap <silent> <SPACE>rs :<C-u>RS<CR>
 nnoremap <silent> <SPACE>ra :<C-u>A<CR>
 
+" for Fugitive "{{{2
+nnoremap <Space>gd :<C-u>Gdiff<Enter>
+nnoremap <Space>gs :<C-u>Gstatus<Enter>
+nnoremap <Space>gl :<C-u>Glog<Enter>
+nnoremap <Space>ga :<C-u>Gwrite<Enter>
+nnoremap <Space>gc :<C-u>Gcommit<Enter>
+nnoremap <Space>gb :<C-u>Gblame<Enter>
 
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
