@@ -689,6 +689,10 @@ function alc() {
     fi
 }
 
+# cdr #{{{2
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
 # cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
 autoload -Uz cd-gitroot

@@ -66,4 +66,8 @@
   # add conflicted files
   utility-add-unmerged-files = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
+# ~/.gitconfig
+[ghq]
+    root = ~/.ghq
+
 # vim:set ft=gitconfig:
