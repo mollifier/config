@@ -39,28 +39,6 @@ autoload -Uz compinit
 compinit
 
 ############################################################
-# antigen #{{{1
-# https://github.com/zsh-users/antigen
-#
-# install antigen:
-# % git clone 'git@github.com:zsh-users/antigen.git' ~/.zsh/antigen
-# update all plugins:
-# % antigen update
-#
-# source antigen.zsh before set alias ls='ls -F --color=auto'
-# to avoid ls option error in Mac
-source ~/.zsh/antigen/antigen.zsh
-# github repos
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle mollifier/zload
-antigen bundle mollifier/cd-gitroot
-antigen bundle mollifier/cd-bookmark
-antigen bundle Tarrasch/zsh-bd
-# Tell antigen that you're done.
-antigen apply
-
-
-############################################################
 # environment variables #{{{1
 
 export LANG=ja_JP.UTF-8
@@ -424,6 +402,7 @@ cdpath=(${HOME} ${HOME}/work)
 # set characters which are considered word characters
 # see man zshcontrib(1)
 # bash-style word functions
+# We need to setup select-word-style before zsh-syntax-highlighting
 autoload -Uz select-word-style
 select-word-style default
 # only these characters are not considered word characters
@@ -535,6 +514,29 @@ function zsh-without-rcfiles-in-screen() {
     #  unset RCS option
     screen zsh +o RCS
 }
+
+
+############################################################
+# antigen #{{{1
+# https://github.com/zsh-users/antigen
+#
+# install antigen:
+# % git clone 'git@github.com:zsh-users/antigen.git' ~/.zsh/antigen
+# update all plugins:
+# % antigen update
+#
+# source antigen.zsh before set alias ls='ls -F --color=auto'
+# to avoid ls option error in Mac
+source ~/.zsh/antigen/antigen.zsh
+# github repos
+# We need to setup zsh-syntax-highlighting after calling select-word-style default
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle mollifier/zload
+antigen bundle mollifier/cd-gitroot
+antigen bundle mollifier/cd-bookmark
+antigen bundle Tarrasch/zsh-bd
+# Tell antigen that you're done.
+antigen apply
 
 
 ############################################################
