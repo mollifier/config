@@ -32,9 +32,6 @@ fpath=($HOME/.zsh/zsh-completions/src(N-/) $fpath)
 # Mac homebrew
 fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 
-# load user completion files
-fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
-
 autoload -Uz compinit
 compinit
 
