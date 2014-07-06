@@ -537,6 +537,7 @@ antigen bundle mollifier/cd-bookmark
 antigen bundle Tarrasch/zsh-bd
 antigen bundle knu/zsh-git-escape-magic
 antigen bundle rupa/z
+antigen bundle m4i/cdd
 # Tell antigen that you're done.
 antigen apply
 
@@ -586,7 +587,7 @@ function alc() {
 # cdd #{{{2
 # https://github.com/m4i/cdd
 () {
-    local cdd_script_path=~/etc/config/zsh/cdd
+    local cdd_script_path=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd
     if [[ -f $cdd_script_path ]]; then
         source $cdd_script_path
         touch $CDD_FILE
