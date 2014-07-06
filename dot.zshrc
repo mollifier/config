@@ -35,9 +35,6 @@ fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 # load user completion files
 fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
 
-autoload -Uz compinit
-compinit
-
 ############################################################
 # environment variables #{{{1
 
@@ -634,6 +631,10 @@ fi
 # note :
 # () { ... } defines anonymous function and it is executed immediately
 
+# cdr #{{{2
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
 # pick-web-browser #{{{2
 autoload -Uz pick-web-browser
 alias -s html=pick-web-browser
@@ -692,23 +693,29 @@ function alc() {
     fi
 }
 
-# cdr #{{{2
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
+# antigen #{{{2
+# https://github.com/zsh-users/antigen
+#
+# install antigen:
+# % git clone 'git@github.com:zsh-users/antigen.git' ~/.zsh/antigen
+# update all plugins:
+# % antigen update
+source ~/.zsh/antigen/antigen.zsh
+# github repos
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle mollifier/zload
+antigen bundle mollifier/cd-gitroot
+antigen bundle mollifier/cd-bookmark
+# Tell antigen that you're done.
+antigen apply
 
 # cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
-autoload -Uz cd-gitroot
 alias cdu='cd-gitroot'
 
 # cd-bookmark #{{{2
 # https://github.com/mollifier/cd-bookmark
-autoload -Uz cd-bookmark
 alias b='cd-bookmark'
-
-# zload #{{{2
-# https://github.com/mollifier/zload
-autoload -Uz zload
 
 # }}}1
 
@@ -720,6 +727,9 @@ fi
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
 fi
+
+autoload -Uz compinit
+compinit
 
 unset _zsh_user_config_dir
 
