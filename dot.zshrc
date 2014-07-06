@@ -535,8 +535,91 @@ antigen bundle mollifier/zload
 antigen bundle mollifier/cd-gitroot
 antigen bundle mollifier/cd-bookmark
 antigen bundle Tarrasch/zsh-bd
+antigen bundle knu/zsh-git-escape-magic
 # Tell antigen that you're done.
 antigen apply
+
+
+# for plugins #{{{1
+# note :
+# () { ... } defines anonymous function and it is executed immediately
+
+# cdr #{{{2
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+# pick-web-browser #{{{2
+autoload -Uz pick-web-browser
+alias -s html=pick-web-browser
+alias web=pick-web-browser
+
+zstyle ':mime:*' browser-style running x
+zstyle ':mime:*' x-browsers firefox opera
+# opera '-newpage' option is deprecated
+zstyle ':mime:browser:running:opera:' command 'opera -newtab %u'
+
+function wiki() {
+    if [ -n "$1" ]; then
+        pick-web-browser "http://ja.wikipedia.org/wiki/$1"
+    else
+        echo "usage: $0 word"
+    fi
+}
+
+function google() {
+    if [ -n "$1" ]; then
+        pick-web-browser "https://www.google.co.jp/search?q=${1}&ie=utf-8&oe=utf-8&hl=ja"
+    else
+        echo "usage: $0 word"
+    fi
+}
+
+function alc() {
+    if [ -n "$1" ]; then
+        pick-web-browser "http://eow.alc.co.jp/search?q=${1}"
+    else
+        echo "usage: $0 word"
+    fi
+}
+
+# cdd #{{{2
+# https://github.com/m4i/cdd
+() {
+    local cdd_script_path=~/etc/config/zsh/cdd
+    if [[ -f $cdd_script_path ]]; then
+        source $cdd_script_path
+        touch $CDD_FILE
+        add-zsh-hook chpwd _cdd_chpwd
+    fi
+}
+
+# z #{{{2
+# https://github.com/rupa/z
+() {
+    local rupa_z_script_path=~/etc/config/zsh/z.sh
+    if [[ -f $rupa_z_script_path ]]; then
+        source $rupa_z_script_path
+        function _rupa_z_chpwd() {
+            _z --add "$(pwd -P)"
+        }
+        add-zsh-hook chpwd _rupa_z_chpwd
+    fi
+}
+
+# cd-gitroot #{{{2
+# https://github.com/mollifier/cd-gitroot
+alias cdu='cd-gitroot'
+
+# cd-bookmark #{{{2
+# https://github.com/mollifier/cd-bookmark
+alias b='cd-bookmark'
+
+# knu/zsh-git-escape-magic #{{{2
+# https://github.com/knu/zsh-git-escape-magic
+autoload -Uz git-escape-magic
+git-escape-magic
+
+# }}}1
 
 
 ############################################################
@@ -654,81 +737,6 @@ elif which putclip >/dev/null 2>&1 ; then
 fi
 
 
-# for plugins #{{{1
-# note :
-# () { ... } defines anonymous function and it is executed immediately
-
-# cdr #{{{2
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-
-# pick-web-browser #{{{2
-autoload -Uz pick-web-browser
-alias -s html=pick-web-browser
-alias web=pick-web-browser
-
-zstyle ':mime:*' browser-style running x
-zstyle ':mime:*' x-browsers firefox opera
-# opera '-newpage' option is deprecated
-zstyle ':mime:browser:running:opera:' command 'opera -newtab %u'
-
-function wiki() {
-    if [ -n "$1" ]; then
-        pick-web-browser "http://ja.wikipedia.org/wiki/$1"
-    else
-        echo "usage: $0 word"
-    fi
-}
-
-function google() {
-    if [ -n "$1" ]; then
-        pick-web-browser "https://www.google.co.jp/search?q=${1}&ie=utf-8&oe=utf-8&hl=ja"
-    else
-        echo "usage: $0 word"
-    fi
-}
-
-function alc() {
-    if [ -n "$1" ]; then
-        pick-web-browser "http://eow.alc.co.jp/search?q=${1}"
-    else
-        echo "usage: $0 word"
-    fi
-}
-
-# cdd #{{{2
-# https://github.com/m4i/cdd
-() {
-    local cdd_script_path=~/etc/config/zsh/cdd
-    if [[ -f $cdd_script_path ]]; then
-        source $cdd_script_path
-        touch $CDD_FILE
-        add-zsh-hook chpwd _cdd_chpwd
-    fi
-}
-
-# z #{{{2
-# https://github.com/rupa/z
-() {
-    local rupa_z_script_path=~/etc/config/zsh/z.sh
-    if [[ -f $rupa_z_script_path ]]; then
-        source $rupa_z_script_path
-        function _rupa_z_chpwd() {
-            _z --add "$(pwd -P)"
-        }
-        add-zsh-hook chpwd _rupa_z_chpwd
-    fi
-}
-
-# cd-gitroot #{{{2
-# https://github.com/mollifier/cd-gitroot
-alias cdu='cd-gitroot'
-
-# cd-bookmark #{{{2
-# https://github.com/mollifier/cd-bookmark
-alias b='cd-bookmark'
-
-# }}}1
 
 if [[ -f ~/.zshrc_dev ]]; then
     source ~/.zshrc_dev
