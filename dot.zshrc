@@ -36,6 +36,27 @@ fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 fpath=(~/etc/config/zsh/functions/*(N-/) $fpath)
 
 ############################################################
+# antigen #{{{1
+# https://github.com/zsh-users/antigen
+#
+# install antigen:
+# % git clone 'git@github.com:zsh-users/antigen.git' ~/.zsh/antigen
+# update all plugins:
+# % antigen update
+#
+# source antigen.zsh before set alias ls='ls -F --color=auto'
+# to avoid ls option error in Mac
+source ~/.zsh/antigen/antigen.zsh
+# github repos
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle mollifier/zload
+antigen bundle mollifier/cd-gitroot
+antigen bundle mollifier/cd-bookmark
+# Tell antigen that you're done.
+antigen apply
+
+
+############################################################
 # environment variables #{{{1
 
 export LANG=ja_JP.UTF-8
@@ -692,22 +713,6 @@ function alc() {
         add-zsh-hook chpwd _rupa_z_chpwd
     fi
 }
-
-# antigen #{{{2
-# https://github.com/zsh-users/antigen
-#
-# install antigen:
-# % git clone 'git@github.com:zsh-users/antigen.git' ~/.zsh/antigen
-# update all plugins:
-# % antigen update
-source ~/.zsh/antigen/antigen.zsh
-# github repos
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle mollifier/zload
-antigen bundle mollifier/cd-gitroot
-antigen bundle mollifier/cd-bookmark
-# Tell antigen that you're done.
-antigen apply
 
 # cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
