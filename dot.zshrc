@@ -55,6 +55,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle mollifier/zload
 antigen bundle mollifier/cd-gitroot
 antigen bundle mollifier/cd-bookmark
+antigen bundle Tarrasch/zsh-bd
 # Tell antigen that you're done.
 antigen apply
 
