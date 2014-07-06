@@ -536,6 +536,7 @@ antigen bundle mollifier/cd-gitroot
 antigen bundle mollifier/cd-bookmark
 antigen bundle Tarrasch/zsh-bd
 antigen bundle knu/zsh-git-escape-magic
+antigen bundle rupa/z
 # Tell antigen that you're done.
 antigen apply
 
@@ -590,19 +591,6 @@ function alc() {
         source $cdd_script_path
         touch $CDD_FILE
         add-zsh-hook chpwd _cdd_chpwd
-    fi
-}
-
-# z #{{{2
-# https://github.com/rupa/z
-() {
-    local rupa_z_script_path=~/etc/config/zsh/z.sh
-    if [[ -f $rupa_z_script_path ]]; then
-        source $rupa_z_script_path
-        function _rupa_z_chpwd() {
-            _z --add "$(pwd -P)"
-        }
-        add-zsh-hook chpwd _rupa_z_chpwd
     fi
 }
 
