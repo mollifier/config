@@ -600,16 +600,16 @@ function alc() {
     if [[ -f $script_path ]]; then
         source $script_path
         zstyle ':filter-select' case-insensitive yes
-        bindkey '^xb' zaw-cdr
-        bindkey '^x^b' zaw-git-recent-branches
         bindkey '^x^f' zaw-git-files
-        bindkey '^x^r' zaw-history
     fi
 }
 
 # anyframe #{{{2
 # https://github.com/mollifier/anyframe
-bindkey '^Y' anyframe-widget-search-history-put
+bindkey '^xb' anyframe-widget-cdr
+bindkey '^x^b' anyframe-widget-checkout-git-branch
+bindkey '^x^r' anyframe-widget-put-history
+
 
 # cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
