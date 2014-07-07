@@ -531,6 +531,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle mollifier/zload
 antigen bundle mollifier/cd-gitroot
 antigen bundle mollifier/cd-bookmark
+antigen bundle mollifier/anyframe
 antigen bundle Tarrasch/zsh-bd
 antigen bundle knu/zsh-git-escape-magic
 antigen bundle rupa/z
@@ -605,6 +606,11 @@ function alc() {
         bindkey '^x^r' zaw-history
     fi
 }
+
+# anyframe #{{{2
+# https://github.com/mollifier/anyframe
+anyframe-init
+bindkey '^Y' anyframe-widget-search-history-put
 
 # cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
