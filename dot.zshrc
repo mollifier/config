@@ -609,7 +609,6 @@ function alc() {
 
 # anyframe #{{{2
 # https://github.com/mollifier/anyframe
-anyframe-init
 bindkey '^Y' anyframe-widget-search-history-put
 
 # cd-gitroot #{{{2
