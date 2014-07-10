@@ -535,7 +535,6 @@ antigen bundle mollifier/anyframe
 antigen bundle Tarrasch/zsh-bd
 antigen bundle knu/zsh-git-escape-magic
 antigen bundle rupa/z
-antigen bundle zsh-users/zaw
 antigen bundle m4i/cdd
 # Tell antigen that you're done.
 antigen apply
@@ -591,16 +590,6 @@ function alc() {
         source $cdd_script_path
         touch $CDD_FILE
         add-zsh-hook chpwd _cdd_chpwd
-    fi
-}
-
-# zaw #{{{2
-() {
-    local script_path=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zaw.git/zaw.zsh
-    if [[ -f $script_path ]]; then
-        source $script_path
-        zstyle ':filter-select' case-insensitive yes
-        bindkey '^x^f' zaw-git-files
     fi
 }
 
