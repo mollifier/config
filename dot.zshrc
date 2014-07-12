@@ -27,7 +27,6 @@ autoload -Uz add-zsh-hook
 # NOTE: set fpath before compinit
 fpath=($HOME/.zsh/Completion(N-/) $fpath)
 fpath=($HOME/.zsh/functions/*(N-/) $fpath)
-fpath=($HOME/.zsh/zsh-completions/src(N-/) $fpath)
 
 # Mac homebrew
 fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
@@ -536,6 +535,8 @@ antigen bundle Tarrasch/zsh-bd
 antigen bundle knu/zsh-git-escape-magic
 antigen bundle rupa/z
 antigen bundle m4i/cdd
+antigen-bundle zsh-users/zsh-completions src
+
 # Tell antigen that you're done.
 antigen apply
 
