@@ -77,6 +77,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'plasticboy/vim-markdown'
 
 " vim-scripts repos
 NeoBundle 'matchit.zip'
