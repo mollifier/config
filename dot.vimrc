@@ -167,10 +167,55 @@ command! -bar -bang -nargs=? -complete=file Scouter
 command! -bar -bang -nargs=? -complete=file GScouter
 \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 
+" vim-wordcount "{{{
+" https://github.com/fuenor/vim-wordcount
+"
+" set statusline+=[wc:%{WordCount()}]
+" set updatetime=500
+"
+" :call WordCount('char') " count char
+" :call WordCount('byte') " count byte
+" :call WordCount('word') " count word
+
+augroup WordCount
+  autocmd!
+  autocmd BufWinEnter,InsertLeave,CursorHold * call WordCount('char')
+augroup END
+
+let s:WordCountStr = ''
+let s:WordCountDict = {'word': 2, 'char': 3, 'byte': 4}
+function! WordCount(...)
+  if a:0 == 0
+    return s:WordCountStr
+  endif
+  let cidx = 3
+  silent! let cidx = s:WordCountDict[a:1]
+
+  let s:WordCountStr = ''
+  let s:saved_status = v:statusmsg
+  exec "silent normal! g\<c-g>"
+  if v:statusmsg !~ '^--'
+    let str = ''
+    silent! let str = split(v:statusmsg, ';')[cidx]
+    let cur = str2nr(matchstr(str, '\d\+'))
+    let end = str2nr(matchstr(str, '\d\+\s*$'))
+    if a:1 == 'char'
+      let cr = &ff == 'dos' ? 2 : 1
+      let cur -= cr * (line('.') - 1)
+      let end -= cr * line('$')
+    endif
+    let s:WordCountStr = printf('%d/%d', cur, end)
+  endif
+  let v:statusmsg = s:saved_status
+  return s:WordCountStr
+endfunction
+
+
 
 " Statusline  "{{{1
 set laststatus=2    "always show statusline
-let &statusline = '[%n] %f %m %r%{&foldenable!=0?"[fen]":""}%=%l/%L (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
+let &statusline = '[%n] %f %m %r%{&foldenable!=0?"[fen]":""}%=[L:%l/%L] [C:%{WordCount()}] (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
+set updatetime=500
 
 
 " Indent  "{{{1
