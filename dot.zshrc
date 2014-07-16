@@ -599,6 +599,7 @@ function alc() {
 bindkey '^xb' anyframe-widget-cdr
 bindkey '^x^b' anyframe-widget-checkout-git-branch
 bindkey '^x^r' anyframe-widget-execute-history
+bindkey '^x^i' anyframe-widget-put-history
 bindkey '^xg' anyframe-widget-cd-ghq-repository
 
 
