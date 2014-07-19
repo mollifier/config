@@ -502,14 +502,15 @@ function 256colortest() {
     done
 }
 
-function zsh-without-rcfiles-in-screen() {
+function zsh-without-rcfiles-in-tmux() {
     # RCS option :
     #   If this option is unset, source /etc/zsh/zshenv
     #   but any other startup files will not be.
     # +o :
     #  unset RCS option
-    screen zsh +o RCS
+    tmux new-window 'zsh +o RCS'
 }
+
 
 
 ############################################################
