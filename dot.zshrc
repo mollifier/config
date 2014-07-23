@@ -612,6 +612,9 @@ bindkey '^x^g' anyframe-widget-cd-ghq-repository
 bindkey '^xk' anyframe-widget-kill
 bindkey '^x^k' anyframe-widget-kill
 
+bindkey '^xe' anyframe-widget-insert-git-branch
+bindkey '^x^e' anyframe-widget-insert-git-branch
+
 
 # cd-gitroot #{{{2
 # https://github.com/mollifier/cd-gitroot
