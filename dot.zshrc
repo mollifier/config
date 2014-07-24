@@ -597,6 +597,11 @@ function alc() {
 
 # anyframe #{{{2
 # https://github.com/mollifier/anyframe
+
+if [[ -f "${HOME}/.peco_config.json" ]]; then
+    zstyle ":anyframe:selector:peco:" command "peco --rcfile=${HOME}/.peco_config.json"
+fi
+
 bindkey '^xb' anyframe-widget-cdr
 bindkey '^x^b' anyframe-widget-checkout-git-branch
 

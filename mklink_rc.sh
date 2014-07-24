@@ -38,6 +38,7 @@ declare -ar DOTFILES=(
   'dot.zshrc'
   'dot.zshrc_dev'
   'dot.zlogout'
+  'dot.peco_config.json'
 )
 
 #####################
