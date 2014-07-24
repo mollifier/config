@@ -38,6 +38,10 @@ export SVN_EDITOR="/usr/bin/vim"
 # android
 path=($path /Users/miyake/lib/android-sdk-mac_x86/tools(N-/))
 
+
+export AWS_IAM_HOME="/usr/local/opt/aws-iam-tools/libexec"
+export AWS_CREDENTIAL_FILE=$HOME/.aws-credentials-master
+
 # wip-pr
 export WIP_PR_BACKLOG_USERNAME="miyake"
 export WIP_PR_GITHUB_USERNAME="mollifier"
