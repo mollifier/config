@@ -751,6 +751,13 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
+# suffix alias
+if [[ "$(uname)" == "Darwin" ]]; then
+    # mac
+    alias -s {png,jpg,bmp,PNG,JPG,BMP}='open -a Preview'
+else
+    alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+fi
 
 # source local rcfile
 if [[ -f ~/.zshrc_local ]]; then
