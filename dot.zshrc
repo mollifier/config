@@ -147,7 +147,7 @@ colors
 # %1v, %2v, %3v are set by vcs_info
 if [[ -z "${REMOTEHOST}${SSH_CONNECTION}" ]]; then
     #local shell
-    PROMPT="%U%{${fg[red]}%}[%n@%m]%{${reset_color}%}%u(%j) %1(v|%1v%U%2v%u%3v|%~)
+    PROMPT="%U%(?.%{${fg[green]}%}.%{${fg[red]}%})[%n@%m]%{${reset_color}%}%u(%j) %1(v|%1v%U%2v%u%3v|%~)
 %# "
 else
     #remote shell
