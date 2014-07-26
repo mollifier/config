@@ -752,11 +752,6 @@ elif which putclip >/dev/null 2>&1 ; then
 fi
 
 
-
-if [[ -f ~/.zshrc_dev ]]; then
-    source ~/.zshrc_dev
-fi
-
 # source local rcfile
 if [[ -f ~/.zshrc_local ]]; then
     source ~/.zshrc_local
