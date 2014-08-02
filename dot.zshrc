@@ -374,7 +374,8 @@ setopt mail_warning
 # remove right prompt from display when accepting a command line.
 setopt transient_rprompt
 
-zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*:default' menu yes select=2
+
 if [[ -d ${_zsh_user_config_dir}/cache ]]; then
     zstyle ':completion:*' use-cache yes
     zstyle ':completion:*' cache-path ${_zsh_user_config_dir}/cache
