@@ -79,6 +79,7 @@ bindkey "^[r" redo
 # not accept-line, but insert newline
 bindkey '^J' self-insert
 bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
 # kill backward one word
 bindkey '^Y' backward-delete-word
 
@@ -333,8 +334,9 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt share_history
+setopt hist_ignore_dups
+setopt hist_save_no_dups
 setopt hist_ignore_all_dups
-setopt hist_save_nodups
 #remove the history (fc -l) command from the history list
 setopt hist_no_store
 setopt hist_ignore_space
