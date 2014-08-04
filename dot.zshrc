@@ -337,6 +337,7 @@ setopt share_history
 setopt hist_ignore_dups
 setopt hist_save_no_dups
 setopt hist_ignore_all_dups
+setopt extended_history
 #remove the history (fc -l) command from the history list
 setopt hist_no_store
 setopt hist_ignore_space
