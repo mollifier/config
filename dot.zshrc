@@ -469,7 +469,7 @@ EOF
 
 # search zsh document
 function zman() {
-    PAGER="less -g -s '+/^       "$1"'" man zshall
+    PAGER="less -g -s '+/^ {7}"$1"'" man zshall
 }
 
 function pwd-clip() {
