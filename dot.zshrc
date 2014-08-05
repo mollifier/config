@@ -526,23 +526,76 @@ function zsh-without-rcfiles-in-tmux() {
 #
 # source antigen.zsh before set alias ls='ls -F --color=auto'
 # to avoid ls option error in Mac
-source ~/.zsh/antigen/antigen.zsh
-# github repos
-# We need to setup zsh-syntax-highlighting after calling select-word-style default
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle mollifier/zload
-antigen bundle mollifier/cd-gitroot
-antigen bundle mollifier/cd-bookmark
-antigen bundle mollifier/anyframe
-antigen bundle Tarrasch/zsh-bd
-antigen bundle knu/zsh-git-escape-magic
-antigen bundle rupa/z
-antigen bundle m4i/cdd
-antigen-bundle zsh-users/zsh-completions src
+if [[ -f ~/.zsh/antigen/antigen.zsh ]]; then
+    source ~/.zsh/antigen/antigen.zsh
+    # github repos
+    # We need to setup zsh-syntax-highlighting after calling select-word-style default
+    antigen bundle zsh-users/zsh-syntax-highlighting
+    antigen bundle mollifier/zload
+    antigen bundle mollifier/cd-gitroot
+    antigen bundle mollifier/cd-bookmark
+    antigen bundle mollifier/anyframe
+    antigen bundle Tarrasch/zsh-bd
+    antigen bundle knu/zsh-git-escape-magic
+    antigen bundle rupa/z
+    antigen bundle m4i/cdd
+    antigen-bundle zsh-users/zsh-completions src
 
-# Tell antigen that you're done.
-antigen apply
+    # Tell antigen that you're done.
+    antigen apply
 
+    # cdd #{{{2
+    # https://github.com/m4i/cdd
+    () {
+        local cdd_script_path=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd
+        if [[ -f $cdd_script_path ]]; then
+            source $cdd_script_path
+            touch $CDD_FILE
+            add-zsh-hook chpwd _cdd_chpwd
+        fi
+    }
+
+    # anyframe #{{{2
+    # https://github.com/mollifier/anyframe
+
+    zstyle ":anyframe:selector:" use peco
+    if [[ -f "${HOME}/.peco_config.json" ]]; then
+        zstyle ":anyframe:selector:peco:" command "peco --rcfile=${HOME}/.peco_config.json"
+    fi
+
+    bindkey '^xb' anyframe-widget-cdr
+    bindkey '^x^b' anyframe-widget-checkout-git-branch
+
+    bindkey '^xr' anyframe-widget-execute-history
+    bindkey '^x^r' anyframe-widget-execute-history
+
+    bindkey '^xp' anyframe-widget-put-history
+    bindkey '^x^p' anyframe-widget-put-history
+
+    bindkey '^xg' anyframe-widget-cd-ghq-repository
+    bindkey '^x^g' anyframe-widget-cd-ghq-repository
+
+    bindkey '^xk' anyframe-widget-kill
+    bindkey '^x^k' anyframe-widget-kill
+
+    bindkey '^xi' anyframe-widget-insert-git-branch
+    bindkey '^x^i' anyframe-widget-insert-git-branch
+
+
+    # cd-gitroot #{{{2
+    # https://github.com/mollifier/cd-gitroot
+    alias cdu='cd-gitroot'
+
+    # cd-bookmark #{{{2
+    # https://github.com/mollifier/cd-bookmark
+    alias b='cd-bookmark'
+
+    # knu/zsh-git-escape-magic #{{{2
+    # https://github.com/knu/zsh-git-escape-magic
+    autoload -Uz git-escape-magic
+    git-escape-magic
+
+fi
 
 # for plugins #{{{1
 # note :
@@ -585,57 +638,6 @@ function alc() {
         echo "usage: $0 word"
     fi
 }
-
-# cdd #{{{2
-# https://github.com/m4i/cdd
-() {
-    local cdd_script_path=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd
-    if [[ -f $cdd_script_path ]]; then
-        source $cdd_script_path
-        touch $CDD_FILE
-        add-zsh-hook chpwd _cdd_chpwd
-    fi
-}
-
-# anyframe #{{{2
-# https://github.com/mollifier/anyframe
-
-zstyle ":anyframe:selector:" use peco
-if [[ -f "${HOME}/.peco_config.json" ]]; then
-    zstyle ":anyframe:selector:peco:" command "peco --rcfile=${HOME}/.peco_config.json"
-fi
-
-bindkey '^xb' anyframe-widget-cdr
-bindkey '^x^b' anyframe-widget-checkout-git-branch
-
-bindkey '^xr' anyframe-widget-execute-history
-bindkey '^x^r' anyframe-widget-execute-history
-
-bindkey '^xp' anyframe-widget-put-history
-bindkey '^x^p' anyframe-widget-put-history
-
-bindkey '^xg' anyframe-widget-cd-ghq-repository
-bindkey '^x^g' anyframe-widget-cd-ghq-repository
-
-bindkey '^xk' anyframe-widget-kill
-bindkey '^x^k' anyframe-widget-kill
-
-bindkey '^xi' anyframe-widget-insert-git-branch
-bindkey '^x^i' anyframe-widget-insert-git-branch
-
-
-# cd-gitroot #{{{2
-# https://github.com/mollifier/cd-gitroot
-alias cdu='cd-gitroot'
-
-# cd-bookmark #{{{2
-# https://github.com/mollifier/cd-bookmark
-alias b='cd-bookmark'
-
-# knu/zsh-git-escape-magic #{{{2
-# https://github.com/knu/zsh-git-escape-magic
-autoload -Uz git-escape-magic
-git-escape-magic
 
 # }}}1
 
