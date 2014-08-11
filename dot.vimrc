@@ -359,8 +359,8 @@ snoremap <C-K> <ESC>
 noremap Y y$
 noremap gh ^
 noremap gl $
-noremap S J
-noremap gS gJ
+noremap S gJ
+noremap gS J
 
 "define tcsh style editing keys
 cnoremap <C-A> <Home>
