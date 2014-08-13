@@ -69,4 +69,12 @@ export PERL_CPANM_OPT="--local-lib=~/perl5"
 path=($path $HOME/perl5/bin(N-/))
 export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
 
-# vim:set ft=zsh:
+# pyenv (Python)
+export PYENV_ROOT="$HOME/.pyenv"
+if [[ -d "${PYENV_ROOT}" ]]; then
+    path=($PYENV_ROOT/shims(N-/) $path)    # for Mac
+    path=($PYENV_ROOT/bin(N-/) $path)
+    eval "$(pyenv init -)"
+fi
+
+# vim:set ft=zsh ts=4 sw=4 sts=0 foldmethod=marker:
