@@ -581,6 +581,16 @@ if [[ -f ~/.zsh/antigen/antigen.zsh ]]; then
     bindkey '^xi' anyframe-widget-insert-git-branch
     bindkey '^x^i' anyframe-widget-insert-git-branch
 
+    function peco-tmux() {
+        local i=$(tmux lsw | awk '/active.$/ {print NR-1}')
+        local f='#{window_index}: #{window_name}#{window_flags} #{pane_current_path}'
+        tmux lsw -F $f \
+            | anyframe-selector-auto "" --initial-index $i \
+            | cut -d ':' -f 1 \
+            | anyframe-action-execute tmux select-window -t
+    }
+    zle -N peco-tmux
+    bindkey '^xt' peco-tmux
 
     # cd-gitroot #{{{2
     # https://github.com/mollifier/cd-gitroot
