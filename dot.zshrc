@@ -539,7 +539,10 @@ if [[ -f ~/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle knu/zsh-git-escape-magic
     antigen bundle rupa/z
     antigen bundle m4i/cdd
-    antigen-bundle zsh-users/zsh-completions src
+    antigen bundle zsh-users/zsh-completions src
+
+    # completion files in their original project
+    antigen bundle motemen/ghq zsh
 
     # Tell antigen that you're done.
     antigen apply
