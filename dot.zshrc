@@ -369,7 +369,6 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 setopt auto_menu
-setopt menu_complete
 setopt extended_glob
 #expand argument after = to filename
 setopt magic_equal_subst
@@ -378,7 +377,7 @@ setopt mail_warning
 # remove right prompt from display when accepting a command line.
 setopt transient_rprompt
 
-zstyle ':completion:*:default' menu yes select=2
+zstyle ':completion:*:default' menu select=2
 
 if [[ -d ${_zsh_user_config_dir}/cache ]]; then
     zstyle ':completion:*' use-cache yes
