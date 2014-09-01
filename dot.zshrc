@@ -664,7 +664,7 @@ alias l='ls'
 alias la='ls -a'
 alias ll='ls -lh'
 alias ld='ls -d'
-alias l1='ls -1d'
+alias l1='ls -1'
 alias lt='tree -F'
 
 #file operation
