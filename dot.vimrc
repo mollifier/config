@@ -242,7 +242,7 @@ set hlsearch
 set incsearch
 
 "search highlighted word in visual mode
-vnoremap * y/<C-R>0<CR>
+vnoremap * "zy:let @/ = @z<CR>n
 vnoremap # y?<C-R>0<CR>
 
 "clear hlsearch
