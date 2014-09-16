@@ -403,7 +403,7 @@ cdpath=(${HOME} ${HOME}/work)
 autoload -Uz select-word-style
 select-word-style default
 # only these characters are not considered word characters
-zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-chars ' /=;@:{}[]()<>,|'
 zstyle ':zle:*' word-style unspecified
 
 # run-help
