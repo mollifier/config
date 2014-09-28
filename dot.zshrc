@@ -652,6 +652,12 @@ function alc() {
     fi
 }
 
+# direnv #{{{2
+# https://github.com/zimbatm/direnv
+if which direnv >/dev/null 2>&1 ; then
+    eval "$(direnv hook zsh)"
+fi
+
 # }}}1
 
 
