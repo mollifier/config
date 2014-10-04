@@ -387,6 +387,11 @@ fi
 # grouping cd completions
 zstyle ':completion:*:cd:*' group-name ''
 zstyle ':completion:*:cd:*:descriptions' format '%B%U# %d%u%b'
+
+# _cap
+zstyle ':completion::*:cap:*:commands' command 'bundle exec cap -T'
+# _rake
+zstyle ':completion::*:rake:*:targets' command 'bundle exec rake -sT $opt_args[(I)(-N|--nosearch)] ${(kv)opt_args[(I)(-f|--rakefile)]}'
 # }}}2
 
 
