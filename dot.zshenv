@@ -11,6 +11,9 @@ path=($HOME/bin(N-/) /usr/local/sbin(N-/) /usr/local/bin(N-/) $path)
 if [[ -d "/usr/lib/jvm/java-7-oracle" ]]; then
     # Ubuntu
     export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+elif [[ -x "/usr/libexec/java_home" ]]; then
+    # Mac
+    export JAVA_HOME=$(/usr/libexec/java_home)
 elif [[ -d "/System/Library/Frameworks/JavaVM.framework/Home" ]]; then
     # Mac
     export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"
