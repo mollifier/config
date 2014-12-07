@@ -88,7 +88,7 @@ bindkey '^Y' backward-delete-word
 autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 #   include words that is at least two characters long
-zstyle :insert-last-word match '*([^[:space:]][[:alnum:]/\\]|[[:alnum:]/\\][^[:space:]])*'
+zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 bindkey '^]' insert-last-word
 
 # like delete-char-or-list, except that list-expand is used
