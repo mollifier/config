@@ -366,7 +366,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # .. : only when the word on the line contains the substring '../'
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
+zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,command"
 
 setopt auto_menu
 setopt extended_glob
