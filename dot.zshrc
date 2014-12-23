@@ -439,14 +439,6 @@ setopt no_beep
 ############################################################
 # utility functions #{{{1
 
-function alc() {
-    if [ -n "$1" ]; then
-        w3m "http://eow.alc.co.jp/${1}/UTF-8/?ref=sa" | sed '1,36d' | less
-    else
-        echo 'usage: alc word'
-    fi
-}
-
 function presentation() {
     PROMPT="[%1d] %# "
     RPROMPT=""
