@@ -527,6 +527,8 @@ if [[ -f ~/.zsh/antigen/antigen.zsh ]]; then
     # github repos
     # We need to setup zsh-syntax-highlighting after calling select-word-style default
     antigen bundle zsh-users/zsh-syntax-highlighting
+    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
     antigen bundle mollifier/zload
     antigen bundle mollifier/cd-gitroot
     antigen bundle mollifier/cd-bookmark
