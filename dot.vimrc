@@ -557,9 +557,9 @@ let g:unite_enable_start_insert = 1
 
 " unite startup mappings "{{{3
 nnoremap <silent> <SPACE>b :<C-u>Unite buffer<CR>
-"nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
+nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
 " file_rec/async requires vimproc
-nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
+"nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
 nnoremap <silent> <SPACE>r :<C-u>Unite file_mru<CR>
 
 " mappings in unite buffer "{{{3
@@ -567,6 +567,7 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
     nmap <buffer> <ESC> <Plug>(unite_exit)
     nmap <buffer> <C-K> <Plug>(unite_exit)
+    nmap <buffer> <C-C> <Plug>(unite_exit)
     imap <buffer> <C-W> <Plug>(unite_delete_backward_path)
 
     " use <SPACE>x instead of <SPACE>
