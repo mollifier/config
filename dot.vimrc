@@ -597,8 +597,11 @@ nnoremap <silent> <SPACE>rv :<C-u>Unite rails/view<CR>
 nnoremap <silent> <SPACE>rt :<C-u>Unite rails/spec<CR>
 
 " rails.vim "{{{2
+" :R   jump to a related file(controller <-> view).
 nnoremap <silent> <SPACE>rr :<C-u>R<CR>
+" :RS  :R + split
 nnoremap <silent> <SPACE>rs :<C-u>RS<CR>
+" :A   jump to an alternate file(model <-> spec).
 nnoremap <silent> <SPACE>ra :<C-u>A<CR>
 
 " for Fugitive "{{{2
