@@ -582,6 +582,9 @@ if [[ -f ~/.zsh/antigen/antigen.zsh ]]; then
     bindkey '^xi' anyframe-widget-insert-git-branch
     bindkey '^x^i' anyframe-widget-insert-git-branch
 
+    bindkey '^xf' anyframe-widget-insert-filename
+    bindkey '^x^f' anyframe-widget-insert-filename
+
     function peco-tmux() {
         local i=$(tmux lsw | awk '/active.$/ {print NR-1}')
         local f='#{window_index}: #{window_name}#{window_flags} #{pane_current_path}'
