@@ -24,8 +24,6 @@
   u = status
   ci = commit
   co = checkout
-  up = pull --rebase
-  pull-rebase = pull --rebase
 
   # ammend with existing message
   commit-amend-no-edit = commit --amend --no-edit
