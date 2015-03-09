@@ -79,6 +79,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'rcmdnk/vim-markdown'
 NeoBundle 'rhysd/committia.vim'
+NeoBundle 'scrooloose/syntastic'
 
 " vim-scripts repos
 NeoBundle 'matchit.zip'
