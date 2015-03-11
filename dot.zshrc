@@ -10,8 +10,8 @@ limit coredumpsize 0
 
 # make directory for cdd, completion cache, ...
 _zsh_user_config_dir="${HOME}/.zsh"
-if [[ ! -d ${_zsh_user_config_dir} ]]; then
-    mkdir -p ${_zsh_user_config_dir}
+if [[ ! -d "${_zsh_user_config_dir}" ]]; then
+    mkdir -p "${_zsh_user_config_dir}"
 fi
 
 autoload -Uz add-zsh-hook
