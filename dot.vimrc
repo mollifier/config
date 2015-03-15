@@ -292,6 +292,7 @@ let g:markdown_fenced_languages = [
 \  'xml',
 \]
 
+let g:vim_markdown_initial_foldlevel=10
 
 " show invisible characters "{{{2
 if has('autocmd') && has('syntax')
