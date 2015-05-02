@@ -792,6 +792,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias -s {png,jpg,bmp,PNG,JPG,BMP}='open -a Preview'
 else
     alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+    alias -s pdf=evince
 fi
 
 # source local rcfile
