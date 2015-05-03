@@ -713,16 +713,12 @@ alias gm='gvim'
 alias gf='grep --with-filename --line-number'
 alias gr='grep --with-filename --line-number --recursive --exclude-dir=.svn'
 
-#history
-#-n option suppresses command numbers
-function my_history_func() {
-    local number=${1:-10}
-    builtin history -n -${number}
-}
-
-alias history='builtin history 1'
+# -i prints full time-date stamps in 'yyyy-mm-dd hh:mm' format
+alias history-i='builtin history -i 1'
+# show all histories
 alias his='builtin history -n 1'
-alias h=my_history_func
+# show recent 10 histories
+alias h='builtin history -n -10'
 
 #enable alias to sudo command argument
 alias sudo='sudo '
