@@ -782,6 +782,12 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
+function git_current_branch_name()
+{
+    git branch | grep '^\*' | sed 's/^\* *//'
+}
+alias -g B='"$(git_current_branch_name)"'
+
 # suffix alias
 if [[ "$(uname)" == "Darwin" ]]; then
     # mac
