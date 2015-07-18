@@ -509,6 +509,10 @@ function zsh-without-rcfiles-in-tmux() {
     tmux new-window 'zsh +o RCS'
 }
 
+function showoptions() {
+    set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
+}
+
 
 
 ############################################################
