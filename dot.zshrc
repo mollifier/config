@@ -44,7 +44,6 @@ export TERM=xterm-256color
 export PAGER=less
 # --SILENT : terminal bell is not rung
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --SILENT'
-export GREP_OPTIONS='--color=auto'
 export MAIL=/var/mail/$USERNAME
 #export PS4 for bash
 export PS4='-> $LINENO: '
