@@ -219,7 +219,7 @@ endfunction
 
 " Statusline  "{{{1
 set laststatus=2    "always show statusline
-let &statusline = '[%n] %f %m %r%{&foldenable!=0?"[fen]":""}%=[Col:%{LineCharCount()}] [L:%l/%L] [C:%{WordCount()}] (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
+let &statusline = '[%n] %f %m %r%{&foldenable!=0?"[fen]":""}%=[Col:%c%V/%{LineCharCount()}] [L:%l/%L] [C:%{WordCount()}] (%p%%) %{"[".(&fenc!=""?&fenc:&enc)."][".&ff."]"}'
 set updatetime=500
 
 
