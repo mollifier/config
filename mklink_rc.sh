@@ -7,7 +7,7 @@
 #set -o noglob
 
 #####################
-# constatns
+# constants
 #####################
 declare -r SCRIPT_NAME=${0##*/}
 declare -r SRC_DIR_NAME=$(dirname $0)
