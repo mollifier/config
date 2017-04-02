@@ -15,22 +15,26 @@
 " :NeoBundleInstall!
 "
 " update neobundle
-" % cd dot.vim/neobundle.vim.git
-" % git pull origin master
 " % cd GIT_ROOT_DIR
+" % git submodule foreach git pull origin master
 " % git add dot.vim/neobundle.vim.git
 " % git commit -m 'update neobundle.vim'
 
-set nocompatible
+if 0 | endif
+
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
 filetype off
 
 if has('vim_starting')
   if has("win32") || has("win64")
     set runtimepath+=~/vimfiles/neobundle.vim.git
-    call neobundle#rc(expand('~/vimfiles/bundle'))
+    call neobundle#begin(expand('~/vimfiles/bundle'))
   else 
     set runtimepath+=~/.vim/neobundle.vim.git
-    call neobundle#rc(expand('~/.vim/bundle'))
+    call neobundle#begin(expand('~/.vim/bundle/'))
   endif
 endif
 
@@ -89,6 +93,8 @@ NeoBundle 'wombat256.vim'
 
 " non github repos
 "NeoBundle 'git://git.wincent.com/command-t.git'
+
+call neobundle#end()
 
 filetype plugin indent on
 
