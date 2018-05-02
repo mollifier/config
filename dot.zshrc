@@ -37,6 +37,13 @@ compinit
 ############################################################
 # environment variables #{{{1
 
+## ruby
+path=($HOME/.rbenv/bin(N-/) $path)
+if which rbenv >/dev/null 2>&1 ;then
+    eval "$(rbenv init - zsh)"
+fi
+export DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
+
 export LANG=ja_JP.UTF-8
 [ "0" = $UID ] && LANG=en_US.UTF-8
 export EDITOR=vim
