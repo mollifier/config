@@ -558,7 +558,7 @@ if [[ -f ~/.zsh/antigen/antigen.zsh ]]; then
     # cdd #{{{2
     # https://github.com/m4i/cdd
     () {
-        local cdd_script_path=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd
+        local cdd_script_path=~/.antigen/bundles/m4i/cdd/cdd
         if [[ -f $cdd_script_path ]]; then
             source $cdd_script_path
             touch $CDD_FILE
