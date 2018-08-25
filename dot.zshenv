@@ -40,14 +40,6 @@ path=($HOME/.nodebrew/current/bin(N-/) $path)
 ## haskell (cabal) ##
 path=($HOME/Library/Haskell/bin(N-/) $path)
 
-# ruby
-path=($HOME/.rbenv/shims(N-/) $path)    # for Mac
-path=($HOME/.rbenv/bin(N-/) $path)
-if which rbenv >/dev/null 2>&1 ;then
-    eval "$(rbenv init - zsh)"
-fi
-export DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
-
 ### Added by the Heroku Toolbelt
 path=(/usr/local/heroku/bin(N-/) $path)
 
