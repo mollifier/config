@@ -19,6 +19,10 @@
 " % git submodule foreach git pull origin master
 " % git add dot.vim/neobundle.vim.git
 " % git commit -m 'update neobundle.vim'
+"
+" init neobundle submodule
+" % cd GIT_ROOT_DIR
+" $ git submodule update -i
 
 if 0 | endif
 
