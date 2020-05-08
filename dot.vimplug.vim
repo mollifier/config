@@ -32,6 +32,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
+Plug 'vim-syntastic/syntastic'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
