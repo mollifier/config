@@ -8,19 +8,19 @@
 " Open vim and run next command
 " :PlugInstall
 " or run next command from shell.
-" $ vim -u ~/.vimplug.vim '+PlugInstall'
+" $ vim -es -u ~/.vimplug.vim -i NONE -c 'PlugInstall' -c 'qa'
 "
 " Update plugins
 " Open vim and run next command
 " :PlugUpdate
 " or run next command from shell.
-" $ vim -u ~/.vimplug.vim '+PlugUpdate'
+" $ vim -es -u ~/.vimplug.vim -i NONE -c 'PlugUpdate' -c 'qa'
 "
 " Remove plugins
 " Open vim and run next command
 " :PlugClean
 " or run next command from shell.
-" $ vim -u ~/.vimplug.vim '+PlugClean'
+" $ vim -es -u ~/.vimplug.vim -i NONE -c 'PlugClean' -c 'qa'
 
 call plug#begin('~/.cache/vimplug')
 
