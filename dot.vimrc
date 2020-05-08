@@ -467,21 +467,6 @@ if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim
 endif
 
-" xul.vim (Syntax for XUL) "{{{2
-let xul_noclose_script = 1
-
-" hatena.vim (Syntax for hatena) "{{{2
-let g:hatena_syntax_html = 1
-
-" teramako/jscomplete-vim  "{{{2
-let g:jscomplete_use = ['dom']
-
-
-
-" vim-jsdoc "{{{2
-let g:jsdoc_default_mapping = 0
-nnoremap <silent> <SPACE>jd :JsDoc<CR>
-
 " quickrun "{{{2
 nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
 vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
@@ -489,14 +474,6 @@ vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
 " ctrlp "{{{2
 " type <SPACE>P to invoked ctrlp buffer
 let g:ctrlp_map = '<SPACE>p'
-
-" rails.vim "{{{2
-" :R   jump to a related file(controller <-> view).
-nnoremap <silent> <SPACE>rr :<C-u>R<CR>
-" :RS  :R + split
-nnoremap <silent> <SPACE>rs :<C-u>RS<CR>
-" :A   jump to an alternate file(model <-> spec).
-nnoremap <silent> <SPACE>ra :<C-u>A<CR>
 
 " for Fugitive "{{{2
 " Vim plugin for Git
@@ -507,6 +484,7 @@ nnoremap <Space>ga :<C-u>Gwrite<Enter>
 nnoremap <Space>gc :<C-u>Gcommit<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
 
+" for syntastic "{{{2
 let g:syntastic_always_populate_loc_list = 1
 " use :lopen
 "let g:syntastic_auto_loc_list = 1
