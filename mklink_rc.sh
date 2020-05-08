@@ -17,6 +17,7 @@ declare -ar DOTFILES=(
   'dot.atoolrc'
   'dot.bash_profile'
   'dot.bashrc'
+  'dot.dein.rc.vim'
   'dot.emacs'
   'dot.gitconfig'
   'dot.gitignore'
