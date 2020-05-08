@@ -482,20 +482,6 @@ let g:hatena_syntax_html = 1
 " teramako/jscomplete-vim  "{{{2
 let g:jscomplete_use = ['dom']
 
-" neosnippet "{{{2
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" User defined snippet directory
-let g:neosnippet#snippets_directory='$HOME/.vim/snippets/,$HOME/vimfiles/snippets/'
-
-
 " unite.vim "{{{2
 " start in insert mode
 let g:unite_enable_start_insert = 1
