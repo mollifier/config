@@ -482,9 +482,6 @@ let g:hatena_syntax_html = 1
 " teramako/jscomplete-vim  "{{{2
 let g:jscomplete_use = ['dom']
 
-" deoplete.nvim "{{{2
-let g:deoplete#enable_at_startup = 1
-
 " neosnippet "{{{2
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
