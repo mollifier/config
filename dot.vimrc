@@ -3,6 +3,11 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
+" vim-plug
+if filereadable($HOME . '/.vimplug.vim')
+    source $HOME/.vimplug.vim
+endif
+
 " Basic  "{{{1
 language C
 set nocompatible
