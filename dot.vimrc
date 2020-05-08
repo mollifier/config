@@ -482,33 +482,7 @@ let g:hatena_syntax_html = 1
 " teramako/jscomplete-vim  "{{{2
 let g:jscomplete_use = ['dom']
 
-" unite.vim "{{{2
-" start in insert mode
-let g:unite_enable_start_insert = 1
 
-" unite startup mappings "{{{3
-nnoremap <silent> <SPACE>b :<C-u>Unite buffer<CR>
-nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
-" file_rec/async requires vimproc
-"nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
-nnoremap <silent> <SPACE>r :<C-u>Unite file_mru<CR>
-
-" mappings in unite buffer "{{{3
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    nmap <buffer> <ESC> <Plug>(unite_exit)
-    nmap <buffer> <C-K> <Plug>(unite_exit)
-    nmap <buffer> <C-C> <Plug>(unite_exit)
-    imap <buffer> <C-W> <Plug>(unite_delete_backward_path)
-
-    " use <SPACE>x instead of <SPACE>
-    nmap <buffer> <SPACE>x <Plug>(unite_toggle_mark_current_candidate)
-    imap <buffer> <SPACE>x <Plug>(unite_toggle_mark_current_candidate)
-    vmap <buffer> <SPACE>x <Plug>(unite_toggle_selected_candidates)
-endfunction
-
-" unite-outline "{{{2
-nnoremap <silent> <SPACE>uo :<C-u>Unite outline<CR>
 
 " vim-jsdoc "{{{2
 let g:jsdoc_default_mapping = 0
@@ -520,12 +494,6 @@ vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
 
 " ctrlp "{{{2
 let g:ctrlp_map = '<SPACE>p'
-
-" unite-rails "{{{2
-nnoremap <silent> <SPACE>rm :<C-u>Unite rails/model<CR>
-nnoremap <silent> <SPACE>rc :<C-u>Unite rails/controller<CR>
-nnoremap <silent> <SPACE>rv :<C-u>Unite rails/view<CR>
-nnoremap <silent> <SPACE>rt :<C-u>Unite rails/spec<CR>
 
 " rails.vim "{{{2
 " :R   jump to a related file(controller <-> view).
