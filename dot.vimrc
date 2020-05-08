@@ -467,12 +467,6 @@ if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim
 endif
 
-" surround.vim "{{{2
-"see also :help surround-mappings Note
-"remove surround mappings in visual mode
-vmap <Leader>s <Plug>Vsurround
-vmap <Leader>S <Plug>VSurround
-
 " xul.vim (Syntax for XUL) "{{{2
 let xul_noclose_script = 1
 
