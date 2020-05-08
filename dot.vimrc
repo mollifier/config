@@ -23,6 +23,8 @@ let g:netrw_alto=1
 set completeopt=menuone,preview
 set display=lastline
 
+let mapleader = "\<Space>"
+
 set modeline
 set modelines=5
 
@@ -244,7 +246,7 @@ vnoremap * "zy:let @/ = @z<CR>n
 vnoremap # y?<C-R>0<CR>
 
 "clear hlsearch
-nnoremap <SPACE>c :<C-u>nohlsearch<CR>
+nnoremap <Leader>c :<C-u>nohlsearch<CR>
 
 " Color  "{{{1
 
@@ -346,7 +348,6 @@ set foldcolumn=3
 " Map  "{{{1
 "no effect keys
 map s <Nop>
-map <SPACE> <Nop>
 
 "make CTRL-K an additional ESC
 noremap <C-K> <ESC>
@@ -423,34 +424,34 @@ nnoremap s0 1<C-W>_
 nnoremap s. <C-W>=
 
 
-nnoremap <Space>w :<C-u>update<CR>:<C-u>echo ""<CR>
-nnoremap <Space>q :<C-u>qall<CR>
+nnoremap <Leader>w :<C-u>update<CR>:<C-u>echo ""<CR>
+nnoremap <Leader>q :<C-u>qall<CR>
 
 nnoremap <C-h> :<C-u>help<Space>
 
-nnoremap <Space>m :<C-u>make<CR>
+nnoremap <Leader>m :<C-u>make<CR>
 
 "move to next/previous line with same indentation
-nnoremap <silent> <SPACE>kk k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-nnoremap <silent> <SPACE>jj :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+nnoremap <silent> <Leader>kk k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+nnoremap <silent> <Leader>jj :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 "call function
 "invert scrollbind
 nnoremap sb :<C-u>call InvertScrollBindAll()<CR>
 "navi
-nnoremap <SPACE>v :<C-u>call Navi()<CR>
+nnoremap <Leader>v :<C-u>call Navi()<CR>
 nnoremap go :<C-u>copen<CR>
 nnoremap gc :<C-u>cclose<CR>
-nnoremap <SPACE>n :<C-u>cnext<CR>
-nnoremap <SPACE>p :<C-u>cprevious<CR>
+nnoremap <Leader>n :<C-u>cnext<CR>
+nnoremap <Leader>p :<C-u>cprevious<CR>
 
 "invert number and list options
 nnoremap <silent> sv :<C-u>call InvertList()<CR>
 
 " format json
 " require python 2.6 or later
-vnoremap <Space>json !python -m json.tool<CR>
-nnoremap <Space>json :<C-u>% !python -m json.tool<CR>
+vnoremap <Leader>json !python -m json.tool<CR>
+nnoremap <Leader>json :<C-u>% !python -m json.tool<CR>
 
 
 " For plugins "{{{1
@@ -460,7 +461,7 @@ nnoremap sd :<C-u>NERDTreeToggle<CR>
 " eregex "{{{2
 let g:eregex_default_enable = 0
 nnoremap ,/ :<C-u>M/
-nnoremap <SPACE>/ :<C-u>M/
+nnoremap <Leader>/ :<C-u>M/
 
 " closetag.vim "{{{2
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
@@ -468,21 +469,21 @@ if filereadable($HOME . '/.vim/scripts/closetag.vim')
 endif
 
 " quickrun "{{{2
-nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
-vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
+nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
+vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 
 " ctrlp "{{{2
-" type <SPACE>P to invoked ctrlp buffer
-let g:ctrlp_map = '<SPACE>p'
+" type <Leader>P to invoked ctrlp buffer
+let g:ctrlp_map = '<Leader>p'
 
 " for Fugitive "{{{2
 " Vim plugin for Git
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
+nnoremap <Leader>gs :<C-u>Gstatus<Enter>
+nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>ga :<C-u>Gwrite<Enter>
+nnoremap <Leader>gc :<C-u>Gcommit<Enter>
+nnoremap <Leader>gb :<C-u>Gblame<Enter>
 
 " for syntastic "{{{2
 let g:syntastic_always_populate_loc_list = 1
