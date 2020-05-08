@@ -27,6 +27,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
   " Required:
   call dein#end()
