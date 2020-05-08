@@ -28,7 +28,12 @@ if dein#load_state('~/.cache/dein')
 
   " Add or remove your plugins here like this:
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  call dein#add('Shougo/neocomplete.vim')
+
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
 
   " Required:
   call dein#end()
