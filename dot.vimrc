@@ -3,6 +3,11 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
+" dein.vim
+if filereadable($HOME . '/.dein.rc.vim')
+    source $HOME/.dein.rc.vim
+endif
+
 " Basic  "{{{1
 language C
 set nocompatible
