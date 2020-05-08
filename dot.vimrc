@@ -3,14 +3,6 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
-" neobundle.vim
-if filereadable($HOME . '/.neobundles.vim')
-    source $HOME/.neobundles.vim
-elseif filereadable($HOME . '/_neobundles.vim')
-    source $HOME/_neobundles.vim
-endif
-
-
 " Basic  "{{{1
 language C
 set nocompatible
@@ -612,11 +604,6 @@ nnoremap <Space>gl :<C-u>Glog<Enter>
 nnoremap <Space>ga :<C-u>Gwrite<Enter>
 nnoremap <Space>gc :<C-u>Gcommit<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
-
-" for syntastic "{{{2
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 " use :lopen
