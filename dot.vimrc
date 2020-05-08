@@ -506,6 +506,7 @@ nnoremap <silent> <SPACE>rs :<C-u>RS<CR>
 nnoremap <silent> <SPACE>ra :<C-u>A<CR>
 
 " for Fugitive "{{{2
+" Vim plugin for Git
 nnoremap <Space>gd :<C-u>Gdiff<Enter>
 nnoremap <Space>gs :<C-u>Gstatus<Enter>
 nnoremap <Space>gl :<C-u>Glog<Enter>
