@@ -10,6 +10,12 @@
 " :call dein#install()
 " or run next command from shell.
 " $ vim -u ~/.dein.rc.vim '+call dein#install()' '+q'
+"
+" Update plugins
+" Open vim and run next command
+" :call dein#update()
+" or run next command from shell.
+" $ vim -u ~/.dein.rc.vim '+call dein#update()' '+q'
 
 if &compatible
   set nocompatible               " Be iMproved
