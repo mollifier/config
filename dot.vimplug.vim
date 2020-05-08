@@ -25,6 +25,7 @@
 call plug#begin('~/.cache/vimplug')
 
 Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
