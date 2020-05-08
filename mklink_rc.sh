@@ -27,6 +27,7 @@ declare -ar DOTFILES=(
   'dot.tmux.conf'
   'dot.vim'
   'dot.vimrc'
+  'dot.vimplug.vim'
   'dot.Xmodmap'
   'dot.zshenv'
   'dot.zlogin'
