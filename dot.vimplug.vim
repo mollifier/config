@@ -29,6 +29,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'thinca/vim-quickrun'
 Plug 'othree/eregex.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'kien/ctrlp.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

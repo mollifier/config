@@ -494,6 +494,7 @@ nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
 vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
 
 " ctrlp "{{{2
+" type <SPACE>P to invoked ctrlp buffer
 let g:ctrlp_map = '<SPACE>p'
 
 " rails.vim "{{{2
