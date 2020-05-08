@@ -31,6 +31,7 @@ Plug 'othree/eregex.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/committia.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
