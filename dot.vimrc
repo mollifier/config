@@ -461,6 +461,7 @@ nnoremap sd :<C-u>NERDTreeToggle<CR>
 " eregex "{{{2
 let g:eregex_default_enable = 0
 nnoremap ,/ :<C-u>M/
+nnoremap <SPACE>/ :<C-u>M/
 
 " closetag.vim "{{{2
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
