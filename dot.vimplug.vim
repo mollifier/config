@@ -26,6 +26,7 @@ call plug#begin('~/.cache/vimplug')
 
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'thinca/vim-quickrun'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
