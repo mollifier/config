@@ -36,6 +36,7 @@ declare -ar DOTFILES=(
   'dot.zshrc'
   'dot.zlogout'
   'dot.peco_config.json'
+  'dot.config/fish/config.fish'
 )
 
 #####################
