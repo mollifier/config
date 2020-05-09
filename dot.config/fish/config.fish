@@ -1,4 +1,4 @@
-# config.fish
+# ~/.config/fish/config.fish
 
 ############################################################
 # environment variables #{{{1
