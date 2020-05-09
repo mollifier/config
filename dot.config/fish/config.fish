@@ -1,5 +1,18 @@
 # config.fish
 
+############################################################
+# environment variables #{{{1
+
+set -x LANG ja_JP.UTF-8
+set -x EDITOR vim
+set -x TERM xterm-256color
+set -x PAGER less
+# --SILENT : terminal bell is not rung
+set -x LESS '--tabs=4 --no-init --LONG-PROMPT --ignore-case --SILENT'
+set -x MAIL /var/mail/$USERNAME
+#export PS4 for bash
+set -x PS4 '-> $LINENO: '
+
 # aliases #{{{1
 
 #list
