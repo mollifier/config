@@ -10,7 +10,8 @@
 # constants
 #####################
 declare -r SCRIPT_NAME=${0##*/}
-declare -r SRC_DIR_NAME=$(dirname $0)
+tmp_src_dir_name=$(dirname "$0")
+declare -r SRC_DIR_NAME=${tmp_src_dir_name}
 declare -r DEST_DIR_NAME=${HOME}
 
 declare -ar DOTFILES=(
@@ -66,6 +67,8 @@ print_error()
 # create dest filename by link src filename
 get_dest_filename()
 {
+  # complex sed substitution is required
+  # shellcheck disable=SC2001
   echo "${1}" | sed -e 's/^dot\././'
 }
 
@@ -99,11 +102,11 @@ while getopts ':fdh' option; do
         ;;
     esac
 done
-shift $(expr $OPTIND - 1)
+shift $((OPTIND - 1))
 
-cd $SRC_DIR_NAME
+cd "$SRC_DIR_NAME" || exit
 for src_filename in "${DOTFILES[@]}"; do
-  dest_filename=$(get_dest_filename $src_filename)
+  dest_filename=$(get_dest_filename "$src_filename")
 
   if [ -e "${DEST_DIR_NAME}/${dest_filename}" ]; then
     # skip file which already exists
@@ -112,10 +115,10 @@ for src_filename in "${DOTFILES[@]}"; do
 
   if [ "$make_link" == "true" ]; then
     # make link actually
-    ln -s ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
+    ln -s "${PWD}/${src_filename}" "${DEST_DIR_NAME}/${dest_filename}"
   else
     # not make link, but echo command
-    echo ln -s ${PWD}/${src_filename} ${DEST_DIR_NAME}/${dest_filename}
+    echo ln -s "${PWD}/${src_filename}" "${DEST_DIR_NAME}/${dest_filename}"
   fi
 done
 
