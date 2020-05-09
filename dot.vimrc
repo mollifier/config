@@ -59,14 +59,6 @@ autocmd BufReadPost *
 \   exe "normal! g'\"" |
 \ endif
 
-" Highlight the cursorline in insert mode
-augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * setlocal cursorline
-    autocmd InsertLeave * setlocal nocursorline
-augroup END
-
-
 " Utilities  "{{{1
 "invert scroll bind for all windows
 function! InvertScrollBindAll()
