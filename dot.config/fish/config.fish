@@ -13,6 +13,9 @@ set -x MAIL /var/mail/$USERNAME
 #export PS4 for bash
 set -x PS4 '-> $LINENO: '
 
+# environment variables #{{{1
+set -x CDPATH $HOME
+
 # aliases #{{{1
 
 #list
