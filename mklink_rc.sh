@@ -59,7 +59,7 @@ EOF
 
 print_error()
 {
-    echo "$SCRIPT_NAME: $@" 1>&2
+    echo "$SCRIPT_NAME: $*" 1>&2
     echo "Try \`-h' option for more information." 1>&2
 }
 
@@ -102,7 +102,7 @@ done
 shift $(expr $OPTIND - 1)
 
 cd $SRC_DIR_NAME
-for src_filename in ${DOTFILES[@]}; do
+for src_filename in "${DOTFILES[@]}"; do
   dest_filename=$(get_dest_filename $src_filename)
 
   if [ -e "${DEST_DIR_NAME}/${dest_filename}" ]; then
