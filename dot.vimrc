@@ -3,13 +3,10 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
-" neobundle.vim
-if filereadable($HOME . '/.neobundles.vim')
-    source $HOME/.neobundles.vim
-elseif filereadable($HOME . '/_neobundles.vim')
-    source $HOME/_neobundles.vim
+" vim-plug
+if filereadable($HOME . '/.vimplug.vim')
+    source $HOME/.vimplug.vim
 endif
-
 
 " Basic  "{{{1
 language C
@@ -25,6 +22,8 @@ set history=50
 let g:netrw_alto=1
 set completeopt=menuone,preview
 set display=lastline
+
+let mapleader = "\<Space>"
 
 set modeline
 set modelines=5
@@ -247,7 +246,7 @@ vnoremap * "zy:let @/ = @z<CR>n
 vnoremap # y?<C-R>0<CR>
 
 "clear hlsearch
-nnoremap <SPACE>c :<C-u>nohlsearch<CR>
+nnoremap <Leader>c :<C-u>nohlsearch<CR>
 
 " Color  "{{{1
 
@@ -281,7 +280,6 @@ hi PmenuThumb term=reverse cterm=reverse
 let g:markdown_fenced_languages = [
 \  'sh',
 \  'zsh',
-\  'coffee',
 \  'css',
 \  'erb=eruby',
 \  'javascript',
@@ -350,7 +348,6 @@ set foldcolumn=3
 " Map  "{{{1
 "no effect keys
 map s <Nop>
-map <SPACE> <Nop>
 
 "make CTRL-K an additional ESC
 noremap <C-K> <ESC>
@@ -427,34 +424,34 @@ nnoremap s0 1<C-W>_
 nnoremap s. <C-W>=
 
 
-nnoremap <Space>w :<C-u>update<CR>:<C-u>echo ""<CR>
-nnoremap <Space>q :<C-u>qall<CR>
+nnoremap <Leader>w :<C-u>update<CR>:<C-u>echo ""<CR>
+nnoremap <Leader>q :<C-u>qall<CR>
 
 nnoremap <C-h> :<C-u>help<Space>
 
-nnoremap <Space>m :<C-u>make<CR>
+nnoremap <Leader>m :<C-u>make<CR>
 
 "move to next/previous line with same indentation
-nnoremap <silent> <SPACE>kk k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-nnoremap <silent> <SPACE>jj :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+nnoremap <silent> <Leader>kk k:<C-u>call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+nnoremap <silent> <Leader>jj :<C-u>call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 "call function
 "invert scrollbind
 nnoremap sb :<C-u>call InvertScrollBindAll()<CR>
 "navi
-nnoremap <SPACE>v :<C-u>call Navi()<CR>
+nnoremap <Leader>v :<C-u>call Navi()<CR>
 nnoremap go :<C-u>copen<CR>
 nnoremap gc :<C-u>cclose<CR>
-nnoremap <SPACE>n :<C-u>cnext<CR>
-nnoremap <SPACE>p :<C-u>cprevious<CR>
+nnoremap <Leader>n :<C-u>cnext<CR>
+nnoremap <Leader>p :<C-u>cprevious<CR>
 
 "invert number and list options
 nnoremap <silent> sv :<C-u>call InvertList()<CR>
 
 " format json
 " require python 2.6 or later
-vnoremap <Space>json !python -m json.tool<CR>
-nnoremap <Space>json :<C-u>% !python -m json.tool<CR>
+vnoremap <Leader>json !python -m json.tool<CR>
+nnoremap <Leader>json :<C-u>% !python -m json.tool<CR>
 
 
 " For plugins "{{{1
@@ -464,160 +461,31 @@ nnoremap sd :<C-u>NERDTreeToggle<CR>
 " eregex "{{{2
 let g:eregex_default_enable = 0
 nnoremap ,/ :<C-u>M/
+nnoremap <Leader>/ :<C-u>M/
 
 " closetag.vim "{{{2
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim
 endif
 
-" surround.vim "{{{2
-"see also :help surround-mappings Note
-"remove surround mappings in visual mode
-vmap <Leader>s <Plug>Vsurround
-vmap <Leader>S <Plug>VSurround
-
-" xul.vim (Syntax for XUL) "{{{2
-let xul_noclose_script = 1
-
-" hatena.vim (Syntax for hatena) "{{{2
-let g:hatena_syntax_html = 1
-
-" teramako/jscomplete-vim  "{{{2
-let g:jscomplete_use = ['dom']
-
-" neocomplcache "{{{2
-" Disable AutoComplPop.
-"let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" 'p_h' -> 'p*_h*'
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" accept completion
-inoremap <expr><C-y>  neocomplcache#close_popup()
-" cancel completion
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-let g:neocomplcache_source_rank = {
-  \ 'jscomplete' : 500,
-  \ }
-
-" Define dictionary.
-let g:NeoComplCache_DictionaryFileTypeLists = {
-            \ 'default' : '',
-            \ 'scala' : $HOME . '/.vim/dict/scala.dict'
-            \ }
-
-" neosnippet "{{{2
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" User defined snippet directory
-let g:neosnippet#snippets_directory='$HOME/.vim/snippets/,$HOME/vimfiles/snippets/'
-
-
-" unite.vim "{{{2
-" start in insert mode
-let g:unite_enable_start_insert = 1
-
-" unite startup mappings "{{{3
-nnoremap <silent> <SPACE>b :<C-u>Unite buffer<CR>
-nnoremap <silent> <SPACE>f :<C-u>Unite file_rec<CR>
-" file_rec/async requires vimproc
-"nnoremap <silent> <SPACE>f :<C-u>Unite file_rec/async<CR>
-nnoremap <silent> <SPACE>r :<C-u>Unite file_mru<CR>
-
-" mappings in unite buffer "{{{3
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    nmap <buffer> <ESC> <Plug>(unite_exit)
-    nmap <buffer> <C-K> <Plug>(unite_exit)
-    nmap <buffer> <C-C> <Plug>(unite_exit)
-    imap <buffer> <C-W> <Plug>(unite_delete_backward_path)
-
-    " use <SPACE>x instead of <SPACE>
-    nmap <buffer> <SPACE>x <Plug>(unite_toggle_mark_current_candidate)
-    imap <buffer> <SPACE>x <Plug>(unite_toggle_mark_current_candidate)
-    vmap <buffer> <SPACE>x <Plug>(unite_toggle_selected_candidates)
-endfunction
-
-" unite-outline "{{{2
-nnoremap <silent> <SPACE>uo :<C-u>Unite outline<CR>
-
-" vim-jsdoc "{{{2
-let g:jsdoc_default_mapping = 0
-nnoremap <silent> <SPACE>jd :JsDoc<CR>
-
 " quickrun "{{{2
-nnoremap <silent> <SPACE>x :QuickRun -mode n<CR>
-vnoremap <silent> <SPACE>x :QuickRun -mode v<CR>
+nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
+vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 
 " ctrlp "{{{2
-let g:ctrlp_map = '<SPACE>p'
-
-" unite-rails "{{{2
-nnoremap <silent> <SPACE>rm :<C-u>Unite rails/model<CR>
-nnoremap <silent> <SPACE>rc :<C-u>Unite rails/controller<CR>
-nnoremap <silent> <SPACE>rv :<C-u>Unite rails/view<CR>
-nnoremap <silent> <SPACE>rt :<C-u>Unite rails/spec<CR>
-
-" rails.vim "{{{2
-" :R   jump to a related file(controller <-> view).
-nnoremap <silent> <SPACE>rr :<C-u>R<CR>
-" :RS  :R + split
-nnoremap <silent> <SPACE>rs :<C-u>RS<CR>
-" :A   jump to an alternate file(model <-> spec).
-nnoremap <silent> <SPACE>ra :<C-u>A<CR>
+" type <Leader>P to invoked ctrlp buffer
+let g:ctrlp_map = '<Leader>p'
 
 " for Fugitive "{{{2
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
+" Vim plugin for Git
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
+nnoremap <Leader>gs :<C-u>Gstatus<Enter>
+nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>ga :<C-u>Gwrite<Enter>
+nnoremap <Leader>gc :<C-u>Gcommit<Enter>
+nnoremap <Leader>gb :<C-u>Gblame<Enter>
 
 " for syntastic "{{{2
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 " use :lopen
 "let g:syntastic_auto_loc_list = 1
