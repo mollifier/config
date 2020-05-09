@@ -16,6 +16,9 @@ set -x PS4 '-> $LINENO: '
 # environment variables #{{{1
 set -x CDPATH $HOME
 
+# remove the greeting message
+set fish_greeting
+
 # aliases #{{{1
 
 #list
