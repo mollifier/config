@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-surround'
+Plug 'dag/vim-fish'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
