@@ -84,3 +84,9 @@ alias csc=scalac
 
 alias be='bundle exec'
 
+# fisher packages
+# decors/fish-ghq #{{{1
+# require fzf https://github.com/junegunn/fzf
+set -g GHQ_SELECTOR fzf
+set -g GHQ_SELECTOR_OPTS "--no-sort --reverse --ansi --color bg+:13,hl:3,pointer:7"
+
