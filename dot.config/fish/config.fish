@@ -85,6 +85,18 @@ alias csc=scalac
 alias be='bundle exec'
 
 # fisher packages
+# https://github.com/jorgebucaran/fisher
+#
+# Install fisher
+# $ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+#
+# Update fisher
+# $ fisher self-update
+#
+# Install or Update packages
+# set this file to ~/.config/fish/fishfile, and run next command
+# $ fisher
+
 # decors/fish-ghq #{{{1
 # require fzf https://github.com/junegunn/fzf
 set -g GHQ_SELECTOR fzf
