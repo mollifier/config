@@ -39,6 +39,7 @@ declare -ar DOTFILES=(
   'dot.config/fish/config.fish'
   'dot.config/fish/fishfile'
   'dot.config/fish/functions/fish_user_key_bindings.fish'
+  'dot.config/fish/functions/user_z_select_and_change_directory.fish'
 )
 
 #####################
