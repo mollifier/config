@@ -13,6 +13,12 @@ set -x MAIL /var/mail/$USERNAME
 #export PS4 for bash
 set -x PS4 '-> $LINENO: '
 
+# environment variables #{{{1
+set -x CDPATH $HOME
+
+# remove the greeting message
+set fish_greeting
+
 # aliases #{{{1
 
 #list
@@ -77,4 +83,28 @@ alias scc=scalac
 alias csc=scalac
 
 alias be='bundle exec'
+
+# fisher packages
+# https://github.com/jorgebucaran/fisher
+#
+# Install fisher
+# $ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+#
+# Update fisher
+# $ fisher self-update
+#
+# Install or Update packages
+# set this file to ~/.config/fish/fishfile, and run next command
+# $ fisher
+
+# decors/fish-ghq #{{{1
+# require fzf https://github.com/junegunn/fzf
+set -g GHQ_SELECTOR fzf
+set -g GHQ_SELECTOR_OPTS "--no-sort --reverse --ansi --color bg+:13,hl:3,pointer:7"
+
+# jethrokuan/fzf #{{{1
+# require fzf https://github.com/junegunn/fzf
+# Use new keybindings
+set -g FZF_LEGACY_KEYBINDINGS 0
+set -g FZF_DEFAULT_OPTS "--height 20 --color bg+:13,hl:3,pointer:7"
 
