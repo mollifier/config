@@ -38,6 +38,7 @@ declare -ar DOTFILES=(
   'dot.peco_config.json'
   'dot.config/fish/config.fish'
   'dot.config/fish/fishfile'
+  'dot.config/fish/functions/fish_user_key_bindings.fish'
 )
 
 #####################
