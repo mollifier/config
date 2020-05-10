@@ -108,3 +108,13 @@ set -g GHQ_SELECTOR_OPTS "--no-sort --reverse --ansi --color bg+:13,hl:3,pointer
 set -g FZF_LEGACY_KEYBINDINGS 0
 set -g FZF_DEFAULT_OPTS "--height 20 --color bg+:13,hl:3,pointer:7"
 
+
+# env #{{{1
+#
+# anyenv
+# https://github.com/anyenv/anyenv
+# init anyenv
+if type -qf anyenv
+  status --is-interactive; and source (anyenv init -|psub)
+end
+
