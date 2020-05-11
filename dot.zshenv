@@ -7,6 +7,12 @@ path=($HOME/bin(N-/) /usr/local/sbin(N-/) /usr/local/bin(N-/) $path)
 
 # zshenv for development environment settings
 
+## anyenv ##
+if [[ -d "$HOME/.anyenv" ]] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init - zsh)"
+fi
+
 ## java ##
 if [[ -d "/usr/lib/jvm/java-7-oracle" ]]; then
     # Ubuntu
