@@ -118,4 +118,9 @@ alias jb='jobs -l'
 alias f=foreground
 alias sc=screen
 
+# source local rcfile
+if [[ -f ~/.bashrc_local ]]; then
+    source ~/.bashrc_local
+fi
+
 # vim:set ft=sh:
