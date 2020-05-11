@@ -30,6 +30,12 @@ unset -f mergepath
 
 unset USERNAME
 
+# anyenv / nodenv
+if [[ -d "$HOME/.anyenv" ]] ; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init - bash)"
+fi
+
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
