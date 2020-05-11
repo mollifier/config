@@ -3,7 +3,7 @@
 # https://github.com/junegunn/fzf
 function user_z_select_and_change_directory -d 'Select z directory and change directory'
     set -l selector fzf
-    set -l selector_options '--no-sort --reverse --ansi --color bg+:13,hl:3,pointer:7'
+    set -l selector_options '--exact --no-sort --reverse --ansi --color bg+:13,hl:3,pointer:7'
 
     if not type -qf $selector
         echo "ERROR: '$selector' not found." 1>&2
