@@ -40,9 +40,6 @@ fi
 ## Play Framework ##
 path=($HOME/local/play/latest(N-/) $path)
 
-## node.js (nodebrew) ##
-path=($HOME/.nodebrew/current/bin(N-/) $path)
-
 ## haskell (cabal) ##
 path=($HOME/Library/Haskell/bin(N-/) $path)
 
