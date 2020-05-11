@@ -47,11 +47,11 @@ path=($HOME/Library/Haskell/bin(N-/) $path)
 path=(/usr/local/heroku/bin(N-/) $path)
 
 ## Android SDK ##
-if [[ -d "${HOME}/local/android-sdk-macosx" ]]; then
-    export ANDROID_HOME=${HOME}/local/android-sdk-macosx
+if [[ -d "${HOME}/Library/Android/sdk" ]]; then
+    export ANDROID_HOME=${HOME}/Library/Android/sdk
 fi
 if [[ -n "$ANDROID_HOME" && -d "$ANDROID_HOME" ]]; then
-    path=($path ${ANDROID_HOME}/tools(N-/) ${ANDROID_HOME}/platform-tools(N-/) ${ANDROID_HOME}/build-tools/android-4.4(N-/))
+    path=($path ${ANDROID_HOME}/tools(N-/) ${ANDROID_HOME}/tools/bin(N-/) ${ANDROID_HOME}/platform-tools(N-/) ${ANDROID_HOME}/emulator(N-/))
 fi
 
 # added by travis gem
