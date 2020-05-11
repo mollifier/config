@@ -118,3 +118,11 @@ if type -qf anyenv
   status --is-interactive; and source (anyenv init -|psub)
 end
 
+switch (uname)
+  case Linux
+    test -f ~/.config/fish/config_linux.fish; and source ~/.config/fish/config_linux.fish
+  case Darwin
+    # Mac
+    test -f ~/.config/fish/config_mac.fish; and source ~/.config/fish/config_mac.fish
+end
+
