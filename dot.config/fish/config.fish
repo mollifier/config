@@ -84,6 +84,14 @@ alias csc=scalac
 
 alias be='bundle exec'
 
+if type -q pbcopy
+  # Mac
+  alias C='pbcopy'
+else if type -q xsel
+  # Linux
+  alias C='xsel --input --clipboard'
+end
+
 # fisher packages
 # https://github.com/jorgebucaran/fisher
 #
