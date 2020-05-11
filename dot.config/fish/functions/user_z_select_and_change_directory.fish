@@ -10,7 +10,7 @@ function user_z_select_and_change_directory -d 'Select z directory and change di
         return 1
     end
 
-    z -l | eval $selector $selector_options | sed 's/^[^\s][^\s]*\s\s*//' | read -l select
+    z -l | eval $selector $selector_options | sed 's/^[^[:blank:]][^[:blank:]]*[[:blank:]][[:blank:]]*//' | read -l select
     [ -n "$select" ]; and cd -- "$select"
     commandline -f repaint
 end
