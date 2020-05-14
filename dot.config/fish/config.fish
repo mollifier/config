@@ -13,8 +13,9 @@ set -x MAIL /var/mail/$USERNAME
 #export PS4 for bash
 set -x PS4 '-> $LINENO: '
 
-# environment variables #{{{1
+# special variables #{{{1
 set -x CDPATH $HOME
+set fish_escape_delay_ms 500
 
 # remove the greeting message
 set fish_greeting
