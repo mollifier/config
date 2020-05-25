@@ -126,7 +126,7 @@ set -g FZF_DEFAULT_OPTS '--exact --height 20 --color bg+:13,hl:3,pointer:7'
 # Add path
 # set -Ux fish_user_paths $HOME/.anyenv/bin $fish_user_paths
 # init anyenv
-if type -qf anyenv
+if type -q anyenv
   status --is-interactive; and source (anyenv init - fish|psub)
 end
 
