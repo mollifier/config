@@ -130,6 +130,12 @@ if type -qf anyenv
   status --is-interactive; and source (anyenv init - fish|psub)
 end
 
+# direnv #{{{1
+# https://github.com/zimbatm/direnv
+if type -q direnv
+  eval (direnv hook fish)
+end
+
 switch (uname)
   case Linux
     test -f ~/.config/fish/config_linux.fish; and source ~/.config/fish/config_linux.fish
