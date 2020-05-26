@@ -127,8 +127,14 @@ set -g FZF_DEFAULT_OPTS '--exact --height 20 --color bg+:13,hl:3,pointer:7'
 # > set -U fish_user_paths $HOME/.anyenv/bin $fish_user_paths
 # init anyenv
 # Note: require to run shell as login shell in terminal startup
-if type -qf anyenv
+if type -q anyenv
   status --is-interactive; and status --is-login; and source (anyenv init - fish|psub)
+end
+
+# direnv #{{{1
+# https://github.com/zimbatm/direnv
+if type -q direnv
+  eval (direnv hook fish)
 end
 
 switch (uname)
