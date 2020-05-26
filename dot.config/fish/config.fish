@@ -126,10 +126,11 @@ set -g FZF_DEFAULT_OPTS '--exact --height 20 --color bg+:13,hl:3,pointer:7'
 # anyenv
 # https://github.com/anyenv/anyenv
 #
-# Add path
-# > set -U fish_user_paths $HOME/.anyenv/bin $fish_user_paths
-# init anyenv
+# Init anyenv
 # Note: require to run shell as login shell in terminal startup
+if test -d $HOME/.anyenv/bin
+  contains $HOME/.anyenv/bin $PATH; or set PATH $HOME/.anyenv/bin $PATH
+end
 if type -q anyenv
   status --is-interactive; and status --is-login; and source (anyenv init - fish|psub)
 end
