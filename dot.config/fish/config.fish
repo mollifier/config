@@ -15,6 +15,8 @@ set -x PS4 '-> $LINENO: '
 
 # PATH
 contains $HOME/bin $PATH; or set PATH $HOME/bin $PATH
+contains /usr/local/sbin $PATH; or set PATH /usr/local/sbin $PATH
+contains /usr/local/bin $PATH; or set PATH /usr/local/bin $PATH
 
 # special variables #{{{1
 set -x CDPATH $HOME
