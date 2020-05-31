@@ -19,7 +19,7 @@ contains /usr/local/sbin $PATH; or set PATH /usr/local/sbin $PATH
 contains /usr/local/bin $PATH; or set PATH /usr/local/bin $PATH
 
 # special variables #{{{1
-set -x CDPATH $HOME
+set -x CDPATH . $HOME
 set fish_escape_delay_ms 500
 
 # remove the greeting message
