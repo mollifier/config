@@ -9,9 +9,7 @@
   remote = origin
   merge = refs/heads/master
 [push]
-  # push the current branch to its upstream branch.
-  # same as tracking
-	default = upstream
+	default = simple
 [color]
   diff = auto
   status = auto
