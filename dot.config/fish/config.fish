@@ -126,6 +126,12 @@ set -g FZF_DEFAULT_OPTS '--exact --height 20 --color bg+:13,hl:3,pointer:7'
 # Add alias
 alias cdu='cd-gitroot'
 
+# ryotako/fish-global-abbreviation #{{{1
+# https://github.com/ryotako/fish-global-abbreviation
+# type `gabbr -s` or `gabbr --show` to show abbreviation
+set gabbr_config ~/.config/fish/gabbr_config
+gabbr --reload
+
 # env #{{{1
 #
 # anyenv

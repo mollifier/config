@@ -1,0 +1,6 @@
+L | less
+H | head
+T | tail
+G | grep
+V | vim -R -
+B -f git branch | grep "^\*" | sed "s/^\* *//"
