@@ -90,14 +90,6 @@ alias csc=scalac
 
 alias be='bundle exec'
 
-if type -q pbcopy
-  # Mac
-  alias C='pbcopy'
-else if type -q xsel
-  # Linux
-  alias C='xsel --input --clipboard'
-end
-
 # fisher packages
 # https://github.com/jorgebucaran/fisher
 #
@@ -128,7 +120,18 @@ alias cdu='cd-gitroot'
 
 # ryotako/fish-global-abbreviation #{{{1
 # https://github.com/ryotako/fish-global-abbreviation
+# type `gabbr -a` or `gabbr --add` to add abbreviation
 # type `gabbr -s` or `gabbr --show` to show abbreviation
+function copy_to_clipboard
+  if type -q pbcopy
+    # Mac
+    pbcopy
+  else if type -q xsel
+    # Linux
+    xsel --input --clipboard
+  end
+end
+
 set gabbr_config ~/.config/fish/gabbr_config
 gabbr --reload
 

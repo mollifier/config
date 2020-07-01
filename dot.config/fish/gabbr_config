@@ -4,3 +4,4 @@ T | tail
 G | grep
 V | vim -R -
 B -f git branch | grep "^\*" | sed "s/^\* *//"
+C | copy_to_clipboard
