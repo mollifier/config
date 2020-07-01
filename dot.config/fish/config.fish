@@ -132,6 +132,7 @@ function copy_to_clipboard
   end
 end
 
+set -U global_abbreviations
 set gabbr_config ~/.config/fish/gabbr_config
 gabbr --reload
 
