@@ -467,7 +467,8 @@ vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 " ctrlp "{{{2
 " type <Leader>P to invoked ctrlp buffer
 let g:ctrlp_map = '<Leader>p'
-nnoremap <Leader>b :<C-u>CtrlPBuffer<CR>
+nnoremap <Leader>b :<C-u>CtrlPBuffer<CR> " select buffer
+nnoremap <Leader>f :<C-u>CtrlPCurWD<CR> " select file
 
 " for Fugitive "{{{2
 " Vim plugin for Git
