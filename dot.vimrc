@@ -315,7 +315,7 @@ if exists('&ambiwidth')
     set ambiwidth=double
 endif
 
-set fileencodings=utf-8,cp932,euc-jp,default,latin
+set fileencodings=ucs-bom,utf-8,cp932,latin1
 set encoding=utf-8
 
 " Filetype  "{{{1
