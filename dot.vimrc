@@ -220,7 +220,8 @@ set shiftwidth=2
 set softtabstop=0
 set expandtab
 set autoindent
-filetype plugin indent on
+filetype plugin on
+filetype indent on
 
 
 " Backup  "{{{1
