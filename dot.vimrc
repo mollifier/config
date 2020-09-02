@@ -401,8 +401,6 @@ nnoremap <silent> <Leader>jj :<C-u>call search ("^". matchstr (getline (line (".
 "call function
 "invert scrollbind
 nnoremap sb :<C-u>call InvertScrollBindAll()<CR>
-nnoremap go :<C-u>copen<CR>
-nnoremap gc :<C-u>cclose<CR>
 nnoremap <Leader>n :<C-u>cnext<CR>
 nnoremap <Leader>p :<C-u>cprevious<CR>
 
