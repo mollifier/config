@@ -117,35 +117,6 @@ function! Presentation()
     set foldcolumn=0
 endfunction
 
-function! Navi() "{{{
-  if &ft ==? "c" || &ft ==? "cpp"
-    vimgrep /^[^ \t#/\\*]\+[0-9A-Za-z_ :\t\\*]\+([^;]*$/j %
-  elseif &ft ==? "perl"
-    vimgrep /^\s*sub\s/j %
-  elseif &ft ==? "ruby"
-    vimgrep /^\s*\(class\|module\|def\|alias\)\s/j %
-  elseif &ft ==? "python"
-    vimgrep /^\s*\(class\|def\)\s/j %
-  elseif &ft ==? "javascript"
-    vimgrep /^\s*function\s\|[a-zA-Z_$][a-zA-Z0-9_$]*\s*[=:]\s*function\s*(/j %
-  elseif &ft ==? "sh"
-    vimgrep /^\s*\(\h\w*\s*()\|function\s\+\h\w*\)/j %
-  elseif &ft ==? "html"
-    vimgrep /\c^\s*\(<h[1-6]\|<head\|<body\|<form\)/j %
-  elseif &ft ==? ""
-    "Text ( 1. 2. ,etc )
-    vimgrep /^\s*\d\+\./j %
-  elseif &ft ==? "java"
-    vimgrep /^\s*[^#/\*=]\+[0-9a-zA-Z_ \t\*,.()]\+{[^;]*$/j %
-  elseif &ft ==? "diff"
-    "diff (unified format)
-    vimgrep /^@@[0-9 \t,+-]\+@@$/j %
-  else
-    echo "This filetype is not supported."
-  endif
-  cw
-endfunction "}}}
-
 function! Scouter(file, ...)
   let pat = '^\s*$\|^\s*"'
   let lines = readfile(a:file)
@@ -431,10 +402,6 @@ nnoremap <silent> <Leader>jj :<C-u>call search ("^". matchstr (getline (line (".
 "call function
 "invert scrollbind
 nnoremap sb :<C-u>call InvertScrollBindAll()<CR>
-"navi
-nnoremap <Leader>v :<C-u>call Navi()<CR>
-nnoremap go :<C-u>copen<CR>
-nnoremap gc :<C-u>cclose<CR>
 nnoremap <Leader>n :<C-u>cnext<CR>
 nnoremap <Leader>p :<C-u>cprevious<CR>
 
