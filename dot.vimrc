@@ -437,6 +437,12 @@ vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 let g:ctrlp_map = '<Leader>p'
 nnoremap <Leader>b :<C-u>CtrlPBuffer<CR> " select buffer
 nnoremap <Leader>f :<C-u>CtrlPCurWD<CR> " select file
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtHistory(-1)': [],
+    \ 'PrtHistory(1)': [],
+    \ 'PrtSelectMove("j")': ['<c-n>', '<c-j>', '<down>'],
+    \ 'PrtSelectMove("k")': ['<c-p>', '<c-k>', '<up>'],
+    \ }
 
 " for Fugitive "{{{2
 " Vim plugin for Git
