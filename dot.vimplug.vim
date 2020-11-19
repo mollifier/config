@@ -36,6 +36,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'tyru/caw.vim' " Vim comment plugin
+Plug 'tmhedberg/matchit'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
