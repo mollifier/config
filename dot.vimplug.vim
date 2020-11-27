@@ -38,6 +38,7 @@ Plug 'dag/vim-fish'
 Plug 'tyru/caw.vim' " Vim comment plugin
 Plug 'tmhedberg/matchit'
 Plug 'plasticboy/vim-markdown'
+Plug 'mattn/vim-maketable'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
