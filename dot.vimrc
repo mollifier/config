@@ -463,6 +463,10 @@ let g:syntastic_check_on_wq = 0
 " for ale "{{{2
 nnoremap <Leader>af :<C-u>ALEFix<Enter>
 
+" for vim-lsp "{{{2
+nnoremap <Leader>la :<C-u>LspCodeAction<Enter>
+nnoremap <Leader>ld :<C-u>LspDefinition<Enter>
+
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
     source $HOME/.vimrc_local
