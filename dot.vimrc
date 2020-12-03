@@ -460,6 +460,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" for ale "{{{2
+nnoremap <Leader>af :<C-u>ALEFix<Enter>
+
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
     source $HOME/.vimrc_local
