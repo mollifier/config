@@ -433,17 +433,14 @@ endif
 nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
 vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 
-" ctrlp "{{{2
-" type <Leader>P to invoked ctrlp buffer
-let g:ctrlp_map = '<Leader>p'
-nnoremap <Leader>b :<C-u>CtrlPBuffer<CR> " select buffer
-nnoremap <Leader>f :<C-u>CtrlPCurWD<CR> " select file
-let g:ctrlp_prompt_mappings = {
-    \ 'PrtHistory(-1)': [],
-    \ 'PrtHistory(1)': [],
-    \ 'PrtSelectMove("j")': ['<c-n>', '<c-j>', '<down>'],
-    \ 'PrtSelectMove("k")': ['<c-p>', '<c-k>', '<up>'],
+" vim-clap "{{{2
+let g:clap_popup_move_manager = {
+    \ "\<C-N>": "\<Down>",
+    \ "\<C-P>": "\<Up>",
     \ }
+nnoremap <Leader>b :<C-u>Clap buffers<CR>
+nnoremap <Leader>f :<C-u>Clap filer<CR>
+nnoremap <Leader>l :<C-u>Clap lines<CR>
 
 " for Fugitive "{{{2
 " Vim plugin for Git
