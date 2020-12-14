@@ -49,6 +49,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " colorscheme
 Plug 'yasukotelin/shirotelin'
+Plug 'joshdick/onedark.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
