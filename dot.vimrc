@@ -221,7 +221,8 @@ set background=dark
 syntax enable
 "syntax off
 
-colorscheme mrkn256
+colorscheme onedark
+"colorscheme mrkn256
 "colorscheme lucius
 "colorscheme molokai
 "colorscheme jellybeans
