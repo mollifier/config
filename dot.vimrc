@@ -442,6 +442,10 @@ nnoremap <Leader>b :<C-u>Clap buffers<CR>
 nnoremap <Leader>f :<C-u>Clap filer<CR>
 nnoremap <Leader>l :<C-u>Clap lines<CR>
 
+" vista.vim "{{{2
+let g:vista_default_executive = 'vim_lsp'
+nnoremap <Leader>vv :<C-u>Vista!!<CR>
+
 " for Fugitive "{{{2
 " Vim plugin for Git
 nnoremap <Leader>gd :<C-u>Gdiff<Enter>
