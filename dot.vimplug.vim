@@ -42,6 +42,7 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'
+Plug 'itchyny/lightline.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
