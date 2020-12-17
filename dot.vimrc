@@ -3,6 +3,9 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
+" vim-polyglot "{{{2
+let g:polyglot_disabled = ['csv']
+
 " vim-plug
 if filereadable($HOME . '/.vimplug.vim')
     source $HOME/.vimplug.vim
