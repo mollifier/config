@@ -377,6 +377,7 @@ function! s:init_fern() abort
     setlocal foldcolumn=0
 
     nmap <buffer> ge <Plug>(fern-action-open:edit)<C-w>p
+    nmap <buffer> gl <Plug>(fern-action-open:edit)<C-w>p
     nmap <buffer> s <Plug>(fern-action-open:split)
     nmap <buffer> gs <Plug>(fern-action-open:split)<C-w>p
     nmap <buffer> r <Plug>(fern-action-reload:all)
