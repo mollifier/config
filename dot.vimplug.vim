@@ -24,8 +24,6 @@
 
 call plug#begin('~/.cache/vimplug')
 
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'thinca/vim-quickrun'
 Plug 'othree/eregex.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -43,6 +41,7 @@ Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'lambdalisue/fern.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'

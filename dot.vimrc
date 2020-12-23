@@ -367,8 +367,25 @@ nnoremap <Leader>json :<C-u>% !python -m json.tool<CR>
 
 
 " For plugins "{{{1
-" NERD_tree "{{{2
-nnoremap sd :<C-u>NERDTreeToggle<CR>
+
+" fern.vim "{{{2
+nnoremap sd :<C-u>:Fern . -drawer -toggle<CR>
+
+function! s:init_fern() abort
+    setlocal nonumber
+    setlocal nolist
+    setlocal foldcolumn=0
+
+    nmap <buffer> ge <Plug>(fern-action-open:edit)<C-w>p
+    nmap <buffer> s <Plug>(fern-action-open:split)
+    nmap <buffer> gs <Plug>(fern-action-open:split)<C-w>p
+    nmap <buffer> r <Plug>(fern-action-reload:all)
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
 
 " eregex "{{{2
 let g:eregex_default_enable = 0
