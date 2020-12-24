@@ -135,6 +135,16 @@ command! -bar -bang -nargs=? -complete=file GScouter
 
 " Statusline  "{{{1
 set laststatus=2    "always show statusline
+let g:lightline = {
+    \ 'component_function': {
+    \   'filename': 'LightlineFilename',
+    \ }
+    \ }
+
+function! LightlineFilename()
+	" Reduce file name to be relative to current directory
+    return expand("%:~:.")
+endfunction
 
 " Indent  "{{{1
 set tabstop=2
