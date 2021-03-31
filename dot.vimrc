@@ -418,7 +418,7 @@ let g:clap_popup_move_manager = {
     \ "\<C-P>": "\<Up>",
     \ }
 nnoremap <Leader>b :<C-u>Clap buffers<CR>
-nnoremap <Leader>f :<C-u>Clap filer<CR>
+nnoremap <Leader>f :<C-u>Clap files<CR>
 nnoremap <Leader>l :<C-u>Clap lines<CR>
 
 " vista.vim "{{{2
