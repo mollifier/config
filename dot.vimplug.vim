@@ -42,6 +42,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'lambdalisue/fern.vim'
+Plug 'HiPhish/info.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
