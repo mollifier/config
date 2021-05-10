@@ -408,6 +408,11 @@ if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim
 endif
 
+" fzf.vim "{{{2
+nnoremap <Leader>b :<C-u>Buffers<CR>
+nnoremap <Leader>f :<C-u>Files<CR>
+nnoremap <Leader>l :<C-u>BLines<CR>
+
 " quickrun "{{{2
 nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
 vnoremap <silent> <Leader>x :QuickRun -mode v<CR>

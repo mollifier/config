@@ -42,6 +42,8 @@ Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'HiPhish/info.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
