@@ -36,7 +36,6 @@ Plug 'tyru/caw.vim' " Vim comment plugin
 Plug 'tmhedberg/matchit'
 Plug 'plasticboy/vim-markdown'
 Plug 'mattn/vim-maketable'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'

@@ -412,15 +412,6 @@ endif
 nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
 vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 
-" vim-clap "{{{2
-let g:clap_popup_move_manager = {
-    \ "\<C-N>": "\<Down>",
-    \ "\<C-P>": "\<Up>",
-    \ }
-nnoremap <Leader>b :<C-u>Clap buffers<CR>
-nnoremap <Leader>f :<C-u>Clap files<CR>
-nnoremap <Leader>l :<C-u>Clap lines<CR>
-
 " vista.vim "{{{2
 let g:vista_default_executive = 'vim_lsp'
 nnoremap <Leader>vv :<C-u>Vista!!<CR>
