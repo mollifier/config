@@ -413,6 +413,7 @@ endif
 " fzf.vim "{{{2
 nnoremap <Leader>b :<C-u>Buffers<CR>
 nnoremap <Leader>f :<C-u>Files<CR>
+nnoremap <Leader>g :<C-u>GFiles<CR>
 nnoremap <Leader>l :<C-u>BLines<CR>
 
 " quickrun "{{{2
