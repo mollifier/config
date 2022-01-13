@@ -41,6 +41,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-hijack.vim'
 Plug 'HiPhish/info.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
