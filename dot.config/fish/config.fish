@@ -132,9 +132,12 @@ function copy_to_clipboard
   end
 end
 
-set -U global_abbreviations
-set gabbr_config ~/.config/fish/gabbr_config
-gabbr --reload
+# reload
+if type -q gabbr
+  set -U global_abbreviations
+  set gabbr_config ~/.config/fish/gabbr_config
+  gabbr --reload
+end
 
 # env #{{{1
 #
