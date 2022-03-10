@@ -108,12 +108,6 @@ alias be='bundle exec'
 set -g GHQ_SELECTOR fzf
 set -g GHQ_SELECTOR_OPTS --exact --no-sort --reverse --ansi --color 'bg+:13,hl:3,pointer:7'
 
-# jethrokuan/fzf #{{{1
-# require fzf https://github.com/junegunn/fzf
-# Use new keybindings
-set -g FZF_LEGACY_KEYBINDINGS 0
-set -g FZF_DEFAULT_OPTS '--exact --height 20 --color bg+:13,hl:3,pointer:7'
-
 # mollifier/fish-cd-gitroot #{{{1
 # Add alias
 alias cdu='cd-gitroot'
