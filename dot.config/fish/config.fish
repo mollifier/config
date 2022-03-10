@@ -108,6 +108,21 @@ alias be='bundle exec'
 set -g GHQ_SELECTOR fzf
 set -g GHQ_SELECTOR_OPTS --exact --no-sort --reverse --ansi --color 'bg+:13,hl:3,pointer:7'
 
+# PatrickF1/fzf.fish #{{{1
+# require fzf https://github.com/junegunn/fzf
+# require fd https://github.com/sharkdp/fd
+# require bat https://github.com/sharkdp/bat
+#
+# key bindings
+# type `fzf_configure_bindings --help` for more information
+fzf_configure_bindings \
+  --directory=\cxf \
+  --git_log=\cxl \
+  --git_status=\cxs \
+  --history=\cr \
+  --variables= \
+  --processes
+
 # mollifier/fish-cd-gitroot #{{{1
 # Add alias
 alias cdu='cd-gitroot'
