@@ -55,6 +55,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'yasukotelin/shirotelin'
 Plug 'joshdick/onedark.vim'
 Plug 'wadackel/vim-dogrun'
+Plug 'arcticicestudio/nord-vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
