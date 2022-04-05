@@ -175,7 +175,7 @@ nnoremap <Leader>c :<C-u>nohlsearch<CR>
 
 " Color  "{{{1
 
-set t_Co=16
+set t_Co=256
 "set background=light
 set background=dark
 
