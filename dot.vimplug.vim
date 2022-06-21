@@ -48,8 +48,20 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" ddc.vim
+" Dark deno-powered completion framework
+" require Deno
+" brew install deno
+" https://deno.land/
+Plug 'Shougo/ddc.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/pum.vim'
+Plug 'Shougo/ddc-around'
+Plug 'LumaKernel/ddc-file'
+Plug 'Shougo/ddc-matcher_head'
+Plug 'Shougo/ddc-sorter_rank'
+Plug 'Shougo/ddc-converter_remove_overlap'
 
 " colorscheme
 Plug 'yasukotelin/shirotelin'
