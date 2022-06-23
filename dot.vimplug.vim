@@ -62,6 +62,7 @@ Plug 'LumaKernel/ddc-file'
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
 Plug 'Shougo/ddc-converter_remove_overlap'
+Plug 'shun/ddc-vim-lsp'
 
 " colorscheme
 Plug 'yasukotelin/shirotelin'
