@@ -3,6 +3,12 @@
 " Remove ALL autocommands for the current group.
 autocmd!
 
+" for fish shell user
+" Vim needs a more POSIX compatible shell
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+
 " vim-polyglot "{{{2
 let g:polyglot_disabled = ['csv']
 
