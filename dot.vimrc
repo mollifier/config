@@ -438,6 +438,12 @@ function! s:init_fern() abort
     nmap <buffer> gs <Plug>(fern-action-open:split)<C-w>p
     nmap <buffer> g<C-x> <Plug>(fern-action-open:split)<C-w>p
     nmap <buffer> r <Plug>(fern-action-reload:all)
+
+    " yuki-yano/fern-preview.vim
+    nmap <silent> <buffer> p <Plug>(fern-action-preview:toggle)
+    nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:toggle)
+    nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+    nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
 endfunction
 
 augroup fern-custom
