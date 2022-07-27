@@ -88,6 +88,11 @@ alias sc=scala
 alias scc=scalac
 alias csc=scalac
 
+# require: bat : https://github.com/sharkdp/bat
+function cman --wraps man --description 'Colorized man'
+  man $argv | col -b | bat --language man --style plain --paging always
+end
+
 alias be='bundle exec'
 
 # fisher packages
