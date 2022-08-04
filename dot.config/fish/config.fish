@@ -90,7 +90,7 @@ alias csc=scalac
 
 # require: bat : https://github.com/sharkdp/bat
 function cman --wraps man --description 'Colorized man'
-  man -P "bash -c 'col -bx | bat --language man --style plain --paging always'" $argv
+  man -P 'col -bx | bat --language man --style plain --paging always' $argv
 end
 
 alias be='bundle exec'
