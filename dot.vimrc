@@ -451,11 +451,6 @@ augroup fern-custom
   autocmd FileType fern call s:init_fern()
 augroup END
 
-" eregex "{{{2
-let g:eregex_default_enable = 0
-nnoremap ,/ :<C-u>M/
-nnoremap <Leader>/ :<C-u>M/
-
 " closetag.vim "{{{2
 if filereadable($HOME . '/.vim/scripts/closetag.vim')
     au Filetype html,xml,xsl source $HOME/.vim/scripts/closetag.vim

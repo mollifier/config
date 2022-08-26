@@ -25,7 +25,6 @@
 call plug#begin('~/.cache/vimplug')
 
 Plug 'thinca/vim-quickrun'
-Plug 'othree/eregex.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
