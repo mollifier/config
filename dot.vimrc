@@ -31,6 +31,8 @@ set history=50
 let g:netrw_alto=1
 set completeopt=menuone,preview
 set display=lastline
+" always show column. for vim-gitgutter
+set signcolumn=yes
 
 let mapleader = "\<Space>"
 

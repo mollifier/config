@@ -27,6 +27,7 @@ call plug#begin('~/.cache/vimplug')
 Plug 'thinca/vim-quickrun'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/committia.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-surround'
