@@ -1,6 +1,8 @@
 *~
 ,*
 .*.sw?
+# vim undo file
+.*.un~
 .~lock.*#
 doc/tags
 doc/tags-ja
