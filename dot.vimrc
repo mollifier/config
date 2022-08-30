@@ -88,10 +88,12 @@ function! InvertList()
         setlocal nonumber
         setlocal nolist
         setlocal foldcolumn=0
+        setlocal signcolumn=no
     else
         setlocal number
         setlocal list
         setlocal foldcolumn=3
+        setlocal signcolumn=yes
     endif
 endfunction
 
