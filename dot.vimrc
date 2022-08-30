@@ -63,6 +63,12 @@ if has('unix')
     set swapsync=
 endif
 
+" Undo persistence
+if has('persistent_undo')
+    set undodir=$HOME/.vim/undo
+    set undofile
+endif
+
 " Autocmd  "{{{1
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
