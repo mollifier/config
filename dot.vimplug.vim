@@ -26,7 +26,6 @@ call plug#begin('~/.cache/vimplug')
 
 Plug 'thinca/vim-quickrun'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/committia.vim'
 Plug 'vim-syntastic/syntastic'
@@ -67,6 +66,9 @@ Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
 Plug 'Shougo/ddc-converter_remove_overlap'
 Plug 'shun/ddc-vim-lsp'
+
+" require 'vim-denops/denops.vim'
+Plug 'lambdalisue/gin.vim'
 
 " colorscheme
 Plug 'yasukotelin/shirotelin'
