@@ -515,6 +515,9 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
+" gina.vim "{{{2
+nnoremap <Leader>gg :<C-u>Gina<Space>
+
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
     source $HOME/.vimrc_local

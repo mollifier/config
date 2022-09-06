@@ -67,8 +67,9 @@ Plug 'Shougo/ddc-sorter_rank'
 Plug 'Shougo/ddc-converter_remove_overlap'
 Plug 'shun/ddc-vim-lsp'
 
-" require 'vim-denops/denops.vim'
-Plug 'lambdalisue/gin.vim'
+" git plugin
+" Development of gina.vim is stopped.
+Plug 'lambdalisue/gina.vim'
 
 " colorscheme
 Plug 'yasukotelin/shirotelin'
