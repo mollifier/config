@@ -39,6 +39,7 @@ Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'unblevable/quick-scope'
 
 " fern
 Plug 'lambdalisue/fern.vim'
