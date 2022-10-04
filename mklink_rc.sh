@@ -37,6 +37,7 @@ declare -ar DOTFILES=(
   'dot.zlogout'
   'dot.peco_config.json'
   'dot.config/fish/config.fish'
+  'dot.config/fish/config_linux.fish'
   'dot.config/fish/config_mac.fish'
   'dot.config/fish/fish_plugins'
   'dot.config/fish/gabbr_config'
