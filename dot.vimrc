@@ -178,6 +178,8 @@ set backup
 set backupcopy=yes
 set backupdir=$HOME/.backup/vi,.
 
+" swap file path  "{{{1
+set directory=.,$HOME/tmp,/var/tmp,/tmp
 
 " Search  "{{{1
 set hlsearch
