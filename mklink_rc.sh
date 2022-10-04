@@ -38,7 +38,7 @@ declare -ar DOTFILES=(
   'dot.peco_config.json'
   'dot.config/fish/config.fish'
   'dot.config/fish/config_mac.fish'
-  'dot.config/fish/fishfile'
+  'dot.config/fish/fish_plugins'
   'dot.config/fish/gabbr_config'
   'dot.config/fish/functions/fish_user_key_bindings.fish'
   'dot.config/fish/functions/user_z_select_and_change_directory.fish'
