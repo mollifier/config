@@ -87,6 +87,7 @@ alias pc=pwd-clip
 alias sc=scala
 alias scc=scalac
 alias csc=scalac
+alias body='bat --style=plain --pager=never --line-range'
 
 # require: bat : https://github.com/sharkdp/bat
 function cman --wraps man --description 'Colorized man'
