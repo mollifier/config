@@ -24,6 +24,8 @@
   u = status
   ci = commit
   co = checkout
+  sw = switch
+  re = restore
 
   # ammend with existing message
   commit-amend-no-edit = commit --amend --no-edit
