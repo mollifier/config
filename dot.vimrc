@@ -406,17 +406,18 @@ nnoremap <Leader>json :<C-u>% !python -m json.tool<CR>
 " https://github.com/Shougo/ddc-ui-native
 call ddc#custom#patch_global('ui', 'native')
 
-" Use around source.
-" https://github.com/Shougo/ddc-source-around
-call ddc#custom#patch_global('sources', ['around'])
+" 'Shougo/ddc-source-around'
+" 'shun/ddc-source-vim-lsp'
+call ddc#custom#patch_global('sources', ['around', 'vim-lsp'])
 
-" Use matcher_head and sorter_rank.
 " https://github.com/Shougo/ddc-matcher_head
 " https://github.com/Shougo/ddc-sorter_rank
+" 'Shougo/ddc-filter-converter_remove_overlap'
 call ddc#custom#patch_global('sourceOptions', #{
       \   _: #{
       \     matchers: ['matcher_head'],
-      \     sorters: ['sorter_rank']
+      \     sorters: ['sorter_rank'],
+      \     converters: ['converter_remove_overlap']
       \   },
       \ })
 
@@ -428,12 +429,13 @@ call ddc#custom#patch_global('sourceParams', #{
       \   around: #{ maxSize: 500 },
       \ })
 
-"Plug 'Shougo/ddc-filter-converter_remove_overlap'
+" 'shun/ddc-source-vim-lsp'
 call ddc#custom#patch_global('sourceOptions', #{
-      \   _: #{
-      \     converters: ['converter_remove_overlap']
-      \   },
-      \ })
+    \   vim-lsp: #{
+    \     matchers: ['matcher_head'],
+    \     mark: 'lsp',
+    \   },
+    \ })
 
 " Customize settings on a filetype
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sources',

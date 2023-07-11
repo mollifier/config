@@ -64,6 +64,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc-ui-native'
 " Install your sources
 Plug 'Shougo/ddc-source-around'
+Plug 'shun/ddc-source-vim-lsp'
 " Install your filters
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
