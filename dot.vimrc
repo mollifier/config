@@ -414,9 +414,10 @@ call ddc#custom#patch_global('sources', ['around'])
 " https://github.com/Shougo/ddc-matcher_head
 " https://github.com/Shougo/ddc-sorter_rank
 call ddc#custom#patch_global('sourceOptions', #{
-      \ _: #{
-      \   matchers: ['matcher_head'],
-      \   sorters: ['sorter_rank']},
+      \   _: #{
+      \     matchers: ['matcher_head'],
+      \     sorters: ['sorter_rank']
+      \   },
       \ })
 
 " Change source options
@@ -425,6 +426,13 @@ call ddc#custom#patch_global('sourceOptions', #{
       \ })
 call ddc#custom#patch_global('sourceParams', #{
       \   around: #{ maxSize: 500 },
+      \ })
+
+"Plug 'Shougo/ddc-filter-converter_remove_overlap'
+call ddc#custom#patch_global('sourceOptions', #{
+      \   _: #{
+      \     converters: ['converter_remove_overlap']
+      \   },
       \ })
 
 " Customize settings on a filetype
