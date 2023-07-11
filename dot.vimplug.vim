@@ -60,13 +60,13 @@ Plug 'mattn/vim-lsp-settings'
 " https://deno.land/
 Plug 'Shougo/ddc.vim'
 Plug 'vim-denops/denops.vim'
-Plug 'Shougo/pum.vim'
-Plug 'Shougo/ddc-around'
-Plug 'LumaKernel/ddc-file'
+" Install your UIs
+Plug 'Shougo/ddc-ui-native'
+" Install your sources
+Plug 'Shougo/ddc-source-around'
+" Install your filters
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
-Plug 'Shougo/ddc-converter_remove_overlap'
-Plug 'shun/ddc-vim-lsp'
 
 " git plugin
 " Development of gina.vim is stopped.
