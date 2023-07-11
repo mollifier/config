@@ -65,6 +65,7 @@ Plug 'Shougo/ddc-ui-native'
 " Install your sources
 Plug 'Shougo/ddc-source-around'
 Plug 'shun/ddc-source-vim-lsp'
+Plug 'LumaKernel/ddc-source-file'
 " Install your filters
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'

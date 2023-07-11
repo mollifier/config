@@ -408,7 +408,8 @@ call ddc#custom#patch_global('ui', 'native')
 
 " 'Shougo/ddc-source-around'
 " 'shun/ddc-source-vim-lsp'
-call ddc#custom#patch_global('sources', ['around', 'vim-lsp'])
+" 'LumaKernel/ddc-source-file'
+call ddc#custom#patch_global('sources', ['around', 'vim-lsp',  'file'])
 
 " https://github.com/Shougo/ddc-matcher_head
 " https://github.com/Shougo/ddc-sorter_rank
@@ -436,6 +437,26 @@ call ddc#custom#patch_global('sourceOptions', #{
     \     mark: 'lsp',
     \   },
     \ })
+
+" 'LumaKernel/ddc-source-file'
+call ddc#custom#patch_global('sourceOptions', {
+    \ 'file': {
+    \   'mark': 'F',
+    \   'isVolatile': v:true,
+    \   'forceCompletionPattern': '\S/\S*',
+    \ }})
+call ddc#custom#patch_filetype(
+    \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+    \ 'sourceOptions': {
+    \   'file': {
+    \     'forceCompletionPattern': '\S\\\S*',
+    \   },
+    \ },
+    \ 'sourceParams': {
+    \   'file': {
+    \     'mode': 'win32',
+    \   },
+    \ }})
 
 " Customize settings on a filetype
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sources',
