@@ -294,6 +294,7 @@ set foldcolumn=3
 " Map  "{{{1
 "no effect keys
 map s <Nop>
+xmap s <Nop>
 
 "make CTRL-K an additional ESC
 noremap <C-K> <ESC>
@@ -342,7 +343,6 @@ nnoremap sn :<C-u>bn<CR>
 "open and close
 nnoremap ss <C-W>s
 nnoremap sc <C-W>c
-nnoremap so <C-W>o
 "move
 nnoremap sj <C-W>j
 nnoremap sk <C-W>k
@@ -483,7 +483,7 @@ inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 call ddc#enable()
 
 " fern.vim "{{{2
-nnoremap sd :<C-u>:Fern . -drawer -toggle<CR>
+nnoremap so :<C-u>:Fern . -drawer -toggle<CR>
 
 function! s:init_fern() abort
     setlocal nonumber

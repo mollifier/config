@@ -24,6 +24,7 @@
 
 call plug#begin('~/.cache/vimplug')
 
+Plug 'machakann/vim-sandwich'
 Plug 'thinca/vim-quickrun'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'airblade/vim-gitgutter'
