@@ -29,7 +29,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/committia.vim'
 Plug 'vim-syntastic/syntastic'
-Plug 'tpope/vim-surround'
 Plug 'dag/vim-fish'
 Plug 'tyru/caw.vim' " Vim comment plugin
 Plug 'tmhedberg/matchit'
