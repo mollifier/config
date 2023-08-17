@@ -89,6 +89,10 @@ alias scc=scalac
 alias csc=scalac
 alias body='bat --style=plain --pager=never --line-range'
 
+function pwd-clip
+  pwd | tr -d '\n' | copy_to_clipboard
+end
+
 # require: bat : https://github.com/sharkdp/bat
 function cman --wraps man --description 'Colorized man'
   man -P 'col -bx | bat --language man --style plain --paging always' $argv
