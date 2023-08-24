@@ -41,6 +41,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
 Plug 'bkad/CamelCaseMotion'
+Plug 'simeji/winresizer'
 
 " fern
 Plug 'lambdalisue/fern.vim'
