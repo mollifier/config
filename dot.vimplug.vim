@@ -40,6 +40,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
+Plug 'bkad/CamelCaseMotion'
 
 " fern
 Plug 'lambdalisue/fern.vim'

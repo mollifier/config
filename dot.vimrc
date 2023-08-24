@@ -545,6 +545,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" for CamelCaseMotion "{{{2
+" ,w ,b ,e ,ge
+let g:camelcasemotion_key = ','
+
 " for ale "{{{2
 nnoremap <Leader>af :<C-u>ALEFix<Enter>
 
