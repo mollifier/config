@@ -72,4 +72,7 @@
 [ghq]
     root = ~/local/src
 
+[include]
+  path = ~/.gitconfig_local
+
 # vim:set ft=gitconfig:
