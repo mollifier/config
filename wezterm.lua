@@ -21,6 +21,20 @@ config.initial_rows = 50
 config.window_background_opacity = 0.9
 
 config.mouse_bindings = {
+  -- Disable mouse WheelUp/Down
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'NONE',
+    action = act.Nop,
+  },
+
+  -- Scrolling down while holding CTRL decreases the font size
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'NONE',
+    action = act.Nop,
+  },
+
   -- Change the default click behavior so that it only selects
   -- text and doesn't open hyperlinks
   {
