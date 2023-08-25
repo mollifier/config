@@ -42,11 +42,6 @@ config.mouse_bindings = {
     mods = 'NONE',
     action = act.CompleteSelection 'ClipboardAndPrimarySelection',
   },
-  {
-    event = { Down = { streak = 1, button = 'Left' } },
-    mods = 'NONE',
-    action = act.Nop,
-  },
 
   -- and make CTRL-Click open hyperlinks
   {
