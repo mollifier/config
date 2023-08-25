@@ -7,7 +7,12 @@ if wezterm.config_builder then
 end
 
 config.font_size = 14.0
-config.color_scheme = "OneHalfDark"
+
+-- config.color_scheme = 'Neon Night (Gogh)'
+-- config.color_scheme = 'Night Owl (Gogh)'
+-- config.color_scheme = 'Nocturnal Winter'
+config.color_scheme = 'nightfox'
+
 config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
 
