@@ -17,6 +17,7 @@ set -x PS4 '-> $LINENO: '
 fish_add_path $HOME/bin
 fish_add_path /usr/local/sbin
 fish_add_path /usr/local/bin
+fish_add_path $HOME/go/bin # $GOPATH/bin
 
 # special variables #{{{1
 set fish_escape_delay_ms 500
