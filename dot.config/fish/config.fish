@@ -100,6 +100,24 @@ end
 
 alias be='bundle exec'
 
+# global-abbreviation #{{{1
+# Require fish 3.6.0
+function copy_to_clipboard
+  if type -q pbcopy
+    # Mac
+    pbcopy
+  else if type -q xsel
+    # Linux
+    xsel --input --clipboard
+  end
+end
+
+abbr --add L --position anywhere '| less'
+abbr --add H --position anywhere '| head'
+abbr --add T --position anywhere '| tail'
+abbr --add G --position anywhere '| grep'
+abbr --add V --position anywhere '| vim -R -'
+abbr --add C --position anywhere '| copy_to_clipboard'
 # fisher packages
 # https://github.com/jorgebucaran/fisher
 #
@@ -136,27 +154,6 @@ fzf_configure_bindings \
 # mollifier/fish-cd-gitroot #{{{1
 # Add alias
 alias cdu='cd-gitroot'
-
-# ryotako/fish-global-abbreviation #{{{1
-# https://github.com/ryotako/fish-global-abbreviation
-# type `gabbr -a` or `gabbr --add` to add abbreviation
-# type `gabbr -s` or `gabbr --show` to show abbreviation
-function copy_to_clipboard
-  if type -q pbcopy
-    # Mac
-    pbcopy
-  else if type -q xsel
-    # Linux
-    xsel --input --clipboard
-  end
-end
-
-# reload
-if type -q gabbr
-  set -U global_abbreviations
-  set gabbr_config ~/.config/fish/gabbr_config
-  gabbr --reload
-end
 
 # env #{{{1
 #
