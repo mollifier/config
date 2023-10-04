@@ -130,6 +130,7 @@ abbr --add T --position anywhere '| tail'
 abbr --add G --position anywhere '| grep'
 abbr --add V --position anywhere '| vim -R -'
 abbr --add C --position anywhere '| copy_to_clipboard'
+abbr --add B --position anywhere '| bat'
 abbr --add J --position anywhere '| jq "." | bat --language json'
 
 # fisher packages
