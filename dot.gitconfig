@@ -34,6 +34,9 @@
   brno = branch --no-merged
   branch-no-merged = branch --no-merged
 
+  # safety force push
+  push-force = push --force-with-lease --force-if-includes
+
   # log
   l = log --pretty=oneline --abbrev-commit
   lo = log --name-status
