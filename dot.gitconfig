@@ -8,7 +8,7 @@
   excludesfile = ~/.gitignore
   editor = vim
 [push]
-	default = simple
+	default = nothing
 [color]
   diff = auto
   status = auto
