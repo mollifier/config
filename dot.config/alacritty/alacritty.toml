@@ -1,0 +1,29 @@
+import = ["~/.config/alacritty/themes/themes/tomorrow_night_bright.yaml"]
+
+[font]
+size = 14.0
+
+[[hints.enabled]]
+command = "open"
+hyperlinks = true
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Control"
+
+[scrolling]
+multiplier = 0
+
+[window]
+decorations = "full"
+opacity = 0.9
+
+[window.dimensions]
+columns = 150
+lines = 43
+
+[window.padding]
+x = 0
+y = 0
