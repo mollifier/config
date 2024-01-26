@@ -92,6 +92,7 @@ alias pc=pwd-clip
 alias sc=scala
 alias scc=scalac
 alias csc=scalac
+# e.g. 'body 10:20' prints lines 10 to 20
 alias body='bat --style=plain --pager=never --line-range'
 
 function pwd-clip
@@ -130,8 +131,10 @@ abbr --add T --position anywhere '| tail'
 abbr --add G --position anywhere '| grep'
 abbr --add V --position anywhere '| vim -R -'
 abbr --add C --position anywhere '| copy_to_clipboard'
-abbr --add B --position anywhere '| bat'
 abbr --add J --position anywhere '| jq "." | bat --language json'
+abbr --add B --position anywhere '| bat'
+abbr --add P --position anywhere '| bat --language help'
+abbr --add M --position anywhere '| bat --language man'
 
 # fisher packages
 # https://github.com/jorgebucaran/fisher
