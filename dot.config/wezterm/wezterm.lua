@@ -6,19 +6,19 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-config.font_size = 14.0
+config.font_size = 15.0
 
 -- config.color_scheme = 'Neon Night (Gogh)'
--- config.color_scheme = 'Night Owl (Gogh)'
+config.color_scheme = 'Night Owl (Gogh)'
 -- config.color_scheme = 'Nocturnal Winter'
-config.color_scheme = 'nightfox'
+-- config.color_scheme = 'nightfox'
 
 config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
 
 config.initial_cols = 170
 config.initial_rows = 50
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.93
 
 config.mouse_bindings = {
   -- Disable mouse WheelUp/Down
