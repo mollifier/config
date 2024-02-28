@@ -41,7 +41,6 @@ declare -ar DOTFILES=(
   'dot.config/fish/config_linux.fish'
   'dot.config/fish/config_mac.fish'
   'dot.config/fish/fish_plugins'
-  'dot.config/fish/gabbr_config'
   'dot.config/fish/functions/fish_user_key_bindings.fish'
   'dot.config/fish/functions/user_z_select_and_change_directory.fish'
 )
