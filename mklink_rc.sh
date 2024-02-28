@@ -37,6 +37,7 @@ declare -ar DOTFILES=(
   'dot.zlogout'
   'dot.peco_config.json'
   'dot.config/alacritty/alacritty.toml'
+  'dot.config/wezterm/wezterm.lua'
   'dot.config/fish/config.fish'
   'dot.config/fish/config_linux.fish'
   'dot.config/fish/config_mac.fish'
