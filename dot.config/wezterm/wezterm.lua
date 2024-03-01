@@ -6,6 +6,9 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+-- backslash on mac
+config.send_composed_key_when_left_alt_is_pressed = true
+
 config.font_size = 15.0
 
 -- config.color_scheme = 'Neon Night (Gogh)'
