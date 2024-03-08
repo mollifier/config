@@ -36,16 +36,6 @@ shopt -s histappend
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 
-#set HISTIGNORE
-hist_ignore="&:????:???:??:?"
-hist_ignore="${hist_ignore}:ls -??:ls -?"
-hist_ignore="${hist_ignore}:cd *:pud *:pod *:pushd *:popd *"
-hist_ignore="${hist_ignore}:man *:help *"
-hist_ignore="${hist_ignore}:logout"
-
-HISTIGNORE="$hist_ignore"
-unset -v hist_ignore
-
 #etc
 export EDITOR=vim
 export LESS='--tabs=4 --no-init'
