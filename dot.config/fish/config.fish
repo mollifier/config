@@ -14,15 +14,16 @@ set -x MAIL /var/mail/$USERNAME
 set -x PS4 '-> $LINENO: '
 
 # PATH
-fish_add_path $HOME/bin
-fish_add_path /usr/local/sbin
-fish_add_path /usr/local/bin
+# Specify --path option to don't use a universal fish_user_paths
 if test -d $HOME/go/bin
-  fish_add_path $HOME/go/bin # $GOPATH/bin
+  fish_add_path --path $HOME/go/bin # $GOPATH/bin
 end
 if test -d $HOME/.fzf/bin
-  fish_add_path $HOME/.fzf/bin # local installed fzf
+  fish_add_path --path $HOME/.fzf/bin # local installed fzf
 end
+fish_add_path --path /usr/local/bin
+fish_add_path --path /usr/local/sbin
+fish_add_path --path $HOME/bin
 
 # special variables #{{{1
 set fish_escape_delay_ms 500
@@ -181,7 +182,7 @@ alias cdu='cd-gitroot'
 # Init anyenv
 # Note: require to run shell as login shell in terminal startup
 if test -d $HOME/.anyenv/bin
-  contains $HOME/.anyenv/bin $PATH; or set PATH $HOME/.anyenv/bin $PATH
+  fish_add_path --path $HOME/.anyenv/bin
 end
 if type -q anyenv
   status --is-interactive; and status --is-login; and source (anyenv init - fish|psub)
