@@ -2,7 +2,7 @@
   name = mollifier
   email = mollifier@gmail.com
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [core]
   pager = less --RAW-CONTROL-CHARS --quit-if-one-screen
   excludesfile = ~/.gitignore
