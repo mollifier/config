@@ -9,6 +9,8 @@
   editor = vim
 [push]
 	default = nothing
+[rebase]
+	autosquash = true
 [color]
   diff = auto
   status = auto
