@@ -27,8 +27,8 @@ config.window_padding = {
   bottom = 0,
 }
 
-config.initial_cols = 170
-config.initial_rows = 50
+config.initial_cols = 160
+config.initial_rows = 40
 config.window_background_opacity = 0.93
 
 config.mouse_bindings = {
