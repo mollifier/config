@@ -1,11 +1,33 @@
-*~
-,*
-.*.sw?
-# vim undo file
-.*.un~
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# LibreOffice locks
 .~lock.*#
+
+# Vim swap file
+[._]*.s[a-v][a-z]
+!*.svg  # use svg file
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Vim backup file
+*~
+
+# Vim undo file
+[._]*.un~
+
+# Vim Auto-generated tag files
 doc/tags
 doc/tags-ja
-*.class
-*.class
-.DS_Store
+
+# vim:set ft=gitignore:
