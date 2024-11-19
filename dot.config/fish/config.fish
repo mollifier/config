@@ -191,7 +191,7 @@ end
 # direnv #{{{1
 # https://github.com/zimbatm/direnv
 if type -q direnv
-  eval (direnv hook fish)
+  direnv hook fish | source
 end
 
 switch (uname)
