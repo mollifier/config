@@ -205,12 +205,14 @@ set termguicolors
 set background=dark
 
 "colorscheme onedark
-colorscheme nord
+"colorscheme nord
 "colorscheme mrkn256
 "colorscheme lucius
 "colorscheme molokai
 "colorscheme jellybeans
 "colorscheme wombat256mod
+"colorscheme nightfox
+colorscheme duskfox
 
 "Tab
 highlight SpecialKey ctermfg=Grey
