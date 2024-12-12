@@ -73,10 +73,6 @@ Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
 Plug 'Shougo/ddc-filter-converter_remove_overlap'
 
-" git plugin
-" Development of gina.vim is stopped.
-Plug 'lambdalisue/gina.vim'
-
 " colorscheme
 Plug 'yasukotelin/shirotelin'
 Plug 'joshdick/onedark.vim'
