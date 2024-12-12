@@ -65,7 +65,9 @@ endif
 
 " Undo persistence
 if has('persistent_undo')
-    set undodir=$HOME/.vim/undo
+    " need mkdir
+    " mkdir -p $HOME/.local/share/vim/undo
+    set undodir=$HOME/.local/share/vim/undo
     set undofile
 endif
 
