@@ -178,7 +178,9 @@ filetype indent on
 " Backup  "{{{1
 set backup
 set backupcopy=yes
-set backupdir=$HOME/.backup/vi,.
+" need mkdir
+" mkdir -p $HOME/.local/share/vim/backup
+set backupdir=$HOME/.local/share/vim/backup
 
 " swap file path  "{{{1
 set directory=.,$HOME/tmp,/var/tmp,/tmp
