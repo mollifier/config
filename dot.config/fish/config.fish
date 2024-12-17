@@ -153,7 +153,7 @@ abbr --add M --position anywhere '| bat --language man'
 # decors/fish-ghq #{{{1
 # require fzf https://github.com/junegunn/fzf
 set -g GHQ_SELECTOR fzf
-set -g GHQ_SELECTOR_OPTS --exact --no-sort --reverse --ansi --color 'bg+:13,hl:3,pointer:7'
+set -g GHQ_SELECTOR_OPTS --exact --no-sort --reverse --ansi --color 'bg+:13,hl:3,pointer:7' --tmux
 
 # PatrickF1/fzf.fish #{{{1
 # require fzf https://github.com/junegunn/fzf
