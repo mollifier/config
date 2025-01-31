@@ -96,12 +96,10 @@ function! InvertList()
     if &number || &list
         setlocal nonumber
         setlocal nolist
-        setlocal foldcolumn=0
         setlocal signcolumn=no
     else
         setlocal number
         setlocal list
-        setlocal foldcolumn=3
         setlocal signcolumn=yes
     endif
 endfunction
@@ -136,7 +134,6 @@ function! Presentation()
     set laststatus=0    " never show statusline
     set nonumber
     set nolist
-    set foldcolumn=0
 endfunction
 
 function! Scouter(file, ...)
@@ -299,8 +296,6 @@ autocmd! FileType markdown hi! def link markdownItalic Normal
 set foldmethod=expr
 set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 set nofoldenable
-set foldcolumn=3
-
 
 " Map  "{{{1
 "no effect keys
@@ -499,7 +494,6 @@ nnoremap so :<C-u>:Fern . -drawer -toggle<CR>
 function! s:init_fern() abort
     setlocal nonumber
     setlocal nolist
-    setlocal foldcolumn=0
 
     nmap <buffer> ge <Plug>(fern-action-open:edit)<C-w>p
     nmap <buffer> gl <Plug>(fern-action-open:edit)<C-w>p
