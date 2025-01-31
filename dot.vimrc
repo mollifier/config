@@ -30,6 +30,7 @@ set nrformats-=octal    "don't use octal number
 set history=50
 let g:netrw_alto=1
 set completeopt=menuone,preview
+set cursorline
 set display=lastline
 " always show column. for vim-gitgutter
 set signcolumn=yes
