@@ -81,6 +81,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'EdenEast/duskfox.nvim'
 Plug 'EdenEast/nordfox.nvim'
+Plug 'cocopon/iceberg.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

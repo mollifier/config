@@ -216,7 +216,8 @@ set background=dark
 "colorscheme jellybeans
 "colorscheme wombat256mod
 "colorscheme nightfox
-colorscheme duskfox
+" colorscheme duskfox
+colorscheme iceberg
 
 "Tab
 highlight SpecialKey ctermfg=Grey
