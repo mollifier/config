@@ -152,7 +152,7 @@ command! -bar -bang -nargs=? -complete=file GScouter
 " Statusline  "{{{1
 set laststatus=2    "always show statusline
 let g:lightline = {
-    \ 'colorscheme': 'nord',
+    \ 'colorscheme': 'iceberg',
     \ 'component_function': {
     \   'filename': 'LightlineFilename',
     \ }
