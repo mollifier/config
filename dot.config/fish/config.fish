@@ -26,6 +26,7 @@ fish_add_path --path /usr/local/sbin
 fish_add_path --path $HOME/bin
 
 # special variables #{{{1
+set CDPATH . ~
 set fish_escape_delay_ms 500
 
 # remove the greeting message
