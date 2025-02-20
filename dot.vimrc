@@ -569,14 +569,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" gina.vim "{{{2
-nnoremap <Leader>gg :<C-u>Gina<Space>
-" :G = :Gina
-command! -nargs=+ -range=% -bang
-      \ -complete=customlist,gina#command#complete
-      \ G
-      \ call gina#command#call(<q-bang>, [<line1>, <line2>], <q-args>, <q-mods>)
-
 " Source local rc file"{{{1
 if filereadable($HOME . '/.vimrc_local')
     source $HOME/.vimrc_local
