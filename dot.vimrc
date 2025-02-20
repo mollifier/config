@@ -534,15 +534,6 @@ vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 let g:vista_default_executive = 'vim_lsp'
 nnoremap <Leader>vv :<C-u>Vista!!<CR>
 
-" for Fugitive "{{{2
-" Vim plugin for Git
-nnoremap <Leader>gd :<C-u>Gdiffsplit<Enter> " git diff
-nnoremap <Leader>gs :<C-u>Git<Enter> " git status
-nnoremap <Leader>gl :<C-u>Gclog<Enter> " git log
-nnoremap <Leader>ga :<C-u>Gwrite<Enter> " git add
-nnoremap <Leader>gc :<C-u>Git commit<Enter> " git commit
-nnoremap <Leader>gb :<C-u>Git_blame<Enter> " git blame
-
 " for syntastic "{{{2
 let g:syntastic_always_populate_loc_list = 1
 " use :lopen
