@@ -521,6 +521,8 @@ if filereadable($HOME . '/.vim/scripts/closetag.vim')
 endif
 
 " fzf.vim "{{{2
+" https://github.com/sharkdp/fd
+let $FZF_DEFAULT_COMMAND='fd'
 nnoremap <Leader>b :<C-u>Buffers<CR>
 nnoremap <Leader>f :<C-u>Files<CR>
 nnoremap <Leader>g :<C-u>GFiles<CR>
