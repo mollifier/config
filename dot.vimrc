@@ -525,6 +525,9 @@ nnoremap <Leader>b :<C-u>Buffers<CR>
 nnoremap <Leader>f :<C-u>Files<CR>
 nnoremap <Leader>g :<C-u>GFiles<CR>
 nnoremap <Leader>l :<C-u>BLines<CR>
+" require ripgrep
+" https://github.com/BurntSushi/ripgrep
+nnoremap <Leader>r :<C-u>RG<CR>
 
 " quickrun "{{{2
 nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
