@@ -539,13 +539,6 @@ vnoremap <silent> <Leader>x :QuickRun -mode v<CR>
 let g:vista_default_executive = 'vim_lsp'
 nnoremap <Leader>vv :<C-u>Vista!!<CR>
 
-" for syntastic "{{{2
-let g:syntastic_always_populate_loc_list = 1
-" use :lopen
-"let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 " for CamelCaseMotion "{{{2
 " ,w ,b ,e ,ge
 let g:camelcasemotion_key = ','
