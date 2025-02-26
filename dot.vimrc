@@ -552,6 +552,9 @@ let g:winresizer_horiz_resize = 1
 nnoremap <Leader>af :<C-u>ALEFix<Enter>
 
 " for vim-lsp "{{{2
+" Disable document diagnostics (e.g. warnings, errors)
+" use ale
+let g:lsp_diagnostics_enabled = 0
 nnoremap <Leader>la :<C-u>LspCodeAction<Enter>
 nnoremap <Leader>ld :<C-u>LspDefinition<Enter>
 
