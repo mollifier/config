@@ -549,8 +549,6 @@ let g:winresizer_vert_resize = 1
 let g:winresizer_horiz_resize = 1
 
 " for ale "{{{2
-" use vim-lsp
-let g:ale_disable_lsp = 1
 nnoremap <Leader>af :<C-u>ALEFix<Enter>
 
 " for vim-lsp "{{{2
