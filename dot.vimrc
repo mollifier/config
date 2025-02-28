@@ -525,11 +525,11 @@ endif
 let $FZF_DEFAULT_COMMAND='fd'
 nnoremap <Leader>b :<C-u>Buffers<CR>
 nnoremap <Leader>f :<C-u>Files<CR>
-nnoremap <Leader>g :<C-u>GFiles<CR>
-nnoremap <Leader>l :<C-u>BLines<CR>
+" v:oldfiles and open buffers
+nnoremap <Leader>r :<C-u>History<CR>
 " require ripgrep
 " https://github.com/BurntSushi/ripgrep
-nnoremap <Leader>r :<C-u>RG<CR>
+nnoremap <Leader>g :<C-u>RG<CR>
 
 " quickrun "{{{2
 nnoremap <silent> <Leader>x :QuickRun -mode n<CR>
