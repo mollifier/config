@@ -549,7 +549,7 @@ let g:winresizer_vert_resize = 1
 let g:winresizer_horiz_resize = 1
 
 " for ale "{{{2
-nnoremap <Leader>af :<C-u>ALEFix<Enter>
+nnoremap <Leader>lf :<C-u>ALEFix<Enter>
 
 " for vim-lsp "{{{2
 " Disable document diagnostics (e.g. warnings, errors)
