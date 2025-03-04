@@ -41,6 +41,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
 Plug 'bkad/CamelCaseMotion'
 Plug 'simeji/winresizer'
+Plug 'inkarkat/vim-CursorLineCurrentWindow'
 
 " fern
 Plug 'lambdalisue/fern.vim'
