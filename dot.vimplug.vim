@@ -42,6 +42,7 @@ Plug 'unblevable/quick-scope'
 Plug 'bkad/CamelCaseMotion'
 Plug 'simeji/winresizer'
 Plug 'inkarkat/vim-CursorLineCurrentWindow'
+Plug 'lambdalisue/vim-seethrough'
 
 " fern
 Plug 'lambdalisue/fern.vim'
