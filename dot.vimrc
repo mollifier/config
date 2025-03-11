@@ -401,6 +401,26 @@ nnoremap <silent> sv :<C-u>call InvertList()<CR>
 vnoremap <Leader>json !python -m json.tool<CR>
 nnoremap <Leader>json :<C-u>% !python -m json.tool<CR>
 
+" grep
+" :grep <WORD>
+" :copen or :cope to open quickfix window
+" :cwindow or :cw to open quickfix window
+" :cclose or :ccl to close quickfix window
+" require ripgrep
+" https://github.com/BurntSushi/ripgrep
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --smart-case --hidden'
+  set grepformat=%f:%l:%c:%m
+endif
+" open quickfix window automatically
+autocmd QuickfixCmdPost vimgrep copen
+autocmd QuickfixCmdPost grep copen
+
+"function! s:grep(word) abort
+"  :grep a:word | copen
+"endfunction
+"
+"command! -nargs=1 Grep call <SID>grep(<q-args>)
 
 " For plugins "{{{1
 
