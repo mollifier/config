@@ -549,7 +549,7 @@ nnoremap <Leader>f :<C-u>Files<CR>
 nnoremap <Leader>r :<C-u>History<CR>
 " list directory
 command! -bang -nargs=? -complete=dir FzfDirectories
-            \ call fzf#vim#files(<q-args>, {'source': 'fd --type=directory'}, <bang>0)
+            \ call fzf#vim#files(<q-args>, {'source': 'fd --type=directory', 'options': ['--preview', 'ls -- {}']}, <bang>0)
 nnoremap <Leader>d :<C-u>FzfDirectories<CR>
 " require ripgrep
 " https://github.com/BurntSushi/ripgrep
