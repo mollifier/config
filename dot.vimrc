@@ -424,6 +424,10 @@ autocmd QuickfixCmdPost grep copen
 
 " For plugins "{{{1
 
+" vim-gitgutter "{{{2
+" disable gitgutter mappings
+let g:gitgutter_map_keys = 0
+
 " ddc.vim "{{{2
 " Customize global settings
 
