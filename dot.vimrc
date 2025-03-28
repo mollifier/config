@@ -427,6 +427,8 @@ autocmd QuickfixCmdPost grep copen
 " vim-gitgutter "{{{2
 " disable gitgutter mappings
 let g:gitgutter_map_keys = 0
+" Update signs for all buffers
+nnoremap <Leader>lc :<C-u>GitGutterAll<CR>
 
 " ddc.vim "{{{2
 " Customize global settings
