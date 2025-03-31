@@ -40,7 +40,6 @@ Plug 'liuchengxu/vista.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'unblevable/quick-scope'
 Plug 'bkad/CamelCaseMotion'
-Plug 'simeji/winresizer'
 Plug 'inkarkat/vim-CursorLineCurrentWindow'
 Plug 'lambdalisue/vim-seethrough'
 

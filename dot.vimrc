@@ -573,11 +573,6 @@ nnoremap <Leader>vv :<C-u>Vista!!<CR>
 " ,w ,b ,e ,ge
 let g:camelcasemotion_key = ','
 
-" for winresizer "{{{2
-" start window resize mode by Ctrl+E
-let g:winresizer_vert_resize = 1
-let g:winresizer_horiz_resize = 1
-
 " for ale "{{{2
 nnoremap <Leader>lf :<C-u>ALEFix<Enter>
 
