@@ -13,12 +13,12 @@ ehthumbs_vista.db
 .~lock.*#
 
 # Vim swap file
-[._]*.s[a-v][a-z]
+.*.s[a-v][a-z]
 !*.svg  # use svg file
-[._]*.sw[a-p]
-[._]s[a-rt-v][a-z]
-[._]ss[a-gi-z]
-[._]sw[a-p]
+.*.sw[a-p]
+.s[a-rt-v][a-z]
+.ss[a-gi-z]
+.sw[a-p]
 
 # Vim backup file
 *~
