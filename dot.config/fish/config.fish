@@ -10,6 +10,7 @@ set -x PAGER less
 # --SILENT : terminal bell is not rung
 set -x LESS '--tabs=4 --no-init --LONG-PROMPT --ignore-case --SILENT'
 set -x MAIL /var/mail/$USERNAME
+set -x CLICOLOR 1 # for ls, tree command
 #export PS4 for bash
 set -x PS4 '-> $LINENO: '
 
