@@ -523,8 +523,10 @@ function! s:init_fern() abort
 
     nmap <buffer> ge <Plug>(fern-action-open:edit)<C-w>p
     nmap <buffer> gl <Plug>(fern-action-open:edit)<C-w>p
+    nmap <buffer> sl <Plug>(fern-action-open:split)
     nmap <buffer> s <Plug>(fern-action-open:split)
     nmap <buffer> <C-x> <Plug>(fern-action-open:split)
+    nmap <buffer> gsl <Plug>(fern-action-open:split)<C-w>p
     nmap <buffer> gs <Plug>(fern-action-open:split)<C-w>p
     nmap <buffer> g<C-x> <Plug>(fern-action-open:split)<C-w>p
     nmap <buffer> r <Plug>(fern-action-reload:all)
