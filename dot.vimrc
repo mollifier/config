@@ -423,6 +423,9 @@ autocmd QuickfixCmdPost grep copen
 "command! -nargs=1 Grep call <SID>grep(<q-args>)
 
 " For plugins "{{{1
+" man.vim
+" :Man {name} or <Leader>K
+runtime ftplugin/man.vim
 
 " vim-gitgutter "{{{2
 " disable gitgutter mappings
