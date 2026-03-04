@@ -44,6 +44,11 @@ alias ld='ls -d'
 alias l1='ls -1'
 alias tree='tree -F'
 
+#eza
+alias e='eza --icons'
+alias el='eza --icons -l --git'
+alias ea='eza --icons -a'
+
 #file operation
 alias rm='rm -i'
 alias cp='cp -i'
