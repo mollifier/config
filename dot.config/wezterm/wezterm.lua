@@ -69,4 +69,11 @@ config.mouse_bindings = {
   },
 }
 
+local ok, local_config = pcall(require, 'wezterm_local')
+if ok then
+  for k, v in pairs(local_config) do
+    config[k] = v
+  end
+end
+
 return config
