@@ -15,7 +15,6 @@ declare -r SRC_DIR_NAME=${tmp_src_dir_name}
 declare -r DEST_DIR_NAME=${HOME}
 
 declare -ar DOTFILES=(
-  'dot.atoolrc'
   'dot.bash_profile'
   'dot.bashrc'
   'dot.emacs'

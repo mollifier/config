@@ -1,6 +1,0 @@
-#atool config file
-
-#be quiet
-default_verbosity 0
-show_extracted 0
-
