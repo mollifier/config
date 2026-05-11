@@ -21,7 +21,6 @@ declare -ar DOTFILES=(
   'dot.gitignore'
   'dot.gvimrc'
   'dot.inputc'
-  'dot.npmrc'
   'dot.screenrc'
   'dot.tmux.conf'
   'dot.vim'
