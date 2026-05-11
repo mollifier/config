@@ -32,7 +32,6 @@ declare -ar DOTFILES=(
   'dot.zprofile'
   'dot.zshrc'
   'dot.zlogout'
-  'dot.peco_config.json'
   'dot.config/bat/config'
   'dot.config/alacritty/alacritty.toml'
   'dot.config/wezterm/wezterm.lua'
