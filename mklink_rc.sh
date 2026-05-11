@@ -26,7 +26,6 @@ declare -ar DOTFILES=(
   'dot.vim'
   'dot.vimrc'
   'dot.vimplug.vim'
-  'dot.Xmodmap'
   'dot.zshenv'
   'dot.zlogin'
   'dot.zprofile'
